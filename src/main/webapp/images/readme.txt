@@ -1,0 +1,1 @@
+war package folder placeholder, for image files 

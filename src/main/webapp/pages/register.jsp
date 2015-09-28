@@ -1,3 +1,4 @@
+<%@ page import="com.youzan.easyranking.util.Constants" %>
 <%@ page language="java" isThreadSafe="true" pageEncoding="utf8" %>  
 <%@ page contentType="text/html; charset=UTF-8"%> 
 <%@ taglib prefix="s" uri="/struts-tags" %>
@@ -23,7 +24,7 @@
   </head>
 	<body>
 	<div class="ziwei-padding container">
-    <form action="/register.action?function=register&action=save" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
+    <form action="<%=Constants.WEB_CONTEXT_ROOT%>/register.action?function=register&action=save" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
         <div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">姓名</label>
             <div class="col-xs-9">
@@ -75,12 +76,12 @@
       	<div class="best-padding ziwei-form form-group">
           <label class="label-padding col-xs-3">参赛宣言</label>
           <div class="col-xs-9">
-              <input textarea rows="3" cols="20" class="form-control" name="selfRemark" placeholder="请输入宣言" maxlength="200" />
+              <textarea rows="3" cols="20" class="form-control" name="selfRemark" placeholder="请输入宣言" maxlength="200"></textarea>
           </div>
       	</div>
         <div class="best-padding ziwei-form form-group">
 		<label class="label-padding col-xs-3">图片秀</label>
-		<div class="col-xs-9"><input type="file" class="form-control" name="image" style="pending-top:10" align="center" /></div>
+		<div class="col-xs-9"><input type="file" class="form-control" name="image" style="pending-top:10"/></div>
 		</div>
         <br>
         <div class="ziwei-padding form-group">
@@ -103,6 +104,7 @@
 		minView: 2,
 		forceParse: 0
     });
+	
 </script>
 </body>
 </html>

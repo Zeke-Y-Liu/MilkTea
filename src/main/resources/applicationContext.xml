@@ -53,15 +53,19 @@
     </aop:config>  
     -->
     <context:component-scan base-package="com.youzan.easyranking" /> 
-    <bean id="candidateAction" class="com.youzan.easyranking.action.CandidateAction"> 
-    	<property name="candidateDao">  
-            <ref bean="candidateDao" />  
-        </property>
-    </bean>
     <bean id="candidateDao" class="com.youzan.easyranking.dao.CandidateDao"> 
     	<property name="sessionFactory">  
             <ref bean="sessionFactory" />  
         </property>
     </bean>  
-      
+     <bean id="candidateAction" class="com.youzan.easyranking.action.CandidateAction"> 
+    	<property name="candidateDao">  
+            <ref bean="candidateDao" />  
+        </property>
+    </bean>
+    <bean id="rankAction" class="com.youzan.easyranking.action.RankAction"> 
+    	<property name="candidateDao">  
+            <ref bean="candidateDao" />  
+        </property>
+    </bean>
 </beans>

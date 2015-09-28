@@ -23,68 +23,53 @@
   </head>
 	<body>
 	<div class="ziwei-padding container">
-    <form action="/register.action?function=register&action=save" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
+    <form action="#" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
     	<div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">参选人数</label>
-            <div class="col-xs-9"><s:property value="totalCandateCount"/></div>
+            <div class="col-xs-9"><s:property value='totalCandidateCount'/></div>
         </div>
         <div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">姓名</label>
-            <div class="col-xs-9"><s:property value="candidateName"/></div>
+            <div class="col-xs-9"><s:property value='candidateName'/></div>
         </div>
         <div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">联系方式</label>
-            <div class="col-xs-9"><s:property value="phoneNumber"/></div>
+            <div class="col-xs-9"><s:property value='phoneNumber'/></div>
         </div>
         <div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">工作</label>
-            <div class="col-xs-9"><s:property value="job"/></div>
+            <div class="col-xs-9"><s:property value='job'/></div>
         </div>
         <div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">生日</label>
-            <div class="col-xs-9"><s:property value="candidateBirthday"/></div>
+            <div class="col-xs-9"><s:property value='candidateBirthday'/></div>
         </div>
         <div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">性别</label>
-            <div class="col-xs-9"><s:property value="genderDesc"/></div>
+            <div class="col-xs-9"><s:property value='genderDesc'/></div>
         </div>
         <div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">城市</label>
-            <div class="col-xs-9"><s:property value="city"/></div>
+            <div class="col-xs-9"><s:property value='city'/></div>
         </div>
         <div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">身份证号</label>
-            <div class="col-xs-9"><s:property value="candidateId"/></div>
+            <div class="col-xs-9"><s:property value='candidateId'/></div>
         </div> 
         <div class="best-padding ziwei-form form-group">
           <label class="label-padding col-xs-3">身高 CM</label>
-          <div class="col-xs-9"><s:property value="height"/></div>
+          <div class="col-xs-9"><s:property value='height'/></div>
       	</div>
       	<div class="best-padding ziwei-form form-group">
           <label class="label-padding col-xs-3">参赛宣言</label>
-          <div class="col-xs-9"><s:property value="selfRemark"/></div>
+          <div class="col-xs-9"><s:property value='selfRemark'/></div>
       	</div>
         <div class="best-padding ziwei-form form-group">
 			<label class="label-padding col-xs-3">图片秀</label>
-			<div class="col-xs-9"><img src="${pageContext.request.contextPath}/<s:property value="showImageFile"/>"/></div>
+			<div class="col-xs-9"><img src="<s:property value='showImageFile'/>"/></div>
 		</div>
+		<input type="hidden" name="id" value="<s:property value='id'/>" />
     </form>
-</div>	
-<script type="text/javascript" src="jquery/1.9.1/jquery.min.js" charset="UTF-8"></script>
-<script type="text/javascript" src="./bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="./datetimepicker/js/bootstrap-datetimepicker.js" charset="zh-CN"></script>
-<script type="text/javascript" src="./datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="zh-CN"></script>
-<script type="text/javascript">
-	$('.form_date').datetimepicker({
-        language:  'fr',
-        weekStart: 1,
-        todayBtn:  1,
-		autoclose: 1,
-		todayHighlight: 1,
-		startView: 2,
-		minView: 2,
-		forceParse: 0
-    });
-</script>
+</div>
 </body>
 </html>

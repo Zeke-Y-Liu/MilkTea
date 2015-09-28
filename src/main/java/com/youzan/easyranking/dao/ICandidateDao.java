@@ -7,6 +7,7 @@ import com.youzan.easyranking.entity.Candidate;
 public interface ICandidateDao {
 
 	public void save(Candidate candidate);
-	public Candidate getCandidate(long id);
-	
+	public Candidate getCandidateById(long id);
+	public List<Candidate> getAllCandidates();
+	public long getTotalCandidateCount();
 }

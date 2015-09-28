@@ -46,8 +46,11 @@ public class Candidate {
     @Column(name="HEIGHT")
     private float height;
     
-    @Column(name="IMAGE_FILE_PATH")
-    private String imageFilePath;
+    @Column(name="POLL")
+    private int poll;
+    
+    @Column(name="IMAGE_FILE_NAME")
+    private String imageFileName;
 
 	public Long getId() {
 		return id;
@@ -113,12 +116,12 @@ public class Candidate {
 		this.height = height;
 	}
 
-	public String getImageFilePath() {
-		return imageFilePath;
+	public String getImageFileName() {
+		return imageFileName;
 	}
 
-	public void setImageFilePath(String imageFilePath) {
-		this.imageFilePath = imageFilePath;
+	public void setImageFileName(String imageFileName) {
+		this.imageFileName = imageFileName;
 	}
 
 	public String getPhoneNumber() {
@@ -143,5 +146,13 @@ public class Candidate {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public int getPoll() {
+		return poll;
+	}
+
+	public void setPoll(int poll) {
+		this.poll = poll;
 	}	
 }

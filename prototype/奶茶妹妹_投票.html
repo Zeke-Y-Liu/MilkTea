@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)http://localhost:8080/easyranking/rank.action -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html;" charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>奶茶妹妹</title>
+</head>
+<body>
+	<table border="1">
+		
+		 
+		<tbody><tr>
+			
+			
+				<td colspan="2"><img width="150px" height="150px" src="./奶茶妹妹_投票_files/PIC1443450023333.jpg"></td>
+				<td colspan="2"><img width="150px" height="150px" src="./奶茶妹妹_投票_files/PIC1443450076077.jpg"></td>
+							
+		</tr>
+		<tr>
+			
+			
+				<td>奶茶妹妹</td><td>0</td>
+				<td>雷电</td><td>0</td>
+			
+		</tr>
+		<tr>
+			
+			
+			<td colspan="2" align="center"><button type="button" onclick="javascript:vote(&#39;1&#39;)">投票</button></td>
+			<td colspan="2" align="center"><button type="button" onclick="javascript:vote(&#39;2&#39;)">投票</button></td>
+			
+		</tr>
+		<tr><td colspan="4" style="visibility: hidden">&nbsp;</td>
+		
+		
+		
+		
+		
+		
+		 
+		</tr><tr>
+			
+				<td colspan="2"><img width="150px" height="150px" src="./奶茶妹妹_投票_files/PIC1443450116279.jpg"></td>
+				<td colspan="2" style="visibility: hidden">
+			
+							
+		</td></tr>
+		<tr>
+			
+				<td>孙悟空</td><td>0</td>
+				<td style="visibility: hidden"></td><td style="visibility: hidden">
+			
+			
+		</td></tr>
+		<tr>
+			
+				<td colspan="2" align="center"><button type="button" onclick="javascript:vote(&#39;3&#39;)">投票</button></td>
+				<td colspan="2" style="visibility: hidden">
+			
+			
+		</td></tr>
+		<tr><td colspan="4" style="visibility: hidden">&nbsp;</td>
+		
+		
+		
+	</tr></tbody></table>
+<script type="text/javascript" src="./奶茶妹妹_投票_files/jquery.min.js" charset="UTF-8"></script>
+<script type="text/javascript">
+function vote(id) {  
+	alert("/easyranking/vote.action?function=rank&action=vote&id=" + id);
+    $.ajax({  
+        url  : "/easyranking/vote.action?function=rank&action=vote&id=" + id,  
+        type : "GET",  
+        data : "candidateId=" + id, 
+        success : function(data, textStatus) {  
+            alert(data["id"]);  
+            alert(data["candidateName"]);
+        }  
+    });
+}
+</script>
+
+
+</body></html>

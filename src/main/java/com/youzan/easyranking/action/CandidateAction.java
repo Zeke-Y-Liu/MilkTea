@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.ParseException;
-import java.util.Date;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.struts2.ServletActionContext;
@@ -37,16 +36,18 @@ public class CandidateAction extends ActionSupport {
 	private File image;
 	private String imageContentType;
 	private String imageFileName;
-	private String showImageFile;
 	
-	private int totalCandateCount;
+	// file name saved to images under war folder
+	private String showImageFileName;
+	
+	private long totalCandidateCount;
 	
 	private ICandidateDao candidateDao;
 
 	public String register() {
 		if(Constants.ACTION_ENTRY.equalsIgnoreCase(action)) {
 			return Constants.ACTION_RESULT_INPUT;
-		} else if(Constants.ACTION_SAVE.equalsIgnoreCase(action)){
+		} else if(Constants.ACTION_SAVE.equalsIgnoreCase(action)) {
 			
 			Candidate candidate = new Candidate();
 			candidate.setCandidateName(candidateName);
@@ -68,20 +69,16 @@ public class CandidateAction extends ActionSupport {
 				try {
 					InputStream is;
 					is = new FileInputStream(getImage());
-					String imageFilePath = getSavePath() + "/" + getFileFileName();
-		            OutputStream os = new FileOutputStream(getSavePath() + "/" + getFileFileName());  
+					this.showImageFileName = getShowImageFileName();
+		            OutputStream os = new FileOutputStream(getSavePath() + showImageFileName);  
 		            IOUtils.copy(is, os);  
 		            os.flush();  
 		            IOUtils.closeQuietly(is);  
 		            IOUtils.closeQuietly(os);  
-		            candidate.setImageFilePath(imageFilePath);
-		            showImageFile = imageFilePath.substring(imageFilePath.lastIndexOf("images"));
-		            System.out.println("showImageFile=" + showImageFile);
+		            candidate.setImageFileName(showImageFileName);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}  
-			} else {
-				return Constants.ACTION_RESULT_INPUT;
 			}
 			candidateDao.save(candidate);
 			return Constants.ACTION_RESULT_SUCCESS;
@@ -245,23 +242,29 @@ public class CandidateAction extends ActionSupport {
 		this.imageFileName = imageFileName;
 	}
 
-	private String getFileFileName() {
-		return "PIC" + System.currentTimeMillis() + imageFileName.substring(imageFileName.lastIndexOf("."));
+	// generate unique file name for the candidate
+	private String getShowImageFileName() {
+		return  "PIC" + System.currentTimeMillis() + imageFileName.substring(imageFileName.lastIndexOf("."));
 	}
 	
 	private String getSavePath() {  
-        return ServletActionContext.getServletContext().getRealPath("/images");  
+		System.err.println("servletpath=" + ServletActionContext.getServletContext().getRealPath(Constants.IMAGE_FILE_RELATIVE_PATH));
+        return ServletActionContext.getServletContext().getRealPath(Constants.IMAGE_FILE_RELATIVE_PATH);
     }
 
+	// relative path and name of the show image file, for e.g /images/PIC123456.jpg
 	public String getShowImageFile() {
-		return showImageFile;
+		return Constants.WEB_CONTEXT_ROOT + Constants.IMAGE_FILE_RELATIVE_PATH + showImageFileName;
+	}
+	
+	public long getTotalCandidateCount() {
+		System.out.println("totalCandidateCount=" + totalCandidateCount);
+		totalCandidateCount = candidateDao.getTotalCandidateCount();
+		return totalCandidateCount + 188;
 	}
 
-	public int getTotalCandateCount() {
-		return totalCandateCount + 188;
+	public void setTotalCandidateCount(long totalCandidateCount) {
+		this.totalCandidateCount = totalCandidateCount;
 	}
 
-	public void setTotalCandateCount(int totalCandateCount) {
-		this.totalCandateCount = totalCandateCount;
-	}
 }

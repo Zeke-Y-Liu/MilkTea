@@ -6,8 +6,14 @@ public class Constants {
 
 	public static String ACTION_RESULT_INPUT = "input";
 	public static String ACTION_RESULT_SUCCESS = "success";
+	public static String ACTION_RANK_RESULT = "rankResult";
+	
+	public static String ACTION_RESULT_VOTE = "vote";
+	
 	public static String ACTION_ENTRY = "entry";
 	public static String ACTION_SAVE = "save";
+	public static String FUNCTION_RANK = "rank";
+	public static String ACTION_VOTE = "vote";
 	
 	public static String GENDER_FEMALE = "F";
 	public static String GENDER_MALE = "M";
@@ -16,5 +22,9 @@ public class Constants {
 	public static String GENDER_MALE_DESC = "男";
 	
 	public static DateFormat dateformator = new java.text.SimpleDateFormat("yyyy-MM-dd");
+	
+	// the folder under war package to save all the image files
+	public static String IMAGE_FILE_RELATIVE_PATH = "/images/";
+	public static String WEB_CONTEXT_ROOT= "/easyranking";
 	
 }

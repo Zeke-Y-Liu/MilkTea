@@ -92,8 +92,8 @@ public class CandidateAction extends ActionSupport {
 	public void validate() {
 		if(Constants.ACTION_ENTRY.equalsIgnoreCase(action)) {
 			clearActionErrors();
-		} else if(Constants.ACTION_SAVE.equalsIgnoreCase(action)) { // validate
-
+		} else if(Constants.ACTION_SAVE.equalsIgnoreCase(action)) {
+			// validate
 		} else {
 			// do nothing
 		}

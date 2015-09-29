@@ -17,7 +17,7 @@ import com.youzan.easyranking.util.Constants;
 
 public class CandidateAction extends ActionSupport {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private String function;
@@ -36,19 +36,19 @@ public class CandidateAction extends ActionSupport {
 	private File image;
 	private String imageContentType;
 	private String imageFileName;
-	
+
 	// file name saved to images under war folder
 	private String showImageFileName;
-	
+
 	private long totalCandidateCount;
-	
+
 	private ICandidateDao candidateDao;
 
 	public String register() {
 		if(Constants.ACTION_ENTRY.equalsIgnoreCase(action)) {
 			return Constants.ACTION_RESULT_INPUT;
 		} else if(Constants.ACTION_SAVE.equalsIgnoreCase(action)) {
-			
+
 			Candidate candidate = new Candidate();
 			candidate.setCandidateName(candidateName);
 			candidate.setPhoneNumber(phoneNumber);
@@ -64,34 +64,36 @@ public class CandidateAction extends ActionSupport {
 			candidate.setJob(job);
 			candidate.setHeight(height);
 			candidate.setWeight(weight);
-			
-			if (image != null) {  	  
+
+			if (image != null) {
 				try {
 					InputStream is;
 					is = new FileInputStream(getImage());
 					this.showImageFileName = getShowImageFileName();
-		            OutputStream os = new FileOutputStream(getSavePath() + showImageFileName);  
-		            IOUtils.copy(is, os);  
-		            os.flush();  
-		            IOUtils.closeQuietly(is);  
-		            IOUtils.closeQuietly(os);  
+		            OutputStream os = new FileOutputStream(getSavePath() + showImageFileName);
+		            IOUtils.copy(is, os);
+		            os.flush();
+		            IOUtils.closeQuietly(is);
+		            IOUtils.closeQuietly(os);
 		            candidate.setImageFileName(showImageFileName);
 				} catch (Exception e) {
 					e.printStackTrace();
-				}  
+				}
+			} else {
+				return Constants.ACTION_RESULT_INPUT;
 			}
 			candidateDao.save(candidate);
 			return Constants.ACTION_RESULT_SUCCESS;
-		} 
+		}
 		return Constants.ACTION_RESULT_INPUT;
 	}
-	
-	@Override 
-	public void validate() { 
+
+	@Override
+	public void validate() {
 		if(Constants.ACTION_ENTRY.equalsIgnoreCase(action)) {
 			clearActionErrors();
 		} else if(Constants.ACTION_SAVE.equalsIgnoreCase(action)) { // validate
-			
+
 		} else {
 			// do nothing
 		}
@@ -119,7 +121,7 @@ public class CandidateAction extends ActionSupport {
 	public void setCandidateName(String candidateName) {
 		this.candidateName = candidateName;
 	}
-	
+
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -246,8 +248,8 @@ public class CandidateAction extends ActionSupport {
 	private String getShowImageFileName() {
 		return  "PIC" + System.currentTimeMillis() + imageFileName.substring(imageFileName.lastIndexOf("."));
 	}
-	
-	private String getSavePath() {  
+
+	private String getSavePath() {
 		System.err.println("servletpath=" + ServletActionContext.getServletContext().getRealPath(Constants.IMAGE_FILE_RELATIVE_PATH));
         return ServletActionContext.getServletContext().getRealPath(Constants.IMAGE_FILE_RELATIVE_PATH);
     }
@@ -256,7 +258,7 @@ public class CandidateAction extends ActionSupport {
 	public String getShowImageFile() {
 		return Constants.WEB_CONTEXT_ROOT + Constants.IMAGE_FILE_RELATIVE_PATH + showImageFileName;
 	}
-	
+
 	public long getTotalCandidateCount() {
 		System.out.println("totalCandidateCount=" + totalCandidateCount);
 		totalCandidateCount = candidateDao.getTotalCandidateCount();

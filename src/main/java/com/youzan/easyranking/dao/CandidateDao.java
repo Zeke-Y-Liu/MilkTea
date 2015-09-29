@@ -17,22 +17,18 @@ public class CandidateDao implements ICandidateDao {
         this.sessionFactory = sessionFactory;  
     }  
 	
-	@Override
 	public void save(Candidate candidate) {
 		sessionFactory.openSession().save(candidate);
 	}
 
-	@Override
 	public Candidate getCandidateById(long id) {
 		return sessionFactory.openSession().get(Candidate.class, id);
 	}
 	
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<Candidate> getAllCandidates() {
 		return (List<Candidate>)(sessionFactory.openSession().createQuery("FROM Candidate ORDER BY poll ").list());
 	}
-	@Override
 	public long getTotalCandidateCount() {
 		return (Long)sessionFactory.openSession().createQuery("SELECT COUNT(*) FROM Candidate").uniqueResult();
 	}

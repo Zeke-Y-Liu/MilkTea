@@ -25,6 +25,6 @@ public class Constants {
 	
 	// the folder under war package to save all the image files
 	public static String IMAGE_FILE_RELATIVE_PATH = "/images/";
-	public static String WEB_CONTEXT_ROOT= "/easyranking";
+	public static String WEB_CONTEXT_ROOT= "";
 	
 }

@@ -27,12 +27,12 @@
 		</tr>
 		<tr>
 			<s:if test="#stat.last ==true">
-				<td><s:property value='candidateList[#stat.index].candidateName' /></td><td><s:property value='candidateList[#stat.index].poll' /></td>
+				<td><s:property value='candidateList[#stat.index].candidateName' /></td><td id='<s:property value='candidateList[#stat.index].id'/>'><s:property value='candidateList[#stat.index].poll'/></td>
 				<td style="visibility: hidden"/><td style="visibility: hidden"/>
 			</s:if>
 			<s:else>
-				<td><s:property value='candidateList[#stat.index].candidateName' /></td><td><s:property value='candidateList[#stat.index].poll' /></td>
-				<td><s:property value='candidateList[#stat.index+1].candidateName' /></td><td><s:property value='candidateList[#stat.index+1].poll' /></td>
+				<td><s:property value='candidateList[#stat.index].candidateName' /></td><td id='<s:property value='candidateList[#stat.index].id'/>'><s:property value='candidateList[#stat.index].poll' /></td>
+				<td><s:property value='candidateList[#stat.index+1].candidateName' /></td><td id='<s:property value='candidateList[#stat.index+1].id'/>'><s:property value='candidateList[#stat.index+1].poll' /></td>
 			</s:else>
 		</tr>
 		<tr>
@@ -53,6 +53,7 @@
 <script type="text/javascript" src="jquery/1.9.1/jquery.min.js" charset="UTF-8"></script>
 <script type="text/javascript">
 function vote(id) {  
+	alert($('#' + id).html('sdhaskdfh'));
 	alert("<%=Constants.WEB_CONTEXT_ROOT%>/vote.action?function=<%=Constants.FUNCTION_RANK%>&action=<%=Constants.ACTION_VOTE%>&id=" + id);
     $.ajax({  
         url  : "<%=Constants.WEB_CONTEXT_ROOT%>/vote.action?function=<%=Constants.FUNCTION_RANK%>&action=<%=Constants.ACTION_VOTE%>&id=" + id,  
@@ -61,6 +62,8 @@ function vote(id) {
         success : function(data, textStatus) {  
             alert(data["id"]);  
             alert(data["candidateName"]);
+            alert(data["poll"]);
+            $('#' + id).html(data["poll"]);
         }  
     });
 }

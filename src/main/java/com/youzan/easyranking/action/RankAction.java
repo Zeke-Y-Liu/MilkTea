@@ -57,6 +57,8 @@ public class RankAction extends ActionSupport {
 	public String vote() {
 		System.err.println("candidateId=" + candidateId);
 		votedCandidate = candidateDao.getCandidateById(Long.valueOf(candidateId));
+		votedCandidate.setPoll(votedCandidate.getPoll() +1);
+		candidateDao.updateCandidate(votedCandidate);
 		System.err.println("OK");
 		return Constants.ACTION_RESULT_VOTE;
 	}

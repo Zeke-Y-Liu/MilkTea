@@ -10,4 +10,5 @@ public interface ICandidateDao {
 	public Candidate getCandidateById(long id);
 	public List<Candidate> getAllCandidates();
 	public long getTotalCandidateCount();
+	public void updateCandidate(Candidate candidate);
 }

@@ -25,7 +25,7 @@ public class CandidateAction extends ActionSupport {
 	private String candidateId;
 	private String candidateName;
 	private String phoneNumber;
-	private Integer age;
+	private int age;
 	private String gender;
 	private String genderDesc;
 	private String selfRemark;
@@ -48,6 +48,9 @@ public class CandidateAction extends ActionSupport {
 			System.out.println("AAAAAAAAAAAAAAAAAAAAAAA");
 			return INPUT;
 		} else if(Constants.ACTION_SAVE.equalsIgnoreCase(action)) {
+			if(hasActionErrors()) {
+				return INPUT;
+			}
 			System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBB");
 			Candidate candidate = new Candidate();
 			candidate.setCandidateName(candidateName);
@@ -88,7 +91,32 @@ public class CandidateAction extends ActionSupport {
 		if(Constants.ACTION_ENTRY.equalsIgnoreCase(action)) {
 			clearActionErrors();
 		} else if(Constants.ACTION_SAVE.equalsIgnoreCase(action)) {
-			// validate
+
+			if(candidateName == null || "".equalsIgnoreCase(candidateName.trim())) {
+				addActionError("请填写姓名");
+			}
+			if(phoneNumber == null || "".equalsIgnoreCase(phoneNumber.trim())) {
+				addActionError("请填写电话号码");
+			} 
+			String phoneRegx = "^1[358]\\d{9}$|^(\\d{4}-?)?\\d{7,8}$";
+			if(!phoneNumber.matches(phoneRegx)) {
+				addActionError("请输入正确的手机或固话");
+			}
+			if(age == 0) {
+				addActionError("请填写年龄");
+			}
+			if(job == null || "".equalsIgnoreCase(job.trim())) {
+				addActionError("请填写工作");
+			}
+			if(height < 50 ) {
+				addActionError("请输入正确的身高");
+			}
+			if(selfRemark == null || "".equalsIgnoreCase(selfRemark.trim())) {
+				addActionError("请填写参赛宣言");
+			}	
+			if( image== null) {
+				addActionError("请选择照片");
+			}
 		} else {
 			// do nothing
 		}

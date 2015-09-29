@@ -6,7 +6,7 @@
 	<artifactId>mm</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>mmApp</name>
+	<name>milktea</name>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>

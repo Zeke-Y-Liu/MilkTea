@@ -80,18 +80,18 @@ function validate() {
         <div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">姓名</label>
             <div class="col-xs-9">
-                <input type="text" class="form-control" id="candidateName" name="candidateName" placeholder="姓名" maxlength="15" data-required data-errortext="请输入姓名"/>
+                <input type="text" class="form-control" id="candidateName" name="candidateName" value="<s:property value='candidateName'/>" placeholder="姓名" maxlength="15" data-required data-errortext="请输入姓名"/>
             </div>
         </div>
         <div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">联系方式</label>
             <div class="col-xs-9">
-            	<input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="手机" data-pattern="^1[358]\d{9}$|^(\d{4}-?)?\d{7,8}$" data-errortext="请输入正确的手机或固话" maxlength="11" />
+            	<input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="<s:property value='phoneNumber'/>" placeholder="手机" data-pattern="^1[358]\d{9}$|^(\d{4}-?)?\d{7,8}$" data-errortext="请输入正确的手机或固话" maxlength="11" />
             </div>
         </div>
         <div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">工作</label>
-            <div class="col-xs-9"><input type="text" class="form-control" id="job" name="job" placeholder="工作"  maxlength="200">
+            <div class="col-xs-9"><input type="text" class="form-control" id="job" name="job" value="<s:property value='job'/>" placeholder="工作"  maxlength="200">
             </div>
         </div>
         <div class="best-padding ziwei-form form-group">
@@ -113,7 +113,7 @@ function validate() {
       	<div class="best-padding ziwei-form form-group">
           <label class="label-padding col-xs-3">参赛宣言</label>
           <div class="col-xs-9">
-              <textarea rows="3" cols="20" class="form-control" id="selfRemark" name="selfRemark" placeholder="请输入宣言" maxlength="200"></textarea>
+              <textarea rows="3" cols="20" class="form-control" id="selfRemark" name="selfRemark" placeholder="请输入宣言" maxlength="200"><s:property value='selfRemark'/></textarea>
           </div>
       	</div>
         <div class="best-padding ziwei-form form-group">

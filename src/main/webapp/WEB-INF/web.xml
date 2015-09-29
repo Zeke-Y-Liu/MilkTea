@@ -4,17 +4,17 @@
       xsi:schemaLocation="http://java.sun.com/xml/ns/javaee   
       http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"  
       version="2.5"> 
-    <display-name>easyRanking</display-name>
+    <display-name>easyranking</display-name>
     <filter>
-        <filter-name>easyRanking</filter-name>
+        <filter-name>easyranking</filter-name>
         <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>easyRanking</filter-name>
+        <filter-name>easyranking</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
     <welcome-file-list>
-        <welcome-file>/pages/register.jsp</welcome-file>
+        <welcome-file>/pages/accept.jsp</welcome-file>
     </welcome-file-list>
 	<context-param>
         <param-name>contextConfigLocation</param-name>

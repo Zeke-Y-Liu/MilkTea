@@ -15,7 +15,7 @@
 		<interceptors>
             	<interceptor name="json" class="org.apache.struts2.json.JSONInterceptor"/>
         </interceptors>
-        
+
         <action name="register" method="register" class="candidateAction">
             <result name="input">pages/register.jsp</result>
             <result name="success">pages/registerResult.jsp</result>

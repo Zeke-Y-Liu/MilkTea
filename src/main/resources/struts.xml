@@ -17,6 +17,11 @@
             	<interceptor name="json" class="org.apache.struts2.json.JSONInterceptor"/>
         </interceptors>
 
+        <action name="accept" method="accept" class="candidateAction">
+            <result name="input">pages/accept.jsp</result>
+            <result name="success">pages/register.jsp</result>
+        </action>
+
         <action name="register" method="register" class="candidateAction">
             <result name="input">pages/register.jsp</result>
             <result name="success">pages/registerResult.jsp</result>

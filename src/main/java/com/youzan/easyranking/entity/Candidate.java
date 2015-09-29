@@ -21,18 +21,12 @@ public class Candidate {
     
     @Column(name="PHONE_NUMBER")
 	private String phoneNumber;
-    
-    @Column(name="CANDIDATE_BIRTHDAY")
-	private Date candidateBirthday;
-    
-    @Column(name="CITY")
-	private String city;
-    
-    @Column(name="CANDIDATE_ID")
-    private String candidateId;
-    
+        
     @Column(name="GENDER")
     private String gender;
+    
+    @Column(name="AGE")
+    private Integer age;
     
     @Column(name="JOB")
     private String job;
@@ -84,14 +78,6 @@ public class Candidate {
 		this.selfRemark = selfRemark;
 	}
 
-	public String getCandidateId() {
-		return candidateId;
-	}
-
-	public void setCandidateId(String candidateId) {
-		this.candidateId = candidateId;
-	}
-
 	public String getJob() {
 		return job;
 	}
@@ -132,27 +118,19 @@ public class Candidate {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public Date getCandidateBirthday() {
-		return candidateBirthday;
-	}
-
-	public void setCandidateBirthday(Date candidateBirthday) {
-		this.candidateBirthday = candidateBirthday;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
 	public int getPoll() {
 		return poll;
 	}
 
 	public void setPoll(int poll) {
 		this.poll = poll;
-	}	
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}		
 }

@@ -4,8 +4,8 @@ import java.text.DateFormat;
 
 public class Constants {
 
-	public static String ACTION_RESULT_INPUT = "input";
-	public static String ACTION_RESULT_SUCCESS = "success";
+	// public static String ACTION_RESULT_INPUT = "input";
+	// public static String ACTION_RESULT_SUCCESS = "success";
 	public static String ACTION_RANK_RESULT = "rankResult";
 	
 	public static String ACTION_RESULT_VOTE = "vote";
@@ -25,6 +25,6 @@ public class Constants {
 	
 	// the folder under war package to save all the image files
 	public static String IMAGE_FILE_RELATIVE_PATH = "/images/";
-	public static String WEB_CONTEXT_ROOT= "";
+	public static String WEB_CONTEXT_ROOT= "/mm";
 	
 }

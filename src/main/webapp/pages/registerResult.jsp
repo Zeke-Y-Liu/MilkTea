@@ -41,21 +41,13 @@
             <div class="col-xs-9"><s:property value='job'/></div>
         </div>
         <div class="best-padding ziwei-form form-group">
-            <label class="label-padding col-xs-3">生日</label>
-            <div class="col-xs-9"><s:property value='candidateBirthday'/></div>
+            <label class="label-padding col-xs-3">年龄</label>
+            <div class="col-xs-9"><s:property value='age'/></div>
         </div>
         <div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">性别</label>
             <div class="col-xs-9"><s:property value='genderDesc'/></div>
         </div>
-        <div class="best-padding ziwei-form form-group">
-            <label class="label-padding col-xs-3">城市</label>
-            <div class="col-xs-9"><s:property value='city'/></div>
-        </div>
-        <div class="best-padding ziwei-form form-group">
-            <label class="label-padding col-xs-3">身份证号</label>
-            <div class="col-xs-9"><s:property value='candidateId'/></div>
-        </div> 
         <div class="best-padding ziwei-form form-group">
           <label class="label-padding col-xs-3">身高 CM</label>
           <div class="col-xs-9"><s:property value='height'/></div>

@@ -21,8 +21,8 @@
     <bean id="dataSource"
         class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
         p:driverClassName="com.mysql.jdbc.Driver"
-        p:url="jdbc:mysql://localhost:3306/easyranking?useUnicode=true&amp;characterEncoding=UTF-8"
-        p:username="easyranking"
+        p:url="jdbc:mysql://localhost:3306/mm?useUnicode=true&amp;characterEncoding=UTF-8"
+        p:username="mm"
         p:password="Dilip123" />
  
     <bean id="sessionFactory"  
@@ -58,12 +58,12 @@
             <ref bean="sessionFactory" />  
         </property>
     </bean>  
-     <bean id="candidateAction" class="com.youzan.easyranking.action.CandidateAction"> 
+     <bean id="candidateAction" class="com.youzan.easyranking.action.CandidateAction" scope="prototype"> 
     	<property name="candidateDao">  
             <ref bean="candidateDao" />  
         </property>
     </bean>
-    <bean id="rankAction" class="com.youzan.easyranking.action.RankAction"> 
+    <bean id="rankAction" class="com.youzan.easyranking.action.RankAction" scope="prototype"> 
     	<property name="candidateDao">  
             <ref bean="candidateDao" />  
         </property>

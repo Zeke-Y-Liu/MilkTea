@@ -2,8 +2,6 @@ package com.youzan.easyranking.action;
 
 import java.util.List;
 
-import org.apache.struts2.ServletActionContext;
-
 import com.opensymphony.xwork2.ActionSupport;
 import com.youzan.easyranking.dao.ICandidateDao;
 import com.youzan.easyranking.entity.Candidate;
@@ -24,8 +22,16 @@ public class RankAction extends ActionSupport {
 	private Candidate votedCandidate;
 	
 	public String rank() {
+		System.out.println("AAAAAAAAAAAAAAAAAAAAAAA");
 		candidateList = candidateDao.getAllCandidates();
-		return Constants.ACTION_RANK_RESULT;
+		if(Constants.ACTION_RANK_RESULT.equals(action)) {
+			System.out.println("BBBBBBBB");
+			
+			return Constants.ACTION_RANK_RESULT;
+		} 
+		System.out.println("CCCCCCC");
+		return INPUT;
+		
 	}
 
 	public List<Candidate> getCandidateList() {

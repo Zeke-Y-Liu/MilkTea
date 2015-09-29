@@ -43,30 +43,15 @@
             </div>
         </div>
         <div class="best-padding ziwei-form form-group">
-            <label class="label-padding col-xs-3">生日</label>
-               <div class="col-xs-9 input-group date form_date col-md-5" data-date="" data-date-format="dd MM yyyy" data-link-field="candidateBirthday" data-link-format="yyyy-mm-dd">
-                    <input class="form-control" size="16" type="text" value="" readonly />
-                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-					<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                </div>
-                <input type="hidden" id="candidateBirthday" name="candidateBirthday" value="" /><br/>
-        </div> 
+          <label class="label-padding col-xs-3">年龄</label>
+          <div class="col-xs-9">
+              <input type="text" class="form-control" name="age" placeholder="请输入年龄" data-pattern="^\d{n,}$" data-required data-errortext="请输入正确的身高" maxlength="3" />
+          </div>
+      	</div>
         <div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">性别</label>
             <div class="col-xs-9"><select name="gender"><option value="F">女</option><option value="M">男</option></select></div>
         </div>
-        <div class="best-padding ziwei-form form-group">
-            <label class="label-padding col-xs-3">城市</label>
-            <div class="col-xs-9">
-            	<input type="text" class="form-control" name="city" placeholder="城市"  maxlength="100" />
-            </div>
-        </div>
-        <div class="best-padding ziwei-form form-group">
-            <label class="label-padding col-xs-3">身份证号</label>
-            <div class="col-xs-9">
-                <input type="text" class="form-control" name="candidateId" placeholder="请输入身份证号" data-pattern="^(\d{15}$|^\d{18}$|^\d{17}(\d|X|x))$" data-errortext="请输入正确的身份证号" maxlength="18" />
-            </div>
-        </div> 
         <div class="best-padding ziwei-form form-group">
           <label class="label-padding col-xs-3">身高 CM</label>
           <div class="col-xs-9">
@@ -91,20 +76,5 @@
 </div>	
 <script type="text/javascript" src="jquery/1.9.1/jquery.min.js" charset="UTF-8"></script>
 <script type="text/javascript" src="./bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="./datetimepicker/js/bootstrap-datetimepicker.js" charset="zh-CN"></script>
-<script type="text/javascript" src="./datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="zh-CN"></script>
-<script type="text/javascript">
-	$('.form_date').datetimepicker({
-        language:  'fr',
-        weekStart: 1,
-        todayBtn:  1,
-		autoclose: 1,
-		todayHighlight: 1,
-		startView: 2,
-		minView: 2,
-		forceParse: 0
-    });
-	
-</script>
 </body>
 </html>

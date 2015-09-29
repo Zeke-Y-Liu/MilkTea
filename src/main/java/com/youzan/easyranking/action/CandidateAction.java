@@ -25,8 +25,7 @@ public class CandidateAction extends ActionSupport {
 	private String candidateId;
 	private String candidateName;
 	private String phoneNumber;
-	private String candidateBirthday;
-	private String city;
+	private Integer age;
 	private String gender;
 	private String genderDesc;
 	private String selfRemark;
@@ -46,19 +45,14 @@ public class CandidateAction extends ActionSupport {
 
 	public String register() {
 		if(Constants.ACTION_ENTRY.equalsIgnoreCase(action)) {
-			return Constants.ACTION_RESULT_INPUT;
+			System.out.println("AAAAAAAAAAAAAAAAAAAAAAA");
+			return INPUT;
 		} else if(Constants.ACTION_SAVE.equalsIgnoreCase(action)) {
-
+			System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBB");
 			Candidate candidate = new Candidate();
 			candidate.setCandidateName(candidateName);
 			candidate.setPhoneNumber(phoneNumber);
-			try {
-				candidate.setCandidateBirthday(Constants.dateformator.parse(candidateBirthday));
-			} catch (ParseException e1) {
-				e1.printStackTrace();
-			}
-			candidate.setCity(city);
-			candidate.setCandidateId(candidateId);
+			candidate.setAge(age);
 			candidate.setGender(gender);
 			candidate.setSelfRemark(selfRemark);
 			candidate.setJob(job);
@@ -80,12 +74,13 @@ public class CandidateAction extends ActionSupport {
 					e.printStackTrace();
 				}
 			} else {
-				return Constants.ACTION_RESULT_INPUT;
+				return INPUT;
 			}
 			candidateDao.save(candidate);
-			return Constants.ACTION_RESULT_SUCCESS;
+			return SUCCESS;
 		}
-		return Constants.ACTION_RESULT_INPUT;
+		System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
+		return INPUT;
 	}
 
 	@Override
@@ -128,22 +123,6 @@ public class CandidateAction extends ActionSupport {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
-	}
-
-	public String getCandidateBirthday() {
-		return candidateBirthday;
-	}
-
-	public void setCandidateBirthday(String candidateBirthday) {
-		this.candidateBirthday = candidateBirthday;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
 	}
 
 	public String getGender() {
@@ -269,4 +248,11 @@ public class CandidateAction extends ActionSupport {
 		this.totalCandidateCount = totalCandidateCount;
 	}
 
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}	
 }

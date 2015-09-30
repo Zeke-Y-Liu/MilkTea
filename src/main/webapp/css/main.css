@@ -862,3 +862,12 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
     color: #888;
 }
 
+.bast-font {
+    font-size: 12px;
+}
+
+.lead {
+    font-size: 11px;
+}
+
+.best-size40 img{width:40px; height:40px;}.bset-size20 img{width:20px; height:20px;}

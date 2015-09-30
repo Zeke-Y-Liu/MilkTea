@@ -23,47 +23,45 @@
     <![endif]-->
     <script type="text/javascript">
 function validate() {
-	alert("AAA");
 	var errorMsg = "";
 	if($('#candidateName').val() == "" || $('#candidateName').val() == undefined) {
-		errorMsg ="请填写姓名"\n;
+		errorMsg ="请填写姓名\n";
 	}
-	alert("BBBB");
 	if($('#phoneNumber').val() == "" || $('#phoneNumber').val() == undefined) {
 		errorMsg = errorMsg + "请填写电话号码\n";
 		return false;
 	} 
-	var phoneRegx = new RegExp("^1[358]\d{9}$|^(\d{4}-?)?\d{7,8}$");
+	var phoneRegx = new RegExp("^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$");
 	if(!phoneRegx.test($('#phoneNumber').val())) {
-		errorMsg = errorMsg + "请输入正确的手机或固话";
+		errorMsg = errorMsg + "请输入正确的手机\n";
 	}
-	alert("DDDD");
 	if($('#age').val() == "" || $('#age').val() == undefined) {
 		errorMsg = errorMsg + "请填写年龄\n";
 	}
-	var ageRegx = new RegExp("(\d|\d\d)");
+	var ageRegx = new RegExp("^([1-3][0-9]*)$");
 	if(!ageRegx.test($('#age').val())) {
-		errorMsg = errorMsg + "请输入正确的年龄";
+		errorMsg = errorMsg + "请输入正确的年龄\n";
 	}
-	alert("EEEE");
+    if ($('#age').val() < 18 || $('#age').val()  >40) {
+        errorMsg = errorMsg + "请输入正确的年龄\n";
+    }
+
 	if($('#job').val() == "" || $('#job').val() == undefined) {
 		errorMsg = errorMsg + "请填写工作\n";
 	}
 	if($('#height').val() == "" || $('#height').val() == undefined) {
 		errorMsg = errorMsg + "请填写身高\n";
 	}
-	var heightRegx = new RegExp("(\d\d|\d\d\d)");
+	var heightRegx = new RegExp("^([1][0-9][0-9]*)$");
 	if(!heightRegx.test($('#height').val())) {
 		errorMsg = errorMsg + "请输入正确的身高";
 	}
-	alert("FFFFF");
 	if($('#selfRemark').val() == "" || $('#selfRemark').val() == undefined) {
 		errorMsg = errorMsg +"请填写参赛宣言\n";
 	}	
 	if($('#image').val() == "" || $('#image').val() == undefined) {
 		errorMsg = errorMsg + "请选择照片\n";
 	}
-	alert("GGGG");
 	if(errorMsg != "") {
 		alert(errorMsg);
 		return false;
@@ -86,7 +84,7 @@ function validate() {
         <div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">联系方式</label>
             <div class="col-xs-9">
-            	<input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="<s:property value='phoneNumber'/>" placeholder="手机" data-pattern="^1[358]\d{9}$|^(\d{4}-?)?\d{7,8}$" data-errortext="请输入正确的手机或固话" maxlength="11" />
+            	<input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="<s:property value='phoneNumber'/>" placeholder="手机" data-pattern="^1[358]\d{9}$|^(\d{4}-?)?\d{7,8}$" data-errortext="请输入正确的手机" maxlength="11" />
             </div>
         </div>
         <div class="best-padding ziwei-form form-group">
@@ -97,7 +95,7 @@ function validate() {
         <div class="best-padding ziwei-form form-group">
           <label class="label-padding col-xs-3">年龄</label>
           <div class="col-xs-9">
-              <input type="text" class="form-control" id="age" name="age" placeholder="请输入年龄" data-pattern="^\d{n,}$" data-required data-errortext="请输入正确的年龄" maxlength="3" />
+              <input type="text" class="form-control" id="age" name="age" placeholder="请输入年龄" data-pattern="^\d{n,}$" data-required data-errortext="请输入正确的年龄" maxlength="2" />
           </div>
       	</div>
         <div class="best-padding ziwei-form form-group">

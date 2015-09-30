@@ -10,10 +10,10 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <title>奶茶妹妹</title>
     <!-- Bootstrap -->
-    <link href="./bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./css/main.css" type="text/css" rel="stylesheet"/>
-    <link href="./bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="./datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" media="screen" > 
+      <link href="./bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" media="screen">
+      <link href="./css/main.css" type="text/css" rel="stylesheet"/>
+
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -58,7 +58,7 @@
       	</div>
         <div class="best-padding ziwei-form form-group">
 			<label class="label-padding col-xs-3">图片秀</label>
-			<div class="col-xs-9"><img src="<s:property value='showImageFile'/>"/></div>
+			<div class="col-xs-9"><img src="<s:property value='showImageFile'/>" class="best-size40"/></div>
 		</div>
 		<input type="hidden" name="id" value="<s:property value='id'/>" />
     </form>

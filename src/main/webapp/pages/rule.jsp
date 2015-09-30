@@ -1,4 +1,4 @@
-<%@ page language="java" isThreadSafe="true" pageEncoding="utf8" %>
+﻿<%@ page language="java" isThreadSafe="true" pageEncoding="utf8" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
@@ -23,16 +23,8 @@
 <body>
 <div class="ziwei-padding container">
     <div class="best-padding ziwei-form form-group bast-font">
-
         <%@ include file="/pages/ruleBody.html" %>
-
-        <s:form action="register" method="post" class="form-horizontal">
-            <input type="submit" value="我现在就要参加！" class="ziwei-btn btn btn-block"/>
-        </s:form>
-
     </div>
-
-
 </div>
 </body>
 </html>

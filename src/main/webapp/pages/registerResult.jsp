@@ -58,7 +58,7 @@
       	</div>
         <div class="best-padding ziwei-form form-group">
 			<label class="label-padding col-xs-3">图片秀</label>
-			<div class="col-xs-9"><img src="<s:property value='showImageFile'/>" class="best-size40"/></div>
+			<div class="col-xs-9"><img src="<s:property value='showImageFile'/>" style="border:0; margin:0; padding:0;max-width:300px; max-height:500px;"/></div>
 		</div>
 		<input type="hidden" name="id" value="<s:property value='id'/>" />
     </form>

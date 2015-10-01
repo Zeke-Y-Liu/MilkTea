@@ -7,12 +7,7 @@
     <constant name="struts.devMode" value="true" />
     <constant name="struts.multipart.saveDir" value="/tempUpload"/>
 
-    <package name="mm" namespace="/" extends="json-default">
-    <!-- 
-    	<result-types>
-    		<result-type name="json" class="org.apache.struts2.json.JSONResult"/>
-		</result-types>
-	 -->	
+    <package name="mm" namespace="/" extends="json-default">	
 		<interceptors>
             	<interceptor name="json" class="org.apache.struts2.json.JSONInterceptor"/>
         </interceptors>
@@ -28,14 +23,10 @@
         </action>
         <action name="rank" method="rank" class="rankAction">
             <result name="input">pages/rank.jsp</result>
-            <result name="rankResult">pages/rankResult.jsp</result>
+            <result name="candidateList">pages/rankResult.jsp</result>
         </action>
         <action name="vote" method="vote" class="rankAction">
-        <!-- 
-        	<interceptor-ref name="defaultStack"/> 
-        	<interceptor-ref name="json"/>
-         -->
-            <result name="vote" type="json">
+            <result name="voteResult" type="json">
             	<param name="root">votedCandidate</param>
             </result>
         </action>

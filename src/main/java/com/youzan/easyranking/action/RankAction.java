@@ -2,12 +2,15 @@ package com.youzan.easyranking.action;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.opensymphony.xwork2.ActionSupport;
 import com.youzan.easyranking.dao.ICandidateDao;
 import com.youzan.easyranking.entity.Candidate;
 import com.youzan.easyranking.util.Constants;
 
 public class RankAction extends ActionSupport {
+	private static Logger logger = Logger.getLogger(RankAction.class);
 	/**
 	 * 
 	 */
@@ -15,23 +18,19 @@ public class RankAction extends ActionSupport {
 	private String function;
 	private String action;
 	private long candidateId;
-	
 	private List<Candidate> candidateList;
 	private ICandidateDao candidateDao;
-	
 	private Candidate votedCandidate;
 	
 	public String rank() {
-		System.out.println("AAAAAAAAAAAAAAAAAAAAAAA");
+		logger.info("RankAction:rank");
+		logger.info("function=" + function + " action=" + action + " candidateId=" + candidateId);
 		candidateList = candidateDao.getAllCandidates();
-		if(Constants.ACTION_RANK_RESULT.equals(action)) {
-			System.out.println("BBBBBBBB");
-			
-			return Constants.ACTION_RANK_RESULT;
+		if(Constants.ACTION_VIEW_CANDIDATE_LIST.equals(action)) {
+			logger.info("RankAction:rank");
+			return Constants.RESULT_CANDIDATE_LIST;
 		} 
-		System.out.println("CCCCCCC");
 		return INPUT;
-		
 	}
 
 	public List<Candidate> getCandidateList() {
@@ -55,16 +54,15 @@ public class RankAction extends ActionSupport {
 	}	
 	
 	public String vote() {
-		System.err.println("candidateId=" + candidateId);
+		logger.info("RankAction:vote");
+		logger.info("candidateId=" + candidateId);
 		votedCandidate = candidateDao.getCandidateById(Long.valueOf(candidateId));
 		votedCandidate.setPoll(votedCandidate.getPoll() +1);
 		candidateDao.updateCandidate(votedCandidate);
-		System.err.println("OK");
-		return Constants.ACTION_RESULT_VOTE;
+		return Constants.RESULT_VOTE;
 	}
 
 	public Candidate getVotedCandidate() {
-		System.err.println("call ed");
 		return votedCandidate;
 	}
 

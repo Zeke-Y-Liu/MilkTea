@@ -1,3 +1,4 @@
+<%@ page import="com.youzan.easyranking.util.Constants" %>
 <%@ page language="java" isThreadSafe="true" pageEncoding="utf8" %>  
 <%@ page contentType="text/html; charset=UTF-8"%> 
 <%@ taglib prefix="s" uri="/struts-tags" %>
@@ -23,7 +24,8 @@
   </head>
 	<body>
 	<div class="ziwei-padding container">
-    <form action="#" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
+	<s:actionmessage/>
+    <form name="registerResult" action="<%=Constants.WEB_CONTEXT_ROOT%>/rank.action" method="post" class="form-horizontal" role="form">
     	<div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">参选人数</label>
             <div class="col-xs-9"><s:property value='totalCandidateCount'/></div>
@@ -61,7 +63,16 @@
 			<div class="col-xs-9"><img src="<s:property value='showImageFile'/>" style="border:0; margin:0; padding:0;max-width:300px; max-height:500px;"/></div>
 		</div>
 		<input type="hidden" name="id" value="<s:property value='id'/>" />
+		<input type="hidden" name="formToken" value="<s:property value='formToken'/>"/>
+		<input type="hidden" name="function" value="<%=Constants.FUNCTION_VOTE%>"/>
+        <input type="hidden" name="action" value="<%=Constants.ACTION_VIEW_CANDIDATE_LIST%>"/>
     </form>
 </div>
+ <script type="text/javascript">
+ 	window.setTimeout(goTo, 5000);
+	function goTo() {
+		document.forms["registerResult"].submit();
+	}
+</script>
 </body>
 </html>

@@ -53,10 +53,8 @@
 <script type="text/javascript" src="jquery/1.9.1/jquery.min.js" charset="UTF-8"></script>
 <script type="text/javascript">
 function vote(id) {  
-	alert($('#' + id).html('sdhaskdfh'));
-	alert("<%=Constants.WEB_CONTEXT_ROOT%>/vote.action?function=<%=Constants.FUNCTION_RANK%>&action=<%=Constants.ACTION_VOTE%>&id=" + id);
     $.ajax({  
-        url  : "<%=Constants.WEB_CONTEXT_ROOT%>/vote.action?function=<%=Constants.FUNCTION_RANK%>&action=<%=Constants.ACTION_VOTE%>&id=" + id,  
+        url  : "<%=Constants.WEB_CONTEXT_ROOT%>/vote.action?function=<%=Constants.FUNCTION_VOTE%>&action=<%=Constants.ACTION_VOTE%>",  
         type : "GET",  
         data : "candidateId=" + id, 
         success : function(data, textStatus) {  

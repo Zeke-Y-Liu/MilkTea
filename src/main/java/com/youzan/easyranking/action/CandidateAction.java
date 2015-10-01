@@ -5,11 +5,13 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.ParseException;
+import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.youzan.easyranking.dao.ICandidateDao;
 import com.youzan.easyranking.entity.Candidate;
@@ -19,6 +21,7 @@ public class CandidateAction extends ActionSupport {
 	/**
 	 *
 	 */
+	private static Logger logger = Logger.getLogger(RankAction.class);
 	private static final long serialVersionUID = 1L;
 	private String function;
 	private String action;
@@ -35,6 +38,8 @@ public class CandidateAction extends ActionSupport {
 	private File image;
 	private String imageContentType;
 	private String imageFileName;
+	
+	private String formToken="";
 
 	// file name saved to images under war folder
 	private String showImageFileName;
@@ -44,14 +49,25 @@ public class CandidateAction extends ActionSupport {
 	private ICandidateDao candidateDao;
 
 	public String register() {
+		logger.info("CandidateAction:register:begin");
+		logger.info("function=" + function + " action=" +action + " candidateId=" + candidateId);
+		// String result = INPUT;
 		if(Constants.ACTION_ENTRY.equalsIgnoreCase(action)) {
-			System.out.println("AAAAAAAAAAAAAAAAAAAAAAA");
+			formToken = generateFormToken();
+			logger.info("register:action entry:formToken=" + formToken);
 			return INPUT;
 		} else if(Constants.ACTION_SAVE.equalsIgnoreCase(action)) {
-			if(hasActionErrors()) {
+			// prevent user from resubmitting by F5
+			if(!isTokenValid()) { // if F5, stay in the same page, do nothing
+				logger.info("invalid token, goto input page");
+				formToken = generateFormToken();
 				return INPUT;
 			}
-			System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBB");
+			if(hasActionErrors()) {
+				logger.info("register:has action error");
+				formToken = generateFormToken();
+				return INPUT;
+			}
 			Candidate candidate = new Candidate();
 			candidate.setCandidateName(candidateName);
 			candidate.setPhoneNumber(phoneNumber);
@@ -62,27 +78,29 @@ public class CandidateAction extends ActionSupport {
 			candidate.setHeight(height);
 			candidate.setWeight(weight);
 
-			if (image != null) {
-				try {
-					InputStream is;
-					is = new FileInputStream(getImage());
-					this.showImageFileName = getShowImageFileName();
-		            OutputStream os = new FileOutputStream(getSavePath() + showImageFileName);
-		            IOUtils.copy(is, os);
-		            os.flush();
-		            IOUtils.closeQuietly(is);
-		            IOUtils.closeQuietly(os);
-		            candidate.setImageFileName(showImageFileName);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			} else {
-				return INPUT;
+			try {
+				InputStream is;
+				is = new FileInputStream(getImage());
+				this.showImageFileName = getShowImageFileName();
+				OutputStream os = new FileOutputStream(getSavePath() + showImageFileName);
+				IOUtils.copy(is, os);
+				os.flush();
+				IOUtils.closeQuietly(is);
+				IOUtils.closeQuietly(os);
+				candidate.setImageFileName(showImageFileName);
+			} catch (Exception e) {
+				logger.info("save image file error", e);
+				e.printStackTrace();
 			}
+
 			candidateDao.save(candidate);
+			// save candidate, generate new token
+			formToken = generateFormToken();
+			addActionMessage("注册成功, 5 秒后跳转到投票结果...");
 			return SUCCESS;
 		}
-		System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
+		formToken = generateFormToken();
+		logger.info("CandidateAction:register:end:formToken=" + formToken);
 		return INPUT;
 	}
 
@@ -121,7 +139,23 @@ public class CandidateAction extends ActionSupport {
 			// do nothing
 		}
 	}
-
+	// prevent user from resubmitting by F5
+	/**
+	 * generate unique token id and save into session
+	 * @return
+	 */
+	private String generateFormToken() {
+		String token = System.currentTimeMillis() + "";
+		Map<String, Object> session = ActionContext.getContext().getSession();
+		session.put(Constants.FORM_TOKEN, token);
+		return token;
+	}
+	
+	public boolean isTokenValid() {
+		logger.info("CandidateAction:isResubmitByF5:request formToken=" + formToken);
+		logger.info("CandidateAction:isResubmitByF5:session formToken=" + ActionContext.getContext().getSession().get(Constants.FORM_TOKEN));
+		return (formToken != null && formToken.equals(ActionContext.getContext().getSession().get(Constants.FORM_TOKEN)));
+	}
 	public String getFunction() {
 		return function;
 	}
@@ -282,5 +316,17 @@ public class CandidateAction extends ActionSupport {
 
 	public void setAge(Integer age) {
 		this.age = age;
-	}	
+	}
+
+	public String getFormToken() {
+		return formToken;
+	}
+
+	public void setFormToken(String formToken) {
+		this.formToken = formToken;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
 }

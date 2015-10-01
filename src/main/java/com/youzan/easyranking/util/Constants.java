@@ -4,16 +4,21 @@ import java.text.DateFormat;
 
 public class Constants {
 
-	// public static String ACTION_RESULT_INPUT = "input";
-	// public static String ACTION_RESULT_SUCCESS = "success";
-	public static String ACTION_RANK_RESULT = "rankResult";
-	
-	public static String ACTION_RESULT_VOTE = "vote";
-	
+	public static String FUNCTION_REGISTER = "register";
+	public static String FUNCTION_VOTE = "vote";
+
 	public static String ACTION_ENTRY = "entry";
 	public static String ACTION_SAVE = "save";
-	public static String FUNCTION_RANK = "rank";
-	public static String ACTION_VOTE = "vote";
+	public static String ACTION_VIEW_CANDIDATE_LIST= "viewCandidateList";
+	public static String ACTION_VOTE= "vote";
+	
+	public static String RESULT_CANDIDATE_LIST = "candidateList";
+	public static String RESULT_VOTE = "voteResult";
+	
+	
+
+
+	
 	
 	public static String GENDER_FEMALE = "F";
 	public static String GENDER_MALE = "M";
@@ -26,5 +31,7 @@ public class Constants {
 	// the folder under war package to save all the image files
 	public static String IMAGE_FILE_RELATIVE_PATH = "/images/";
 	public static String WEB_CONTEXT_ROOT= "/mm";
+	
+	public static String FORM_TOKEN = "formKen";
 	
 }

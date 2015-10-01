@@ -21,60 +21,11 @@
       <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script type="text/javascript">
-function validate() {
-	var errorMsg = "";
-	if($('#candidateName').val() == "" || $('#candidateName').val() == undefined) {
-		errorMsg ="请填写姓名\n";
-	}
-	if($('#phoneNumber').val() == "" || $('#phoneNumber').val() == undefined) {
-		errorMsg = errorMsg + "请填写电话号码\n";
-		return false;
-	} 
-	var phoneRegx = new RegExp("^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$");
-	if(!phoneRegx.test($('#phoneNumber').val())) {
-		errorMsg = errorMsg + "请输入正确的手机\n";
-	}
-	if($('#age').val() == "" || $('#age').val() == undefined) {
-		errorMsg = errorMsg + "请填写年龄\n";
-	}
-	var ageRegx = new RegExp("^([1-3][0-9]*)$");
-	if(!ageRegx.test($('#age').val())) {
-		errorMsg = errorMsg + "请输入正确的年龄\n";
-	}
-    if ($('#age').val() < 18 || $('#age').val()  >40) {
-        errorMsg = errorMsg + "请输入正确的年龄\n";
-    }
-
-	if($('#job').val() == "" || $('#job').val() == undefined) {
-		errorMsg = errorMsg + "请填写工作\n";
-	}
-	if($('#height').val() == "" || $('#height').val() == undefined) {
-		errorMsg = errorMsg + "请填写身高\n";
-	}
-	var heightRegx = new RegExp("^([1][0-9][0-9]*)$");
-	if(!heightRegx.test($('#height').val())) {
-		errorMsg = errorMsg + "请输入正确的身高";
-	}
-	if($('#selfRemark').val() == "" || $('#selfRemark').val() == undefined) {
-		errorMsg = errorMsg +"请填写参赛宣言\n";
-	}	
-	if($('#image').val() == "" || $('#image').val() == undefined) {
-		errorMsg = errorMsg + "请选择照片\n";
-	}
-	if(errorMsg != "") {
-		alert(errorMsg);
-		return false;
-	} else {
-		return true;
-	}
-}
-</script>
   </head>
 	<body>
 	<div class="ziwei-padding container">
 	<s:actionerror/>
-    <form action="<%=Constants.WEB_CONTEXT_ROOT%>/register.action?function=register&action=save" onsubmit="return validate();" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
+    <form action="<%=Constants.WEB_CONTEXT_ROOT%>/register.action" onsubmit="return validate();" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
         <div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">姓名</label>
             <div class="col-xs-9">
@@ -122,9 +73,51 @@ function validate() {
         <div class="ziwei-padding form-group">
             <input type="submit" class="ziwei-btn btn btn-block" value="提交"/>
         </div>
+        <input type="hidden" name="formToken" value="<s:property value='formToken'/>"/>
+        <input type="hidden" name="function" value="<%=Constants.FUNCTION_REGISTER%>"/>
+        <input type="hidden" name="action" value="<%=Constants.ACTION_SAVE%>"/>
     </form>
 </div>	
 <script type="text/javascript" src="jquery/1.9.1/jquery.min.js" charset="UTF-8"></script>
 <script type="text/javascript" src="./bootstrap/3.3.5/js/bootstrap.min.js"></script>
+   <script type="text/javascript">
+	function validate() {
+	var errorMsg = "";
+	if($('#candidateName').val() == "" || $('#candidateName').val() == undefined) {
+		errorMsg ="请填写姓名\n";
+	}
+	if($('#phoneNumber').val() == "" || $('#phoneNumber').val() == undefined) {
+		errorMsg = errorMsg + "请填写电话号码\n";
+		return false;
+	} 
+	var phoneRegx = new RegExp("^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$");
+	if(!phoneRegx.test($('#phoneNumber').val())) {
+		errorMsg = errorMsg + "请输入正确的手机\n";
+	}
+	var ageRegx = new RegExp("^([1-4][0-9]*)$");
+	if($('#age').val() == "" || $('#age').val() == undefined || !ageRegx.test($('#age').val()) || $('#age').val() < 18 || $('#age').val()  > 49 ) {
+		errorMsg = errorMsg + "请输入正确的年龄\n";
+	}
+	if($('#job').val() == "" || $('#job').val() == undefined) {
+		errorMsg = errorMsg + "请填写工作\n";
+	}
+	var heightRegx = new RegExp("^([1][0-9][0-9]*)$");
+	if($('#height').val() == "" || $('#height').val() == undefined || !heightRegx.test($('#height').val())) {
+		errorMsg = errorMsg + "请填写正确的身高\n";
+	}
+	if($('#selfRemark').val() == "" || $('#selfRemark').val() == undefined) {
+		errorMsg = errorMsg +"请填写参赛宣言\n";
+	}	
+	if($('#image').val() == "" || $('#image').val() == undefined) {
+		errorMsg = errorMsg + "请选择照片\n";
+	}
+	if(errorMsg != "") {
+		alert(errorMsg);
+		return false;
+	} else {
+		return true;
+	}
+}
+</script>
 </body>
 </html>

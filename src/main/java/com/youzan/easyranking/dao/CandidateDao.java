@@ -19,26 +19,27 @@ public class CandidateDao implements ICandidateDao {
     }  
 	
 	public void save(Candidate candidate) {
-		sessionFactory.openSession().save(candidate);
+		sessionFactory.getCurrentSession().save(candidate);
 	}
 
 	public Candidate getCandidateById(long id) {
-		return sessionFactory.openSession().get(Candidate.class, id);
+		return sessionFactory.getCurrentSession().get(Candidate.class, id);
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Candidate> getAllCandidates() {
-		List<Candidate> result =  (List<Candidate>)(sessionFactory.openSession().createQuery("FROM Candidate ORDER BY poll ").list());
+		List<Candidate> result =  (List<Candidate>)(sessionFactory.getCurrentSession().createQuery("FROM Candidate ORDER BY poll ").list());
 		logger.info("Total " + result.size() + " candidate loaded");
 		return result;
 	}
 	public long getTotalCandidateCount() {
-		long totalCandidateCount = (Long)sessionFactory.openSession().createQuery("SELECT COUNT(*) FROM Candidate").uniqueResult();
+		long totalCandidateCount = (Long)sessionFactory.getCurrentSession().createQuery("SELECT COUNT(*) FROM Candidate").uniqueResult();
 		logger.info("Total candidate count: " + totalCandidateCount);
 		return totalCandidateCount;
 	}
 	@Override
 	public void updateCandidate(Candidate candidate) {
-		sessionFactory.openSession().update(candidate);
+		logger.info("Candidate poll: " + candidate.getPoll());
+		sessionFactory.getCurrentSession().merge(candidate);
 	}
 }

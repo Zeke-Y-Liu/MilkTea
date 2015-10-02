@@ -1,0 +1,7 @@
+/.DS_Store
+/applicationContext.xml
+/com/
+/hibernate.cfg.xml
+/struts.xml
+/log4j.properties
+/log4j.xml

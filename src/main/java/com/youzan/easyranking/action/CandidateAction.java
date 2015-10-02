@@ -21,7 +21,7 @@ public class CandidateAction extends ActionSupport {
 	/**
 	 *
 	 */
-	private static Logger logger = Logger.getLogger(RankAction.class);
+	private static Logger logger = Logger.getLogger(CandidateAction.class);
 	private static final long serialVersionUID = 1L;
 	private String function;
 	private String action;

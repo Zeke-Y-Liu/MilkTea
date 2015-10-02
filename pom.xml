@@ -212,7 +212,7 @@
           <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-orm</artifactId>
-    </dependency>
+    </dependency>    
     <dependency> 
        <groupId>log4j</groupId> 
        <artifactId>log4j</artifactId>  
@@ -234,7 +234,6 @@
            <artifactId>jmxri</artifactId> 
          </exclusion> 
        </exclusions> 
-       <scope>runtime</scope> 
      </dependency> 
       
      <dependency>

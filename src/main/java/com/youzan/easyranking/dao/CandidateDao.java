@@ -2,12 +2,13 @@ package com.youzan.easyranking.dao;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 
 import com.youzan.easyranking.entity.Candidate;
 
 public class CandidateDao implements ICandidateDao {
-
+	private static Logger logger = Logger.getLogger(ICandidateDao.class);
 	private SessionFactory sessionFactory;  
 	   
     public SessionFactory getSessionFactory() {  
@@ -27,10 +28,14 @@ public class CandidateDao implements ICandidateDao {
 	
 	@SuppressWarnings("unchecked")
 	public List<Candidate> getAllCandidates() {
-		return (List<Candidate>)(sessionFactory.openSession().createQuery("FROM Candidate ORDER BY poll ").list());
+		List<Candidate> result =  (List<Candidate>)(sessionFactory.openSession().createQuery("FROM Candidate ORDER BY poll ").list());
+		logger.info("Total " + result.size() + " candidate loaded");
+		return result;
 	}
 	public long getTotalCandidateCount() {
-		return (Long)sessionFactory.openSession().createQuery("SELECT COUNT(*) FROM Candidate").uniqueResult();
+		long totalCandidateCount = (Long)sessionFactory.openSession().createQuery("SELECT COUNT(*) FROM Candidate").uniqueResult();
+		logger.info("Total candidate count: " + totalCandidateCount);
+		return totalCandidateCount;
 	}
 	@Override
 	public void updateCandidate(Candidate candidate) {

@@ -3,7 +3,7 @@
 <hibernate-configuration>  
 	<session-factory>
 	    <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
-		<property name="jdbc.batch_size">20</property>
+		<property name="jdbc.batch_size">100</property>
 		<property name="connection.autocommit">false</property>
 		<property name="show_sql">true</property>
 		<property name="connection.useUnicode">true</property>
@@ -14,5 +14,7 @@
 		<property name="cache.use_query_cache">true</property>
 		 -->
 		<mapping class="com.youzan.easyranking.entity.Candidate" />
+		<mapping class="com.youzan.easyranking.entity.Vote" />
+		<mapping class="com.youzan.easyranking.entity.WeiXinUser" />
     </session-factory>
 </hibernate-configuration>

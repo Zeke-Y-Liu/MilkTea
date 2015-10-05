@@ -1,14 +1,15 @@
 package com.youzan.easyranking.dao;
 
 import java.util.List;
-
+import java.util.Map;
 import org.apache.log4j.Logger;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 
 import com.youzan.easyranking.entity.Candidate;
 
 public class CandidateDao implements ICandidateDao {
-	private static Logger logger = Logger.getLogger(ICandidateDao.class);
+	private static Logger logger = Logger.getLogger(CandidateDao.class);
 	private SessionFactory sessionFactory;  
 	   
     public SessionFactory getSessionFactory() {  
@@ -41,5 +42,17 @@ public class CandidateDao implements ICandidateDao {
 	public void updateCandidate(Candidate candidate) {
 		logger.info("Candidate poll: " + candidate.getPoll());
 		sessionFactory.getCurrentSession().merge(candidate);
+	}
+	@Override
+	public void updateCandidatePolls(Map<Long, Long> candidatePKPollMap) {
+		// TODO Auto-generated method stub
+		Query query = null;
+		for(Map.Entry<Long, Long> entry : candidatePKPollMap.entrySet()) {
+			logger.info("candidate id = " + entry.getKey() + " poll=" + entry.getValue());
+			query = sessionFactory.getCurrentSession().createSQLQuery("UPDATE CANDIDATE SET POLL = POLL + ? WHERE ID = ?");
+			query.setLong(0, entry.getValue());
+			query.setLong(1, entry.getKey());
+			query.executeUpdate();
+		}		
 	}
 }

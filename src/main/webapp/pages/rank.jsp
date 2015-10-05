@@ -57,10 +57,7 @@ function vote(id) {
         url  : "<%=Constants.WEB_CONTEXT_ROOT%>/vote.action?function=<%=Constants.FUNCTION_VOTE%>&action=<%=Constants.ACTION_VOTE%>",  
         type : "GET",  
         data : "candidateId=" + id, 
-        success : function(data, textStatus) {  
-            alert(data["id"]);  
-            alert(data["candidateName"]);
-            alert(data["poll"]);
+        success : function(data, textStatus) {
             $('#' + id).html(data["poll"]);
         }  
     });

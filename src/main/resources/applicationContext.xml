@@ -63,14 +63,40 @@
             <ref bean="sessionFactory" />  
         </property>
     </bean>  
-     <bean id="candidateAction" class="com.youzan.easyranking.action.CandidateAction" scope="prototype"> 
+    <bean id="voteDao" class="com.youzan.easyranking.dao.VoteDao"> 
+    	<property name="sessionFactory">  
+            <ref bean="sessionFactory" />  
+        </property>
+    </bean> 
+    <bean id="weiXinUserDao" class="com.youzan.easyranking.dao.WeiXinUserDao"> 
+    	<property name="sessionFactory">  
+            <ref bean="sessionFactory" />  
+        </property>
+    </bean>     
+    <bean id="weiXinService" class="com.youzan.easyranking.service.WeiXinService" /> 
+   <bean id="cacheManager" class="com.youzan.easyranking.cache.CacheManger" factory-method="getInstance" init-method="initCache" > 
     	<property name="candidateDao">  
             <ref bean="candidateDao" />  
         </property>
+        <property name="voteDao">  
+            <ref bean="voteDao" />  
+        </property>
+        <property name="weiXinUserDao">  
+            <ref bean="weiXinUserDao" />  
+        </property>
+        <property name="weiXinService">  
+            <ref bean="weiXinService" />  
+        </property>
+    </bean>  
+    
+     <bean id="candidateAction" class="com.youzan.easyranking.action.CandidateAction" scope="prototype"> 
+    	<property name="cacheManager">  
+            <ref bean="cacheManager" />  
+        </property>
     </bean>
     <bean id="rankAction" class="com.youzan.easyranking.action.RankAction" scope="prototype"> 
-    	<property name="candidateDao">  
-            <ref bean="candidateDao" />  
+    	<property name="cacheManager">  
+            <ref bean="cacheManager" />  
         </property>
     </bean>
 </beans>

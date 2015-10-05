@@ -5,6 +5,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import com.youzan.easyranking.util.EntityStatus;
  
 @Entity
 @Table(name="CANDIDATE")
@@ -44,6 +50,9 @@ public class Candidate {
     @Column(name="IMAGE_FILE_NAME")
     private String imageFileName;
 
+    @Transient
+    private EntityStatus status;
+    
 	public Long getId() {
 		return id;
 	}
@@ -130,5 +139,68 @@ public class Candidate {
 
 	public void setAge(Integer age) {
 		this.age = age;
-	}		
+	}
+
+	public EntityStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(EntityStatus status) {
+		this.status = status;
+	}	
+	
+	
+
+//    private Long id;
+//    private String candidateName;
+//	private String phoneNumber;
+//    private String gender;
+//    private Integer age;
+//    private String job;
+//    private String selfRemark;
+//    private float weight;
+//    private float height;
+//    private int poll;
+//    private String imageFileName;
+	
+	
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37).
+          append(id).
+          append(candidateName).
+          append(phoneNumber).
+          append(gender).
+          append(age).
+          append(job).
+          append(selfRemark).
+          append(weight).
+          append(height).
+          append(poll).
+          append(imageFileName).
+          toHashCode();
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+    	   if (obj == null) { return false; }
+    	   if (obj == this) { return true; }
+    	   if (obj.getClass() != getClass()) {
+    	     return false;
+    	   }
+    	   Candidate that = (Candidate) obj;
+    	   return new EqualsBuilder().
+    		          append(id, that.id).
+    		          append(candidateName, that.candidateName).
+    		          append(phoneNumber,that.phoneNumber).
+    		          append(gender, that.gender).
+    		          append(age, that.age).
+    		          append(job, that.job).
+    		          append(selfRemark,that.selfRemark).
+    		          append(weight, that.weight).
+    		          append(height, that.height).
+    		          append(poll, that.poll).
+    		          append(imageFileName, that.imageFileName)
+    	              .isEquals();
+    }	
 }

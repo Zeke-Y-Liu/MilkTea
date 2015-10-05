@@ -13,7 +13,7 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import com.youzan.easyranking.dao.ICandidateDao;
+import com.youzan.easyranking.cache.CacheManger;
 import com.youzan.easyranking.entity.Candidate;
 import com.youzan.easyranking.util.Constants;
 
@@ -46,7 +46,7 @@ public class CandidateAction extends ActionSupport {
 
 	private long totalCandidateCount;
 
-	private ICandidateDao candidateDao;
+	private CacheManger cacheManager;
 
 	public String register() {
 		logger.info("CandidateAction:register:begin");
@@ -93,7 +93,7 @@ public class CandidateAction extends ActionSupport {
 				e.printStackTrace();
 			}
 
-			candidateDao.save(candidate);
+			cacheManager.register(candidate);
 			// save candidate, generate new token
 			formToken = generateFormToken();
 			addActionMessage("注册成功, 5 秒后跳转到投票结果...");
@@ -211,12 +211,13 @@ public class CandidateAction extends ActionSupport {
 		this.weight = weight;
 	}
 
-	public ICandidateDao getCandidateDao() {
-		return candidateDao;
+
+	public CacheManger getCacheManager() {
+		return cacheManager;
 	}
 
-	public void setCandidateDao(ICandidateDao candidateDao) {
-		this.candidateDao = candidateDao;
+	public void setCacheManager(CacheManger cacheManager) {
+		this.cacheManager = cacheManager;
 	}
 
 	public String getCandidateId() {
@@ -301,8 +302,7 @@ public class CandidateAction extends ActionSupport {
 	}
 
 	public long getTotalCandidateCount() {
-		System.out.println("totalCandidateCount=" + totalCandidateCount);
-		totalCandidateCount = candidateDao.getTotalCandidateCount();
+		totalCandidateCount = cacheManager.getAllCandiateList().size();
 		return totalCandidateCount + 188;
 	}
 

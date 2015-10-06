@@ -23,7 +23,7 @@
         </action>
         <action name="rank" method="rank" class="rankAction">
             <result name="input">pages/rank.jsp</result>
-            <result name="candidateList">pages/rankResult.jsp</result>
+            <result name="voteResult">pages/rankResult.jsp</result>
         </action>
         <action name="vote" method="vote" class="rankAction">
             <result name="voteResult" type="json">

@@ -12,7 +12,11 @@ public class Constants {
 	public static String ACTION_VIEW_CANDIDATE_LIST= "viewCandidateList";
 	public static String ACTION_VOTE= "vote";
 	
-	public static String RESULT_CANDIDATE_LIST = "candidateList";
+	public static String ACTION_PREVIOUS= "previous";
+	public static String ACTION_NEXT= "next";
+	public static String ACTION_VIEW_VOTE_RESULT= "viewVoteResult";
+	
+	public static String RESULT_VOTE_RESULT = "voteResult";
 	public static String RESULT_VOTE = "voteResult";
 	
 	

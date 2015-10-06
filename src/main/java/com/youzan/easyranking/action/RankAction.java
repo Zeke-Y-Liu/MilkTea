@@ -10,6 +10,7 @@ import com.youzan.easyranking.cache.CacheManger;
 import com.youzan.easyranking.entity.Candidate;
 import com.youzan.easyranking.entity.Vote;
 import com.youzan.easyranking.util.Constants;
+import com.youzan.easyranking.vo.Pagination;
 
 public class RankAction extends ActionSupport {
 	private static Logger logger = Logger.getLogger(RankAction.class);
@@ -24,24 +25,24 @@ public class RankAction extends ActionSupport {
 	private List<Candidate> candidateList;
 	private CacheManger cacheManager;
 	private Candidate votedCandidate;
+	private Pagination<Candidate> pagination = new Pagination<Candidate>();
 	
 	public String rank() {
+
 		logger.info("RankAction:rank");
-		logger.info("function=" + function + " action=" + action + " candidateId=" + candidateId);
+		logger.info("function=" + function + " action=" + action + " candidateId=" + candidateId + " currentPageNum=" + pagination.getCurrentPageNum());
 		candidateList = cacheManager.getAllCandiateList();
-		if(Constants.ACTION_VIEW_CANDIDATE_LIST.equals(action)) {
-			logger.info("RankAction:rank");
-			return Constants.RESULT_CANDIDATE_LIST;
-		} 
+		if (Constants.ACTION_VIEW_VOTE_RESULT.equals(action)) {
+			return Constants.RESULT_VOTE_RESULT;
+		}
+		pagination.paging(candidateList, action);
+//		List<Candidate> pagetList = pagination.getPageList();
+//		for(int i =0; i < pagetList.size(); i ++) {
+//			Candidate c = pagetList.get(i);
+//			System.out.println("id=" + c.getId() + " name=" + c.getCandidateName() + " poll=" + c.getPoll());
+//		}
+		logger.info("pagination.isFirstPage()=" + pagination.isFirstPage() + " pagination.isLastPage()=" + pagination.isLastPage());
 		return INPUT;
-	}
-
-	public List<Candidate> getCandidateList() {
-		return candidateList;
-	}
-
-	public void setCandidateList(List<Candidate> candidateList) {
-		this.candidateList = candidateList;
 	}
 
 	public CacheManger getCacheManager() {
@@ -106,5 +107,16 @@ public class RankAction extends ActionSupport {
 	public void setUserOpenId(String userOpenId) {
 		this.userOpenId = userOpenId;
 	}
-		
+
+	public Pagination<Candidate> getPagination() {
+		return pagination;
+	}
+
+	public void setPagination(Pagination<Candidate> pagination) {
+		this.pagination = pagination;
+	}
+
+	public List<Candidate> getCandidateList() {
+		return candidateList;
+	}	
 }

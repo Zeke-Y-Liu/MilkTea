@@ -73,9 +73,9 @@
         <div class="ziwei-padding form-group">
             <input type="submit" class="ziwei-btn btn btn-block" value="提交"/>
         </div>
-        <input type="hidden" name="formToken" value="<s:property value='formToken'/>"/>
-        <input type="hidden" name="function" value="<%=Constants.FUNCTION_REGISTER%>"/>
-        <input type="hidden" name="action" value="<%=Constants.ACTION_SAVE%>"/>
+        <input type="hidden" id="formToken" name="formToken" value="<s:property value='formToken'/>"/>
+        <input type="hidden" id="function" name="function" value="<%=Constants.FUNCTION_REGISTER%>"/>
+        <input type="hidden" id="action" name="action" value="<%=Constants.ACTION_SAVE%>"/>
     </form>
 </div>	
 <script type="text/javascript" src="jquery/1.9.1/jquery.min.js" charset="UTF-8"></script>

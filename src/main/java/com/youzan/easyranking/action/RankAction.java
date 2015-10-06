@@ -20,7 +20,7 @@ public class RankAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	private String function;
 	private String action;
-	private String userOpenId;
+	private String openId;
 	private long candidateId;
 	private List<Candidate> candidateList;
 	private CacheManger cacheManager;
@@ -36,11 +36,10 @@ public class RankAction extends ActionSupport {
 			return Constants.RESULT_VOTE_RESULT;
 		}
 		pagination.paging(candidateList, action);
-//		List<Candidate> pagetList = pagination.getPageList();
-//		for(int i =0; i < pagetList.size(); i ++) {
-//			Candidate c = pagetList.get(i);
-//			System.out.println("id=" + c.getId() + " name=" + c.getCandidateName() + " poll=" + c.getPoll());
-//		}
+		List<Candidate> pageList = pagination.getPageList();
+		for(Candidate candidate : pageList) {
+			candidate.setVoted(cacheManager.isVoted(openId, candidate.getId()));
+		}
 		logger.info("pagination.isFirstPage()=" + pagination.isFirstPage() + " pagination.isLastPage()=" + pagination.isLastPage());
 		return INPUT;
 	}
@@ -100,12 +99,12 @@ public class RankAction extends ActionSupport {
 		this.action = action;
 	}
 
-	public String getUserOpenId() {
-		return userOpenId;
+	public String getOpenId() {
+		return openId;
 	}
 
-	public void setUserOpenId(String userOpenId) {
-		this.userOpenId = userOpenId;
+	public void setOpenId(String openId) {
+		this.openId = openId;
 	}
 
 	public Pagination<Candidate> getPagination() {

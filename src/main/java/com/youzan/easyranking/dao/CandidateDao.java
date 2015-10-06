@@ -24,7 +24,7 @@ public class CandidateDao implements ICandidateDao {
 	}
 
 	public Candidate getCandidateById(long id) {
-		return sessionFactory.getCurrentSession().get(Candidate.class, id);
+		return (Candidate)sessionFactory.getCurrentSession().get(Candidate.class, id);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -45,7 +45,6 @@ public class CandidateDao implements ICandidateDao {
 	}
 	@Override
 	public void updateCandidatePolls(Map<Long, Long> candidatePKPollMap) {
-		// TODO Auto-generated method stub
 		Query query = null;
 		for(Map.Entry<Long, Long> entry : candidatePKPollMap.entrySet()) {
 			logger.info("candidate id = " + entry.getKey() + " poll=" + entry.getValue());

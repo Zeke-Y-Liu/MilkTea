@@ -37,12 +37,12 @@
 		</tr>
 		<tr>
 			<s:if test="#stat.last==true">
-				<td colSpan="2"  align="center"><button type="button" onClick="vote('<s:property value='pagination.pageList[#stat.index].id'/>')">投票</button></td>
+				<td colSpan="2"  align="center"><button type="button" id="<s:property value='pagination.pageList[#stat.index].id'/>" <s:if test="pagination.pageList[#stat.index].voted">disabled</s:if> onClick="vote(this)">投票</button></td>
 				<td colSpan="2" style="visibility: hidden" />
 			</s:if>
 			<s:else>
-			<td colSpan="2" align="center"><button type="button" onClick="vote('<s:property value='pagination.pageList[#stat.index].id'/>')">投票</button></td>
-			<td colSpan="2" align="center"><button type="button" onClick="vote('<s:property value='pagination.pageList[#stat.index+1].id'/>')">投票</button></td>
+			<td colSpan="2" align="center"><button type="button" id="<s:property value='pagination.pageList[#stat.index].id'/>" <s:if test="pagination.pageList[#stat.index].voted">disabled</s:if> onClick="vote(this)">投票</button></td>
+			<td colSpan="2" align="center"><button type="button" id="<s:property value='pagination.pageList[#stat.index+1].id'/>" <s:if test="pagination.pageList[#stat.index+1].voted">disabled</s:if> onClick="vote(this)">投票</button></td>
 			</s:else>
 		</tr>
 		<tr><td colSpan="4" style="visibility: hidden" height="10px">&nbsp;</td>
@@ -60,13 +60,14 @@
 	</form>
 <script type="text/javascript" src="jquery/1.9.1/jquery.min.js" charset="UTF-8"></script>
 <script type="text/javascript">
-function vote(id) {  
+function vote(btn) {
     $.ajax({  
         url  : "<%=Constants.WEB_CONTEXT_ROOT%>/vote.action?function=<%=Constants.FUNCTION_VOTE%>&action=<%=Constants.ACTION_VOTE%>",  
         type : "GET",  
-        data : "candidateId=" + id, 
+        data : "candidateId=" +  btn.id, 
         success : function(data, textStatus) {
-            $('#' + id).html(data["poll"]);
+            $('#' +  btn.id).html(data["poll"]);
+            btn.disabled = true;
         }  
     });
 }

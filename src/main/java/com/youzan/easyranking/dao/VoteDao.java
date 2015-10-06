@@ -17,6 +17,8 @@ public class VoteDao implements IVoteDao {
     public void setSessionFactory(SessionFactory sessionFactory) {  
         this.sessionFactory = sessionFactory;  
     } 
+    
+    @Override
 	public void saveVotes(List<Vote> voteList) {
 		logger.info("VoteDao:saveVotes:size=" + voteList.size());
 		for(Vote vote : voteList) {

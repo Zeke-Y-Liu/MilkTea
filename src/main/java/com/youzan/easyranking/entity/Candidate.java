@@ -53,6 +53,9 @@ public class Candidate {
     @Transient
     private EntityStatus status;
     
+    @Transient
+    private boolean voted;
+    
 	public Long getId() {
 		return id;
 	}
@@ -149,22 +152,15 @@ public class Candidate {
 		this.status = status;
 	}	
 	
-	
+	public boolean isVoted() {
+		return voted;
+	}
 
-//    private Long id;
-//    private String candidateName;
-//	private String phoneNumber;
-//    private String gender;
-//    private Integer age;
-//    private String job;
-//    private String selfRemark;
-//    private float weight;
-//    private float height;
-//    private int poll;
-//    private String imageFileName;
-	
-	
-    @Override
+	public void setVoted(boolean voted) {
+		this.voted = voted;
+	}
+
+	@Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37).
           append(id).

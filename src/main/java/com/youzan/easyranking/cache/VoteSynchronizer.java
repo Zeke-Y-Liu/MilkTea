@@ -49,22 +49,16 @@ public class VoteSynchronizer implements Runnable {
 	}
 	
 	private void flushVotes() {
-		logger.info("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
 		Set<String> existingUserIdSet = cache.getUserOpenIdSet();
 		Set<String> newUserIdSet = new HashSet<String>();
 		Map<Long, Long> candidatePKPollMap = new HashMap<Long,Long>(); 
 		for(Vote vote : voteList) {
-			logger.info("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 			if(!existingUserIdSet.contains(vote.getUserOpenId())) {
-				logger.info("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
 				newUserIdSet.add(vote.getUserOpenId());
 			}
-			logger.info("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
 			if(candidatePKPollMap.get(vote.getCandidateId()) == null) {
-				logger.info("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
 				candidatePKPollMap.put(vote.getCandidateId(), 1L);
 			} else {
-				logger.info("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
 				candidatePKPollMap.put(vote.getCandidateId(),candidatePKPollMap.get(vote.getCandidateId()) +1);
 			}
 		}

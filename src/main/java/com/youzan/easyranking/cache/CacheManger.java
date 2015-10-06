@@ -134,6 +134,10 @@ public class CacheManger {
 		return new HashSet<String>(userOpenIdSet);
 	}
 	
+	public boolean isVoted(String openID, long candidateId) {
+		return allVoteKeyMap.get(new Pair<String, Long>(openID, candidateId))!= null;
+	}
+	
 	public synchronized ICandidateDao getCandidateDao() {
 		return candidateDao;
 	}

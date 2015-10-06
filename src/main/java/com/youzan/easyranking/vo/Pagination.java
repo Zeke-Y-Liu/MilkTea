@@ -8,8 +8,8 @@ public class Pagination<T> {
 	private int pageSize = 4;
 
 	private int currentPageNum;
-	private boolean isFirstPage;
-	private boolean isLastPage;
+	private boolean firstPage;
+	private boolean lastPage;
 	private List<T> pageList;
 
 	public int getPageSize() {
@@ -21,11 +21,11 @@ public class Pagination<T> {
 	}
 
 	public boolean isFirstPage() {
-		return isFirstPage;
+		return firstPage;
 	}
 
 	public boolean isLastPage() {
-		return isLastPage;
+		return lastPage;
 	}
 
 	public int getCurrentPageNum() {
@@ -56,14 +56,14 @@ public class Pagination<T> {
 		toIndex = fromIndex + pageSize;
 		if (fromIndex <= 0) {
 			fromIndex = 0;
-			isFirstPage = true;
+			firstPage = true;
 		}
 		if (fromIndex > elementList.size()) {
 			fromIndex = elementList.size();
 		}
 		if (toIndex >= elementList.size()) {
 			toIndex = elementList.size();
-			isLastPage = true;
+			lastPage = true;
 		}
 		pageList = elementList.subList(fromIndex, toIndex);
 	}	

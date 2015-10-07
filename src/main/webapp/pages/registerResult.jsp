@@ -70,7 +70,7 @@
 </div>
 <script type="text/javascript" src="jquery/1.9.1/jquery.min.js" charset="UTF-8"></script>
  <script type="text/javascript">
- 	window.setTimeout(gotoPage, 5000);
+ 	// window.setTimeout(gotoPage, 5000);
 	function gotoPage() {
 		$("#registerResult").submit();
 	}

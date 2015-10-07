@@ -96,7 +96,7 @@ public class CandidateAction extends ActionSupport {
 			cacheManager.register(candidate);
 			// save candidate, generate new token
 			formToken = generateFormToken();
-			addActionMessage("注册成功, 5 秒后跳转到投票结果...");
+			addActionMessage("恭喜你注册成功!");
 			return SUCCESS;
 		}
 		formToken = generateFormToken();

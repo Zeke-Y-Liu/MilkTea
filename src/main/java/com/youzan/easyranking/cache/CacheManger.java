@@ -47,16 +47,8 @@ public class CacheManger {
 		return instance;
 	}
 	
-	// all candidate list, whenever ui request candidates, it go to cache and not DB. 
-	// private List<Candidate> allCandiateList = Collections.synchronizedList(new ArrayList<Candidate>());
-	
 	private Map<Long, Candidate> candiatePkMap = Collections.synchronizedMap(new HashMap<Long,Candidate>());
-	
-	// new candidate queue
-	// when a new candidate register, it was saved in cache, later all the candidates will be 
-	// synchronized with db by data synchronizer. The data synchronizer will take advantage of the blocking queue
-	// private Queue<Candidate> newRegisteredCandidateQueue = new LinkedBlockingQueue<Candidate>();
-		
+			
 	// all vote activities, many to many relationship between users and candidates
 	// we assume one user can vote for a candidate for more than one time
 	//In this circumstance, clearly we differentiate a new user-candidate relationship and
@@ -134,7 +126,7 @@ public class CacheManger {
 		return new HashSet<String>(userOpenIdSet);
 	}
 	
-	public boolean isVoted(String openID, long candidateId) {
+	public synchronized boolean isVoted(String openID, long candidateId) {
 		return allVoteKeyMap.get(new Pair<String, Long>(openID, candidateId))!= null;
 	}
 	

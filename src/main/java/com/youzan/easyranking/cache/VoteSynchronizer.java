@@ -64,6 +64,7 @@ public class VoteSynchronizer implements Runnable {
 		}
 		logger.info("VoteSynchronizer:run:save votes");
 		cache.getVoteDao().saveVotes(voteList);
+		cache.afterFlush(voteList);
 		voteList.clear();
 		// update candidate
 		logger.info("VoteSynchronizer:run:updaet candidates:" + candidatePKPollMap);
@@ -72,6 +73,5 @@ public class VoteSynchronizer implements Runnable {
 		List<WeiXinUser> userList = cache.getWeiXinService().getUsersInfo(newUserIdSet);
 		cache.getWeiXinUserDao().saveUsers(userList);
 		// update cache with synched data, DB generated PKs
-		cache.afterFlush(voteList);
 	}
 }

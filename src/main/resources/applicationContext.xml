@@ -74,7 +74,7 @@
         </property>
     </bean>     
     <bean id="weiXinService" class="com.youzan.easyranking.service.WeiXinService" /> 
-   <bean id="cacheManager" class="com.youzan.easyranking.cache.CacheManger" factory-method="getInstance" init-method="initCache" > 
+   <bean id="cacheManager" class="com.youzan.easyranking.cache.CacheManager" factory-method="getInstance" init-method="initCache" >
     	<property name="candidateDao">  
             <ref bean="candidateDao" />  
         </property>

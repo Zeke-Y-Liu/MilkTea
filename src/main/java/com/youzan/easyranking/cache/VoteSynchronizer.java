@@ -12,15 +12,14 @@ import com.youzan.easyranking.entity.Vote;
 import com.youzan.easyranking.entity.WeiXinUser;
 public class VoteSynchronizer implements Runnable {
 	private static Logger logger = Logger.getLogger(VoteSynchronizer.class);
-	private CacheManger cache;
+	private CacheManager cache;
 	private List<Vote> voteList = new ArrayList<Vote>();
 	private long lastsynchTime = System.currentTimeMillis();
 	
-	public VoteSynchronizer(CacheManger cache) {
+	public VoteSynchronizer(CacheManager cache) {
 		this.cache = cache;
 	}
 	
-	@Override
 	public void run() {
 		while(true) {
 			// this working thread has be to very robust

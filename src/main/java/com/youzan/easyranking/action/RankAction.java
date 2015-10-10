@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.youzan.easyranking.cache.CacheManger;
+import com.youzan.easyranking.cache.CacheManager;
 import com.youzan.easyranking.entity.Candidate;
 import com.youzan.easyranking.entity.Vote;
 import com.youzan.easyranking.util.Constants;
@@ -23,7 +23,7 @@ public class RankAction extends ActionSupport {
 	private String openId;
 	private long candidateId;
 	private List<Candidate> candidateList;
-	private CacheManger cacheManager;
+	private CacheManager cacheManager;
 	private Candidate votedCandidate;
 	private Pagination<Candidate> pagination = new Pagination<Candidate>();
 	
@@ -44,11 +44,11 @@ public class RankAction extends ActionSupport {
 		return INPUT;
 	}
 
-	public CacheManger getCacheManager() {
+	public CacheManager getCacheManager() {
 		return cacheManager;
 	}
 
-	public void setCacheManager(CacheManger cacheManager) {
+	public void setCacheManager(CacheManager cacheManager) {
 		this.cacheManager = cacheManager;
 	}
 

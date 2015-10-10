@@ -1,11 +1,5 @@
 package  com.youzan.easyranking.entity;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -14,7 +8,8 @@ import com.youzan.easyranking.util.EntityStatus;
  
 @Entity
 @Table(name="CANDIDATE")
-public class Candidate {
+//@EntityListeners(AuditListener.class)
+public class Candidate extends AuditEntity{
     @Id
     @Column(name="ID")
     @GeneratedValue(strategy=GenerationType.IDENTITY)

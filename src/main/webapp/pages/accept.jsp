@@ -25,9 +25,9 @@
 <div class="ziwei-padding container">
     <div class="best-padding ziwei-form form-group bast-font">
         <%@ include file="/pages/ruleBody.html" %>
-        <form action="<%=Constants.WEB_CONTEXT_ROOT%>/register.action" method="post" class="form-horizontal">
+        <form action="<%=Constants.WEB_CONTEXT_ROOT%>/candidate.action" method="post" class="form-horizontal">
             <input type="submit" value="我现在就要参加！" class="ziwei-btn btn btn-block"/>
-             <input type="hidden" name="function" value="<%=Constants.FUNCTION_REGISTER%>"/>
+             <input type="hidden" name="function" value="<%=Constants.FUNCTION_MANAGE_CANDIDATE%>"/>
         	<input type="hidden" name="action" value="<%=Constants.ACTION_ENTRY%>"/>
         </form>
     </div>

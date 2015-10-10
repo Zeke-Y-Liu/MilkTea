@@ -18,7 +18,7 @@ public class Candidate {
     @Id
     @Column(name="ID")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+    private long id;
       
     @Column(name="CANDIDATE_NAME")
     private String candidateName;
@@ -30,7 +30,7 @@ public class Candidate {
     private String gender;
     
     @Column(name="AGE")
-    private Integer age;
+    private int age;
     
     @Column(name="JOB")
     private String job;
@@ -56,7 +56,7 @@ public class Candidate {
     @Transient
     private boolean voted;
     
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -136,11 +136,11 @@ public class Candidate {
 		this.poll = poll;
 	}
 
-	public Integer getAge() {
+	public int getAge() {
 		return age;
 	}
 
-	public void setAge(Integer age) {
+	public void setAge(int age) {
 		this.age = age;
 	}
 

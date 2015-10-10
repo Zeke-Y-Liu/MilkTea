@@ -17,12 +17,12 @@
 		<s:if test="#stat.odd ==true"> 
 		<tr>
 			<s:if test="#stat.last ==true">
-				<td colSpan="2"><img width="150px" height="150px" src="<s:property value='showImageFilePath'/><s:property value='pagination.pageList[#stat.index].imageFileName' /> "/></td>
+				<td colSpan="2"><img onClick="viewCandidate('<s:property value='pagination.pageList[#stat.index].id'/>')" width="150px" height="150px" src="<s:property value='showImageFilePath'/><s:property value='pagination.pageList[#stat.index].imageFileName' /> "/></td>
 				<td colSpan="2" style="visibility: hidden" />
 			</s:if>
 			<s:else>
-				<td colSpan="2"><img width="150px" height="150px" src="<s:property value='showImageFilePath'/><s:property value='pagination.pageList[#stat.index].imageFileName' /> "/></td>
-				<td colSpan="2"><img width="150px" height="150px" src="<s:property value='showImageFilePath'/><s:property value='pagination.pageList[#stat.index+1].imageFileName' /> "/></td>
+				<td colSpan="2"><img onClick="viewCandidate('<s:property value='pagination.pageList[#stat.index].id'/>')" width="150px" height="150px" src="<s:property value='showImageFilePath'/><s:property value='pagination.pageList[#stat.index].imageFileName' /> "/></td>
+				<td colSpan="2"><img onClick="viewCandidate('<s:property value='pagination.pageList[#stat.index+1].id'/>')" width="150px" height="150px" src="<s:property value='showImageFilePath'/><s:property value='pagination.pageList[#stat.index+1].imageFileName' /> "/></td>
 			</s:else>				
 		</tr>
 		<tr>
@@ -48,31 +48,45 @@
 		<tr><td colSpan="4" style="visibility: hidden" height="10px">&nbsp;</td>
 		</s:if>
 		</s:iterator>
-        <tr><td><button type="button" <s:if test="pagination.firstPage">disabled</s:if> onClick="gotoPage('<%=Constants.ACTION_PREVIOUS%>')">上一页</button></td>
-		<td colSpan="2"><button type="button" onClick="gotoPage('<%=Constants.ACTION_VIEW_VOTE_RESULT%>')">查看投票结果</button></td>
-		<td><button type="button" <s:if test="pagination.lastPage">disabled</s:if> onClick="gotoPage('<%=Constants.ACTION_NEXT%>')">下一页</button></td>
+        <tr><td><button type="button" <s:if test="pagination.firstPage">disabled</s:if> onClick="previousNextPage('<%=Constants.ACTION_PREVIOUS%>')">上一页</button></td>
+		<td colSpan="2"><button type="button" onClick="previousNextPage('<%=Constants.ACTION_VIEW_VOTE_RESULT%>')">查看投票结果</button></td>
+		<td><button type="button" <s:if test="pagination.lastPage">disabled</s:if> onClick="previousNextPage('<%=Constants.ACTION_NEXT%>')">下一页</button></td>
 		</tr>
 	</table>
 	<form id="rankForm" name="rankForm" action="<%=Constants.WEB_CONTEXT_ROOT%>/rank.action" method="post">
 		<input type="hidden" id="currentPageNum" name="pagination.currentPageNum" value="<s:property value='pagination.currentPageNum'/>" />
 		<input type="hidden" id="function" name="function" value="<%=Constants.FUNCTION_VOTE%>"/>
         <input type="hidden" id="action" name="action" value=""/>
+        <input type="hidden" id="candidateId" name="candidateId" value="" />
 	</form>
 <script type="text/javascript" src="jquery/1.9.1/jquery.min.js" charset="UTF-8"></script>
 <script type="text/javascript">
-function vote(btn) {
+function vote(voteButton) {
+	var param = new Object();
+	param["function"] = "<%=Constants.FUNCTION_VOTE%>";
+	param["action"] = "<%=Constants.ACTION_VOTE%>";
+	param["candidateId"] = voteButton.id;
     $.ajax({  
-        url  : "<%=Constants.WEB_CONTEXT_ROOT%>/vote.action?function=<%=Constants.FUNCTION_VOTE%>&action=<%=Constants.ACTION_VOTE%>",  
-        type : "GET",  
-        data : "candidateId=" +  btn.id, 
+        url  : "<%=Constants.WEB_CONTEXT_ROOT%>/vote.action",  
+        type : "POST",  
+        data : param, 
         success : function(data, textStatus) {
-            $('#' +  btn.id).html(data["poll"]);
-            btn.disabled = true;
+            $('#' +  voteButton.id).html(data["poll"]);
+            voteButton.disabled = true;
         }  
     });
 }
-function gotoPage(action) {
+function previousNextPage(action) {
+	$("#function").val("<%=Constants.FUNCTION_VOTE%>");	
 	$('#action').val(action);	
+	$("#rankForm").submit();
+}
+function viewCandidate(candidateId) {
+	$("#currentPageNum").remove();
+	$("#rankForm").attr("action", "<%=Constants.WEB_CONTEXT_ROOT%>/candidate.action");
+	$("#function").val("<%=Constants.FUNCTION_MANAGE_CANDIDATE%>");	
+	$("#action").val("<%=Constants.ACTION_VIEW%>");
+	$("#candidateId").val(candidateId);
 	$("#rankForm").submit();
 }
 </script>

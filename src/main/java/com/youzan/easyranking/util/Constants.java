@@ -4,7 +4,7 @@ import java.text.DateFormat;
 
 public class Constants {
 
-	public static String FUNCTION_REGISTER = "register";
+	public static String FUNCTION_MANAGE_CANDIDATE = "manageCandidate";
 	public static String FUNCTION_VOTE = "vote";
 
 	public static String ACTION_ENTRY = "entry";
@@ -16,8 +16,13 @@ public class Constants {
 	public static String ACTION_NEXT= "next";
 	public static String ACTION_VIEW_VOTE_RESULT= "viewVoteResult";
 	
+	public static String ACTION_EDIT= "edit";
+	public static String ACTION_UPDATE= "update";
+	public static String ACTION_VIEW= "view";
+	
 	public static String RESULT_VOTE_RESULT = "voteResult";
 	public static String RESULT_VOTE = "voteResult";
+		
 
 	public static String GENDER_FEMALE = "F";
 	public static String GENDER_MALE = "M";
@@ -32,5 +37,5 @@ public class Constants {
 	public static String WEB_CONTEXT_ROOT= "/mm";
 	
 	public static String FORM_TOKEN = "formKen";
-
+	
 }

@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 
@@ -16,6 +17,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.youzan.easyranking.cache.CacheManager;
 import com.youzan.easyranking.entity.Candidate;
 import com.youzan.easyranking.util.Constants;
+import com.youzan.easyranking.util.Helper;
 
 public class CandidateAction extends ActionSupport {
 	/**
@@ -25,21 +27,15 @@ public class CandidateAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	private String function;
 	private String action;
-	private String candidateId;
-	private String candidateName;
-	private String phoneNumber;
-	private int age;
-	private String gender;
 	private String genderDesc;
-	private String selfRemark;
-	private String job;
-	private float height;
-	private float weight;
 	private File image;
 	private String imageContentType;
 	private String imageFileName;
-	
 	private String formToken="";
+	// for edit from other page
+	private long candidateId;
+	private boolean editable = true; 
+	private Candidate candidate = new Candidate();
 
 	// file name saved to images under war folder
 	private String showImageFileName;
@@ -48,92 +44,114 @@ public class CandidateAction extends ActionSupport {
 
 	private CacheManager cacheManager;
 
-	public String register() {
-		logger.info("CandidateAction:register:begin");
+	public String manageCandidate() {
 		logger.info("function=" + function + " action=" +action + " candidateId=" + candidateId);
-		// String result = INPUT;
+		String result = INPUT;
 		if(Constants.ACTION_ENTRY.equalsIgnoreCase(action)) {
-			formToken = generateFormToken();
-			logger.info("register:action entry:formToken=" + formToken);
-			return INPUT;
+			result = INPUT;
 		} else if(Constants.ACTION_SAVE.equalsIgnoreCase(action)) {
-			// prevent user from resubmitting by F5
-			if(!isTokenValid()) { // if F5, stay in the same page, do nothing
-				logger.info("invalid token, goto input page");
-				formToken = generateFormToken();
-				return INPUT;
-			}
-			if(hasActionErrors()) {
-				logger.info("register:has action error");
-				formToken = generateFormToken();
-				return INPUT;
-			}
-			Candidate candidate = new Candidate();
-			candidate.setCandidateName(candidateName);
-			candidate.setPhoneNumber(phoneNumber);
-			candidate.setAge(age);
-			candidate.setGender(gender);
-			candidate.setSelfRemark(selfRemark);
-			candidate.setJob(job);
-			candidate.setHeight(height);
-			candidate.setWeight(weight);
-
-			try {
-				InputStream is;
-				is = new FileInputStream(getImage());
-				this.showImageFileName = getShowImageFileName();
-				OutputStream os = new FileOutputStream(getSavePath() + showImageFileName);
-				IOUtils.copy(is, os);
-				os.flush();
-				IOUtils.closeQuietly(is);
-				IOUtils.closeQuietly(os);
-				candidate.setImageFileName(showImageFileName);
-			} catch (Exception e) {
-				logger.info("save image file error", e);
-				e.printStackTrace();
-			}
-
-			cacheManager.register(candidate);
-			// save candidate, generate new token
-			formToken = generateFormToken();
-			addActionMessage("恭喜你注册成功!");
-			return SUCCESS;
+			result = saveCandidate(candidate);
+		} else if(Constants.ACTION_EDIT.equalsIgnoreCase(action)) {
+			result = editCandidate(candidateId);
+		} else if(Constants.ACTION_UPDATE.equalsIgnoreCase(action)) {
+			result = updateCandidate(candidate, candidateId);
+		} else if(Constants.ACTION_VIEW.equalsIgnoreCase(action)) {
+			result = viewCandidate(candidateId);
 		}
 		formToken = generateFormToken();
 		logger.info("CandidateAction:register:end:formToken=" + formToken);
+		return result;
+	}
+	private String saveCandidate(Candidate candidate) {
+		// prevent user from resubmitting by F5
+		if(!isTokenValid()) { // if F5, stay in the same page, do nothing
+			logger.info("invalid token, goto input page");
+			return INPUT;
+		}
+		if(hasActionErrors()) {
+			logger.info("saveCandidate::action error");
+			return INPUT;
+		}
+		// save uploaded image file to war/images
+		this.showImageFileName = saveImageFile(imageFileName);
+		candidate.setImageFileName(showImageFileName);
+		cacheManager.register(candidate);
+		addActionMessage("恭喜你注册成功!");
+		// there is no any other authentication or authorization on current user 
+		// editable only if register successfully
+		editable = true;
+		return SUCCESS;
+	}
+	
+	private String editCandidate(long candidateId) {
+		candidate = cacheManager.getCandidateById(candidateId);
+		this.showImageFileName = candidate.getImageFileName();
 		return INPUT;
 	}
-
+	
+	private String updateCandidate(Candidate candidateChanged, long originalCandidateId) {
+		if(!isTokenValid()) { // if F5, stay in the same page, do nothing
+			logger.info("invalid token, goto input page");
+			return INPUT;
+		}
+		if(hasActionErrors()) {
+			logger.info("updateCandidate::action error");
+			return INPUT;
+		}
+		Candidate candidateMerged = cacheManager.getCandidateById(candidateId);
+		// when updating, image file is optional
+		if(StringUtils.isBlank(imageFileName)) {
+			candidate.setImageFileName(candidateMerged.getImageFileName());
+		} else {
+			// save uploaded image file to war/images
+			candidate.setImageFileName(showImageFileName);
+		}
+		this.showImageFileName = candidate.getImageFileName();
+		Helper.copyCandidate(candidateMerged, candidate);
+		cacheManager.updateCandidate(candidateMerged);
+		candidate = candidateMerged;
+		addActionMessage("恭喜你更新信息成功!");
+		return SUCCESS;
+	}
+	
+	public String viewCandidate(long candidateId) {
+		candidate = cacheManager.getCandidateById(candidateId);
+		return SUCCESS;
+	}
+	
 	@Override
 	public void validate() {
 		if(Constants.ACTION_ENTRY.equalsIgnoreCase(action)) {
 			clearActionErrors();
-		} else if(Constants.ACTION_SAVE.equalsIgnoreCase(action)) {
+		} else if(Constants.ACTION_SAVE.equalsIgnoreCase(action) || Constants.ACTION_UPDATE.equalsIgnoreCase(action)) {
 
-			if(candidateName == null || "".equalsIgnoreCase(candidateName.trim())) {
+			if(StringUtils.isBlank(candidate.getCandidateName())) {
 				addActionError("请填写姓名");
 			}
-			if(phoneNumber == null || "".equalsIgnoreCase(phoneNumber.trim())) {
+			if(StringUtils.isBlank(candidate.getPhoneNumber())) {
 				addActionError("请填写电话号码");
 			} 
 			String phoneRegx = "^1[358]\\d{9}$|^(\\d{4}-?)?\\d{7,8}$";
-			if(!phoneNumber.matches(phoneRegx)) {
+			if(!candidate.getPhoneNumber().matches(phoneRegx)) {
 				addActionError("请输入正确的手机或固话");
 			}
-			if(age == 0) {
+			if(candidate.getAge()== 0) {
 				addActionError("请填写年龄");
 			}
-			if(job == null || "".equalsIgnoreCase(job.trim())) {
+			if(StringUtils.isBlank(candidate.getJob())) {
 				addActionError("请填写工作");
 			}
-			if(height < 50 ) {
+			if(candidate.getHeight() < 50 ) {
 				addActionError("请输入正确的身高");
 			}
-			if(selfRemark == null || "".equalsIgnoreCase(selfRemark.trim())) {
+			if(StringUtils.isBlank(candidate.getSelfRemark())) {
 				addActionError("请填写参赛宣言");
 			}	
-			if( image== null) {
-				addActionError("请选择照片");
+			// if update, image is NOT required, user already has image file
+			if(Constants.ACTION_SAVE.equalsIgnoreCase(action)) {
+				if( image== null) {
+					addActionError("请选择照片");
+				}
 			}
 		} else {
 			// do nothing
@@ -156,6 +174,25 @@ public class CandidateAction extends ActionSupport {
 		logger.info("CandidateAction:isResubmitByF5:session formToken=" + ActionContext.getContext().getSession().get(Constants.FORM_TOKEN));
 		return (formToken != null && formToken.equals(ActionContext.getContext().getSession().get(Constants.FORM_TOKEN)));
 	}
+	
+	private String saveImageFile(String uploadedImageFileName) {
+		String savedIageFileName = "";
+		try {
+			InputStream is;
+			is = new FileInputStream(getImage());
+			savedIageFileName = "PIC" + System.currentTimeMillis() + uploadedImageFileName.substring(uploadedImageFileName.lastIndexOf("."));
+			OutputStream os = new FileOutputStream(getSavePath() + savedIageFileName);
+			IOUtils.copy(is, os);
+			os.flush();
+			IOUtils.closeQuietly(is);
+			IOUtils.closeQuietly(os);
+		} catch (Exception e) {
+			logger.info("save image file error", e);
+			e.printStackTrace();
+		}
+		return savedIageFileName;
+	}
+	
 	public String getFunction() {
 		return function;
 	}
@@ -171,46 +208,6 @@ public class CandidateAction extends ActionSupport {
 	public void setAction(String action) {
 		this.action = action;
 	}
-	public String getCandidateName() {
-		return candidateName;
-	}
-
-	public void setCandidateName(String candidateName) {
-		this.candidateName = candidateName;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
-	public String getSelfRemark() {
-		return selfRemark;
-	}
-
-	public void setSelfRemark(String selfRemark) {
-		this.selfRemark = selfRemark;
-	}
-
-	public float getWeight() {
-		return weight;
-	}
-
-	public void setWeight(int weight) {
-		this.weight = weight;
-	}
-
 
 	public CacheManager getCacheManager() {
 		return cacheManager;
@@ -220,45 +217,13 @@ public class CandidateAction extends ActionSupport {
 		this.cacheManager = cacheManager;
 	}
 
-	public String getCandidateId() {
-		return candidateId;
-	}
-
-	public void setCandidateId(String candidateId) {
-		this.candidateId = candidateId;
-	}
-
-	public String getJob() {
-		return job;
-	}
-
-	public void setJob(String job) {
-		this.job = job;
-	}
-
-	public float getHeight() {
-		return height;
-	}
-
-	public void setHeight(float height) {
-		this.height = height;
-	}
-
-	public void setWeight(float weight) {
-		this.weight = weight;
-	}
-
 	public String getGenderDesc() {
-		if(Constants.GENDER_FEMALE.equalsIgnoreCase(gender)) {
+		if(Constants.GENDER_FEMALE.equalsIgnoreCase(candidate.getGender())) {
 			genderDesc = Constants.GENDER_FEMALE_DESC;
 		} else {
 			genderDesc = Constants.GENDER_MALE_DESC;
 		}
 		return genderDesc;
-	}
-
-	public void setGenderDesc(String genderDesc) {
-		this.genderDesc = genderDesc;
 	}
 
 	public File getImage() {
@@ -286,11 +251,6 @@ public class CandidateAction extends ActionSupport {
 		this.imageFileName = imageFileName;
 	}
 
-	// generate unique file name for the candidate
-	private String getShowImageFileName() {
-		return  "PIC" + System.currentTimeMillis() + imageFileName.substring(imageFileName.lastIndexOf("."));
-	}
-
 	private String getSavePath() {
 		System.err.println("servletpath=" + ServletActionContext.getServletContext().getRealPath(Constants.IMAGE_FILE_RELATIVE_PATH));
         return ServletActionContext.getServletContext().getRealPath(Constants.IMAGE_FILE_RELATIVE_PATH);
@@ -310,14 +270,6 @@ public class CandidateAction extends ActionSupport {
 		this.totalCandidateCount = totalCandidateCount;
 	}
 
-	public Integer getAge() {
-		return age;
-	}
-
-	public void setAge(Integer age) {
-		this.age = age;
-	}
-
 	public String getFormToken() {
 		return formToken;
 	}
@@ -326,7 +278,28 @@ public class CandidateAction extends ActionSupport {
 		this.formToken = formToken;
 	}
 
-	public void setAge(int age) {
-		this.age = age;
+	public boolean isEditable() {
+		return editable;
 	}
+
+	public void setEditable(boolean editable) {
+		this.editable = editable;
+	}
+
+	public long getCandidateId() {
+		return candidateId;
+	}
+
+	public void setCandidateId(long candidateId) {
+		this.candidateId = candidateId;
+	}
+
+	public Candidate getCandidate() {
+		return candidate;
+	}
+
+	public void setCandidate(Candidate candidate) {
+		this.candidate = candidate;
+	}
+		
 }

@@ -25,57 +25,73 @@
 	<body>
 	<div class="ziwei-padding container">
 	<s:actionerror/>
-    <form action="<%=Constants.WEB_CONTEXT_ROOT%>/register.action" onsubmit="return validate();" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
+    <form action="<%=Constants.WEB_CONTEXT_ROOT%>/candidate.action" onsubmit="return validate();" method="post" enctype="multipart/form-data" class="form-horizontal" role="form">
         <div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">姓名</label>
             <div class="col-xs-9">
-                <input type="text" class="form-control" id="candidateName" name="candidateName" value="<s:property value='candidateName'/>" placeholder="姓名" maxlength="15" data-required data-errortext="请输入姓名"/>
+                <input type="text" class="form-control" id="candidateName" name="candidate.candidateName" value="<s:property value='candidate.candidateName'/>" placeholder="姓名" maxlength="15" data-required data-errortext="请输入姓名"/>
             </div>
         </div>
         <div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">联系方式</label>
             <div class="col-xs-9">
-            	<input type="text" class="form-control" id="phoneNumber" name="phoneNumber" value="<s:property value='phoneNumber'/>" placeholder="手机" data-pattern="^1[358]\d{9}$|^(\d{4}-?)?\d{7,8}$" data-errortext="请输入正确的手机" maxlength="11" />
+            	<input type="text" class="form-control" id="phoneNumber" name="candidate.phoneNumber" value="<s:property value='candidate.phoneNumber'/>" placeholder="手机" data-pattern="^1[358]\d{9}$|^(\d{4}-?)?\d{7,8}$" data-errortext="请输入正确的手机" maxlength="11" />
             </div>
         </div>
         <div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">工作</label>
-            <div class="col-xs-9"><input type="text" class="form-control" id="job" name="job" value="<s:property value='job'/>" placeholder="工作"  maxlength="200">
+            <div class="col-xs-9"><input type="text" class="form-control" id="job" name="candidate.job" value="<s:property value='candidate.job'/>" placeholder="工作"  maxlength="200">
             </div>
         </div>
         <div class="best-padding ziwei-form form-group">
           <label class="label-padding col-xs-3">年龄</label>
           <div class="col-xs-9">
-              <input type="text" class="form-control" id="age" name="age" placeholder="请输入年龄" data-pattern="^\d{n,}$" data-required data-errortext="请输入正确的年龄" maxlength="2" />
+              <input type="text" class="form-control" id="age" name="candidate.age" 
+              	value="<s:if test='candidate.age > 0'><s:property value='candidate.age'/></s:if>"
+              placeholder="请输入年龄" data-pattern="^\d{n,}$" data-required data-errortext="请输入正确的年龄" maxlength="2" />
           </div>
       	</div>
         <div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">性别</label>
-            <div class="col-xs-9"><select name="gender"><option value="F">女</option><option value="M">男</option></select></div>
+            <div class="col-xs-9"><select name="candidate.gender"><option value="F">女</option><option value="M">男</option></select></div>
         </div>
         <div class="best-padding ziwei-form form-group">
           <label class="label-padding col-xs-3">身高 CM</label>
           <div class="col-xs-9">
-              <input type="text" class="form-control" id="height" name="height" placeholder="请输入身高" data-pattern="^\d{n,}$" data-errortext="请输入正确的身高" maxlength="3" />
+              <input type="text" class="form-control" id="height" name="candidate.height" 
+              value="<s:if test='candidate.height > 0'><s:property value='candidate.height'/></s:if>"
+              placeholder="请输入身高" data-pattern="^(([1-9][0-9][0-9]|[1-9][0-9])(\.\d)?)$" data-errortext="请输入正确的身高" maxlength="5" />
           </div>
       	</div>
       	<div class="best-padding ziwei-form form-group">
           <label class="label-padding col-xs-3">参赛宣言</label>
           <div class="col-xs-9">
-              <textarea rows="3" cols="20" class="form-control" id="selfRemark" name="selfRemark" placeholder="请输入宣言" maxlength="200"><s:property value='selfRemark'/></textarea>
+              <textarea rows="3" cols="20" class="form-control" id="selfRemark" name="candidate.selfRemark" placeholder="请输入宣言" maxlength="200"><s:property value='candidate.selfRemark'/></textarea>
           </div>
       	</div>
-        <div class="best-padding ziwei-form form-group">
+      	<s:if test="candidate.id > 0">
+		<div class="best-padding ziwei-form form-group">
 		<label class="label-padding col-xs-3">图片秀</label>
+		<div class="col-xs-9"><img src="<s:property value='showImageFile'/>" style="border:0; margin:0; padding:0;max-width:300px; max-height:500px;"/></div>
+		</div>
+		</s:if>
+        <div class="best-padding ziwei-form form-group">
+		<label class="label-padding col-xs-3">选择图片</label>
 		<div class="col-xs-9"><input type="file" class="form-control" id="image" name="image" style="pending-top:10"/></div>
 		</div>
         <br>
         <div class="ziwei-padding form-group">
             <input type="submit" class="ziwei-btn btn btn-block" value="提交"/>
         </div>
+        <input type="hidden" id="candidateId" name="candidateId" value="<s:property value='candidate.id'/>" />
         <input type="hidden" id="formToken" name="formToken" value="<s:property value='formToken'/>"/>
-        <input type="hidden" id="function" name="function" value="<%=Constants.FUNCTION_REGISTER%>"/>
-        <input type="hidden" id="action" name="action" value="<%=Constants.ACTION_SAVE%>"/>
+        <input type="hidden" id="function" name="function" value="<%=Constants.FUNCTION_MANAGE_CANDIDATE%>"/>
+        <s:if test="candidate.id > 0">
+        	<input type="hidden" id="action" name="action" value="<%=Constants.ACTION_UPDATE%>"/>
+        </s:if>
+        <s:else>
+        	<input type="hidden" id="action" name="action" value="<%=Constants.ACTION_SAVE%>"/>
+        </s:else>
     </form>
 </div>	
 <script type="text/javascript" src="jquery/1.9.1/jquery.min.js" charset="UTF-8"></script>
@@ -101,18 +117,21 @@
 	if($('#job').val() == "" || $('#job').val() == undefined) {
 		errorMsg = errorMsg + "请填写工作\n";
 	}
-	var heightRegx = new RegExp("^([1][0-9][0-9]*)$");
+	var heightRegx = new RegExp("^(([1-9][0-9][0-9]|[1-9][0-9])(\.\d)?)$");
 	if($('#height').val() == "" || $('#height').val() == undefined || !heightRegx.test($('#height').val())) {
-		errorMsg = errorMsg + "请填写正确的身高\n";
+		errorMsg = errorMsg + "请填写正确的身高,比如 160 或者 160.5\n";
 	}
 	if($('#selfRemark').val() == "" || $('#selfRemark').val() == undefined) {
 		errorMsg = errorMsg +"请填写参赛宣言\n";
 	}	
-	if($('#image').val() == "" || $('#image').val() == undefined) {
-		errorMsg = errorMsg + "请选择照片\n";
+	if($('#action').val()=="<%=Constants.ACTION_SAVE%>") { // image is not required when updating
+		if($('#image').val() == "" || $('#image').val() == undefined) {
+			errorMsg = errorMsg + "请选择照片\n";
+		}
 	}
 	if(errorMsg != "") {
 		alert(errorMsg);
+		errorMsg = "";
 		return false;
 	} else {
 		return true;

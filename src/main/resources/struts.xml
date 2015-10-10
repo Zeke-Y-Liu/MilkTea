@@ -6,20 +6,22 @@
     <constant name="struts.objectFactory" value="spring" />
     <constant name="struts.devMode" value="true" />
     <constant name="struts.multipart.saveDir" value="/tempUpload"/>
-
-    <package name="mm" namespace="/" extends="json-default">	
-		<interceptors>
-            	<interceptor name="json" class="org.apache.struts2.json.JSONInterceptor"/>
-        </interceptors>
-
+    <package name="mm" namespace="/" extends="json-default">
+    <!-- 
+	<global-results>
+		<result name="exception">/pages/errorPage.jsp</result>
+	</global-results>
+	<global-exception-mappings>
+		<exception-mapping exception="java.lang.Throwable" result="exception" />
+	</global-exception-mappings>
+	 -->
         <action name="accept" method="accept" class="candidateAction">
             <result name="input">pages/accept.jsp</result>
             <result name="success">pages/register.jsp</result>
         </action>
-
-        <action name="register" method="register" class="candidateAction">
+        <action name="candidate" method="manageCandidate" class="candidateAction">
             <result name="input">pages/register.jsp</result>
-            <result name="success">pages/registerResult.jsp</result>
+            <result name="success">pages/viewCandidate.jsp</result>
         </action>
         <action name="rank" method="rank" class="rankAction">
             <result name="input">pages/rank.jsp</result>

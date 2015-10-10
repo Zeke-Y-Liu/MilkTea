@@ -27,7 +27,7 @@ public class VoteSynchronizer implements Runnable {
 				Vote vote = null;
 				try {
 					logger.info("VoteSynchronizer:run:poll vote from cache queue");
-					vote = cache.getNewVotes().poll(10*1000, TimeUnit.MILLISECONDS);
+					vote = cache.getNewVotes().poll(10*60*1000, TimeUnit.MILLISECONDS);
 				} catch (InterruptedException e) {
 					logger.error(e);
 				}

@@ -25,26 +25,26 @@
 	<body>
 	<div class="ziwei-padding container">
 	<s:actionmessage/>
-    <form id="registerResult" name="registerResult" action="<%=Constants.WEB_CONTEXT_ROOT%>/rank.action" method="post" class="form-horizontal" role="form">
+    <form id="viewCandidate" name="viewCandidate" action="<%=Constants.WEB_CONTEXT_ROOT%>/candidate.action" method="post" class="form-horizontal" role="form">
     	<div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">参选人数</label>
             <div class="col-xs-9"><s:property value='totalCandidateCount'/></div>
         </div>
         <div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">姓名</label>
-            <div class="col-xs-9"><s:property value='candidateName'/></div>
+            <div class="col-xs-9"><s:property value='candidate.candidateName'/></div>
         </div>
         <div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">联系方式</label>
-            <div class="col-xs-9"><s:property value='phoneNumber'/></div>
+            <div class="col-xs-9"><s:property value='candidate.phoneNumber'/></div>
         </div>
         <div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">工作</label>
-            <div class="col-xs-9"><s:property value='job'/></div>
+            <div class="col-xs-9"><s:property value='candidate.job'/></div>
         </div>
         <div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">年龄</label>
-            <div class="col-xs-9"><s:property value='age'/></div>
+            <div class="col-xs-9"><s:property value='candidate.age'/></div>
         </div>
         <div class="best-padding ziwei-form form-group">
             <label class="label-padding col-xs-3">性别</label>
@@ -52,28 +52,27 @@
         </div>
         <div class="best-padding ziwei-form form-group">
           <label class="label-padding col-xs-3">身高 CM</label>
-          <div class="col-xs-9"><s:property value='height'/></div>
+          <div class="col-xs-9"><s:property value='candidate.height'/></div>
       	</div>
       	<div class="best-padding ziwei-form form-group">
           <label class="label-padding col-xs-3">参赛宣言</label>
-          <div class="col-xs-9"><s:property value='selfRemark'/></div>
+          <div class="col-xs-9"><s:property value='candidate.selfRemark'/></div>
       	</div>
         <div class="best-padding ziwei-form form-group">
 			<label class="label-padding col-xs-3">图片秀</label>
 			<div class="col-xs-9"><img src="<s:property value='showImageFile'/>" style="border:0; margin:0; padding:0;max-width:300px; max-height:500px;"/></div>
 		</div>
-		<input type="hidden" id="id" name="id" value="<s:property value='id'/>" />
+		<input type="hidden" id="candidateId" name="candidateId" value="<s:property value='candidate.id'/>" />
 		<input type="hidden" id="formToken" name="formToken" value="<s:property value='formToken'/>"/>
-		<input type="hidden" id="function" name="function" value="<%=Constants.FUNCTION_VOTE%>"/>
-        <input type="hidden" id="action" name="action" value="<%=Constants.ACTION_VIEW_CANDIDATE_LIST%>"/>
+		<input type="hidden" id="function" name="function" value="<%=Constants.FUNCTION_MANAGE_CANDIDATE%>"/>
+        <input type="hidden" id="action" name="action" value="<%=Constants.ACTION_EDIT%>"/>
+        <div class="ziwei-padding form-group">
+        	<s:if test="editable">
+        		<div class="col-xs-9"><input type="submit" class="ziwei-btn btn btn-block" value="修改"/></div>
+            </s:if>
+        </div>
     </form>
 </div>
 <script type="text/javascript" src="jquery/1.9.1/jquery.min.js" charset="UTF-8"></script>
- <script type="text/javascript">
- 	// window.setTimeout(gotoPage, 5000);
-	function gotoPage() {
-		$("#registerResult").submit();
-	}
-</script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+<%@page import="com.youzan.easyranking.util.Constants"%>
 <%@ page language="java" isThreadSafe="true" pageEncoding="utf8" %>  
 <%@ page contentType="text/html; charset=UTF-8"%> 
 <%@ taglib prefix="s" uri="/struts-tags" %>
@@ -30,11 +31,25 @@
 		<s:iterator value='candidateList' status='stat' var='item'>
 			<tr>
 				<td><s:property value='#stat.index+1' /></td>
-				<td><img width="50px" height="50px" src="<s:property value='showImageFilePath'/><s:property value='imageFileName' /> "/><s:property value='candidateName' /></td>
+				<td><img onClick="viewCandidate('<s:property value='id'/>')" width="50px" height="50px" src="<s:property value='showImageFilePath'/><s:property value='imageFileName' /> "/><s:property value='item.candidateName' /></td>
 				<td><s:property value='poll' /></td>
 			</tr>
 		</s:iterator>
 	 </tbody>
 	</table>
+<form id="rankResult" name="rankResult" action="<%=Constants.WEB_CONTEXT_ROOT%>/candidate.action" method="post">
+	<input type="hidden" id="function" name="function" value="<%=Constants.FUNCTION_VOTE%>"/>
+    <input type="hidden" id="action" name="action" value=""/>
+    <input type="hidden" id="candidateId" name="candidateId" value="" />
+</form>
+<script type="text/javascript" src="jquery/1.9.1/jquery.min.js" charset="UTF-8"></script>
+<script type="text/javascript">
+function viewCandidate(candidateId) {
+	$("#function").val("<%=Constants.FUNCTION_MANAGE_CANDIDATE%>");	
+	$("#action").val("<%=Constants.ACTION_VIEW%>");
+	$("#candidateId").val(candidateId);
+	$("#rankResult").submit();
+}
+</script>
 </body>
 </html>

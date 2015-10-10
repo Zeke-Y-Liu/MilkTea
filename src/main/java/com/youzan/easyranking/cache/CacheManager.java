@@ -122,6 +122,11 @@ public class CacheManager {
 		candiatePkMap.put(candidate.getId(), candidate);
 	}
 	
+	public synchronized void updateCandidate(Candidate candidate) {
+		candidateDao.updateCandidate(candidate);
+		candiatePkMap.put(candidate.getId(), candidate);
+	}
+	
 	public synchronized Set<String> getUserOpenIdSet() {
 		return new HashSet<String>(userOpenIdSet);
 	}

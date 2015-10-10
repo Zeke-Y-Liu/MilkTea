@@ -14,7 +14,7 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import com.youzan.easyranking.cache.CacheManger;
+import com.youzan.easyranking.cache.CacheManager;
 import com.youzan.easyranking.entity.Candidate;
 import com.youzan.easyranking.util.Constants;
 import com.youzan.easyranking.util.Helper;
@@ -42,7 +42,7 @@ public class CandidateAction extends ActionSupport {
 
 	private long totalCandidateCount;
 
-	private CacheManger cacheManager;
+	private CacheManager cacheManager;
 
 	public String manageCandidate() {
 		logger.info("function=" + function + " action=" +action + " candidateId=" + candidateId);
@@ -209,11 +209,11 @@ public class CandidateAction extends ActionSupport {
 		this.action = action;
 	}
 
-	public CacheManger getCacheManager() {
+	public CacheManager getCacheManager() {
 		return cacheManager;
 	}
 
-	public void setCacheManager(CacheManger cacheManager) {
+	public void setCacheManager(CacheManager cacheManager) {
 		this.cacheManager = cacheManager;
 	}
 

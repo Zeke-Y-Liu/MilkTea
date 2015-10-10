@@ -33,17 +33,17 @@ import com.youzan.easyranking.util.Pair;
  * 2. time interval from last synchronization exceeds pre-defined number 
  *
  */
-public class CacheManger {
-	private static Logger logger = Logger.getLogger(CacheManger.class);
+public class CacheManager {
+	private static Logger logger = Logger.getLogger(CacheManager.class);
 	private ICandidateDao candidateDao;
 	private IVoteDao voteDao;
 	private IWeiXinUserDao weiXinUserDao;
 	private WeiXinService weiXinService;
-	private static CacheManger instance = new CacheManger();
-	private CacheManger() {
+	private static CacheManager instance = new CacheManager();
+	private CacheManager() {
 	}
 	
-	public static CacheManger getInstance() {
+	public static CacheManager getInstance() {
 		return instance;
 	}
 	
@@ -67,13 +67,13 @@ public class CacheManger {
 	private Set<String> userOpenIdSet = Collections.synchronizedSet(new HashSet<String>());
 	
 	public synchronized void initCache() {
-		logger.info("CacheManger::initCache");
+		logger.info("CacheManager::initCache");
 		
-		logger.info("CacheManger::initCache::load candidates");
+		logger.info("CacheManager::initCache::load candidates");
 		Set<Candidate> initCandiateSet = new HashSet<Candidate>(candidateDao.getAllCandidates());
-		logger.info("CacheManger::initCache::load votes");
+		logger.info("CacheManager::initCache::load votes");
 		Set<Vote> initVoteSet = new HashSet<Vote>(voteDao.getAllVotes());
-		logger.info("CacheManger::initCache::load weixin user open Ids");
+		logger.info("CacheManager::initCache::load weixin user open Ids");
 		Set<String> initUserOpenIdSet = new HashSet<String>(weiXinUserDao.getAllUserOpenIds());
 		candiatePkMap.clear();
 		for(Candidate candidate : initCandiateSet) {

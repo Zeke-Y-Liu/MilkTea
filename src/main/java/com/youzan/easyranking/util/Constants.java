@@ -23,6 +23,7 @@ public class Constants {
 	public static String RESULT_VOTE_RESULT = "voteResult";
 	public static String RESULT_VOTE = "voteResult";
 		
+
 	public static String GENDER_FEMALE = "F";
 	public static String GENDER_MALE = "M";
 	

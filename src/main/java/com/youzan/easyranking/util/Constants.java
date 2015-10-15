@@ -12,8 +12,10 @@ public class Constants {
 	public static String ACTION_VIEW_CANDIDATE_LIST= "viewCandidateList";
 	public static String ACTION_VOTE= "vote";
 	
-	public static String ACTION_PREVIOUS= "previous";
-	public static String ACTION_NEXT= "next";
+	public static String ACTION_PREVIOUS_PAGE= "previousPage";
+	public static String ACTION_NEXT_PAGE= "nextPage";
+	public static String ACTION_SPECIFIED_PAGE= "specifiedPage";
+	
 	public static String ACTION_VIEW_VOTE_RESULT= "viewVoteResult";
 	
 	public static String ACTION_EDIT= "edit";

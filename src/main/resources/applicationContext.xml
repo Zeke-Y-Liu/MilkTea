@@ -1,30 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:jee="http://www.springframework.org/schema/jee"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
 	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
-	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd "/>
-    <!--  <context:property-placeholder location="/WEB-INF/jdbc.properties" /> -->
-    <!--
-     <bean id="propertyConfigurer"
-        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-        p:location="/WEB-INF/jdbc.properties" />  
-      -->
-    <bean id="dataSource"
-          class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
-          p:driverClassName="com.mysql.jdbc.Driver"
-          p:url="jdbc:mysql://localhost:3306/mm?useUnicode=true&amp;characterEncoding=UTF-8"
-          p:username="mm"
-          p:password="Dilip123"/>
-
-    <bean id="sessionFactory"
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+	<!--  <context:property-placeholder location="/WEB-INF/jdbc.properties" /> -->
+    <!-- <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" p:location="/WEB-INF/jdbc.properties" /> -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
+		p:driverClassName="com.mysql.jdbc.Driver"
+		p:url="jdbc:mysql://localhost:3306/mm?useUnicode=true&amp;characterEncoding=UTF-8"
+		p:username="mm"
+		p:password="Dilip123"/>
+ 	<bean id="sessionFactory"
           class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource">
             <ref bean="dataSource"/>
@@ -55,7 +49,6 @@
         <aop:pointcut id="serviceOperation" expression="execution(* com.youzan.easyranking.dao..*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation"/>
     </aop:config>
-
     <context:component-scan base-package="com.youzan.easyranking"/>
     <bean id="candidateDao" class="com.youzan.easyranking.dao.CandidateDao">
         <property name="sessionFactory">
@@ -88,13 +81,22 @@
             <ref bean="weiXinService"/>
         </property>
     </bean>
-
     <bean id="candidateAction" class="com.youzan.easyranking.action.CandidateAction" scope="prototype">
         <property name="cacheManager">
             <ref bean="cacheManager"/>
         </property>
     </bean>
     <bean id="rankAction" class="com.youzan.easyranking.action.RankAction" scope="prototype">
+        <property name="cacheManager">
+            <ref bean="cacheManager"/>
+        </property>
+    </bean>
+    <bean id="voteAction" class="com.youzan.easyranking.action.VoteAction" scope="prototype">
+        <property name="cacheManager">
+            <ref bean="cacheManager"/>
+        </property>
+    </bean>
+    <bean id="mainAction" class="com.youzan.easyranking.action.MainAction" scope="prototype">
         <property name="cacheManager">
             <ref bean="cacheManager"/>
         </property>

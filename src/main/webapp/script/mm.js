@@ -1,0 +1,3 @@
+function viewCandidate(candidateId) {
+	alert("");
+}

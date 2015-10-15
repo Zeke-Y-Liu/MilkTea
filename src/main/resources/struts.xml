@@ -7,29 +7,19 @@
     <constant name="struts.devMode" value="true" />
     <constant name="struts.multipart.saveDir" value="/tempUpload"/>
     <package name="mm" namespace="/" extends="json-default">
-    <!-- 
-	<global-results>
-		<result name="exception">/pages/errorPage.jsp</result>
-	</global-results>
-	<global-exception-mappings>
-		<exception-mapping exception="java.lang.Throwable" result="exception" />
-	</global-exception-mappings>
-	 -->
-        <action name="accept" method="accept" class="candidateAction">
-            <result name="input">pages/accept.jsp</result>
-            <result name="success">pages/register.jsp</result>
+        <action name="main" method="mainPage" class="mainAction">
+            <result name="success">pages/mainPage.jsp</result>
         </action>
         <action name="candidate" method="manageCandidate" class="candidateAction">
             <result name="input">pages/register.jsp</result>
             <result name="success">pages/viewCandidate.jsp</result>
         </action>
-        <action name="rank" method="rank" class="rankAction">
-            <result name="input">pages/rank.jsp</result>
-            <result name="voteResult">pages/rankResult.jsp</result>
+        <action name="voteCandidate" method="voteCandidate" class="voteAction">
+            <result name="success">pages/vote.jsp</result>
         </action>
-        <action name="vote" method="vote" class="rankAction">
-            <result name="voteResult" type="json">
-            	<param name="root">votedCandidate</param>
+        <action name="vote" method="vote" class="voteAction">
+            <result name="success" type="json">
+            	<param name="root">candidate</param>
             </result>
         </action>
     </package>

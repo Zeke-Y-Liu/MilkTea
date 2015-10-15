@@ -48,9 +48,9 @@
 		<tr><td colSpan="4" style="visibility: hidden" height="10px">&nbsp;</td>
 		</s:if>
 		</s:iterator>
-        <tr><td><button type="button" <s:if test="pagination.firstPage">disabled</s:if> onClick="previousNextPage('<%=Constants.ACTION_PREVIOUS%>')">上一页</button></td>
+        <tr><td><button type="button" <s:if test="pagination.firstPage">disabled</s:if> onClick="previousNextPage('<%=Constants.ACTION_PREVIOUS_PAGE%>')">上一页</button></td>
 		<td colSpan="2"><button type="button" onClick="previousNextPage('<%=Constants.ACTION_VIEW_VOTE_RESULT%>')">查看投票结果</button></td>
-		<td><button type="button" <s:if test="pagination.lastPage">disabled</s:if> onClick="previousNextPage('<%=Constants.ACTION_NEXT%>')">下一页</button></td>
+		<td><button type="button" <s:if test="pagination.lastPage">disabled</s:if> onClick="previousNextPage('<%=Constants.ACTION_NEXT_PAGE%>')">下一页</button></td>
 		</tr>
 	</table>
 	<form id="rankForm" name="rankForm" action="<%=Constants.WEB_CONTEXT_ROOT%>/rank.action" method="post">

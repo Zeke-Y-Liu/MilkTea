@@ -21,6 +21,7 @@ public class Constants {
 	public static String ACTION_EDIT= "edit";
 	public static String ACTION_UPDATE= "update";
 	public static String ACTION_VIEW= "view";
+	public static String ACTION_SEARCH_CANDIDATE = "searchCandidate";
 	
 	public static String RESULT_VOTE_RESULT = "voteResult";
 	public static String RESULT_VOTE = "voteResult";

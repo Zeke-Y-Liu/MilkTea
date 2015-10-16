@@ -44,7 +44,7 @@
 <img src="<s:property value='showImageFilePath'/><s:property value='candidate.imageFileName'/>"></div>
 </div><div class="blank10"></div>
 <div class="abtn_box">
-<a href="javascript:void(0)" onclick="return vote1(this);" id="vote" class="a_btn toupiao vote"  data-itid="10389" style="background:rgb(224,102,122);">我要投票</a>
+<a href="javascript:void(0)" onclick="return vote(this);" id="voteLink" class="a_btn toupiao vote"  data-itid="10389" style="background:rgb(224,102,122);">我要投票</a>
 <a href="javascript:void(0)" onClick="goToRegister()" class="a_btn look">我也要参与</a>
 <a href="javascript:void(0)" onClick="goToMainPage()" class="a_btn look">返回主页面，查看投票情况</a>
 <a href="javascript:void(0)" onClick="" class="a_btn look">为我拉票</a>
@@ -59,31 +59,26 @@
 <input type="hidden" id="candidateId" name="candidateId" value="<s:property value='candidate.id'/>" />
 </form>
 <script type="text/javascript">
-alert("HHHHHH");
-function vote1(voteLink) {
-	alert("AAA");
+function vote(voteLink) {
 	var param = new Object();
 	param["function"] = "<%=Constants.FUNCTION_VOTE%>";
 	param["action"] = "<%=Constants.ACTION_VOTE%>";
 	param["candidateId"] = $("#candidateId").val();
-	alert("candidateId=" + $("#candidateId").val());
 	$.ajax({  
 		url  : "<%=Constants.WEB_CONTEXT_ROOT%>/vote.action",  
 		type : "POST",  
 		data : param, 
 		success : function(data, textStatus) {
-			alert("data[poll]" + data["poll"]);
 		$('#poll').html(data["poll"] + "票");
-		$("#poll").attr("style","background: rgb(224,102,122);");
-		// $("#poll").attr("onClick","");
-		alert("OK");
+		$("#voteLink").attr("onClick","");
+		$("#voteLink").attr("style","background: rgb(128,138,135);");
 		}  
 	});
 }
 function goToRegister() {
-	$("#voteForm").attr("action","<%=Constants.WEB_CONTEXT_ROOT%>/register.action");
+	$("#voteForm").attr("action","<%=Constants.WEB_CONTEXT_ROOT%>/candidate.action");
 	$("#function").val("<%=Constants.FUNCTION_MANAGE_CANDIDATE%>");	
-	$("#action").val("");
+	$("#action").val("<%=Constants.ACTION_ENTRY%>");
 	$("#candidateId").remove();
 	$("#voteForm").submit();
 }

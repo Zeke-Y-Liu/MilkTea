@@ -41,7 +41,7 @@
 	<div class="m_head clearfix">
 		<img src="./images/title.jpg">
 		<div class="num_box" style="background: rgb(226, 131, 151)">
-			<a href="./signup.html" class="join_us" style="color: white; background: rgb(226, 171, 191)">我要报名</a>
+			<a href="javascript:void(0)" onclick="goToRegister()" class="join_us" style="color: white; background: rgb(226, 171, 191)">我要报名</a>
 			<ul class="num_box_ul">
 				<li><span class="text" style="color: white;">已报名</span><span style="color: white;"><s:property value='mainPageView.TotalCandidateCount' /></span></li>
 				<li><span class="text" style="color: white;">投票人次</span><span style="color: white;"><s:property value='mainPageView.TotalVoteCount' /></span></li>
@@ -51,7 +51,7 @@
 		</div>
 		<div style="background-color:rgb(226,131,151)" class="search">
 			<div class="search_con">
-				<div class="btn"><input type="button" style="background: rgb(226,171,191); border-bottom:none;" id="searchBtn" value="搜索"/></div>
+				<div class="btn"><input type="button" onclick="searchCandidate()" style="background: rgb(226,171,191); border-bottom:none;" id="searchBtn" value="搜索"/></div>
     			<div class="text_box"><input type="text" id="searchText" value="" name="searchText" placeholder="搜姓名或编号" autocomplete="off"/></div>
 			</div>
 		</div>
@@ -136,6 +136,22 @@
 <input type="hidden" id="candidateId" name="candidateId" value="" />
 </form>
 <script type="text/javascript">
+function searchCandidate() {
+	$("#mainForm").attr("action","<%=Constants.WEB_CONTEXT_ROOT%>/main.action");
+	$("#function").val("<%=Constants.FUNCTION_MANAGE_CANDIDATE%>");	
+	$("#action").val("<%=Constants.ACTION_SEARCH_CANDIDATE%>");
+	$("#candidateId").remove();
+	$("#currentPageNum").val('0');
+	$("#mainForm").submit();
+}
+function goToRegister() {
+	$("#mainForm").attr("action","<%=Constants.WEB_CONTEXT_ROOT%>/candidate.action");
+	$("#function").val("<%=Constants.FUNCTION_MANAGE_CANDIDATE%>");	
+	$("#action").val("<%=Constants.ACTION_ENTRY%>");
+	$("#candidateId").remove();
+	$("#currentPageNum").remove();
+	$("#mainForm").submit();
+}
 function voteCandidate(candidateId) {
 	$("#mainForm").attr("action","<%=Constants.WEB_CONTEXT_ROOT%>/voteCandidate.action");
 	$("#function").val("<%=Constants.FUNCTION_VOTE%>");	
@@ -185,7 +201,7 @@ var wxInfo = {
 	titleToArea:'评选开始了！奶茶妹妹都在这！',
 	descToFriend:'评选开始了！',
 	link: './mainRank.html',
-    imgUrl: './images/title1.jpg'
+    imgUrl: './images/title.jpg'
 }
 var setShareToFriend = function(){
 	//分享给朋友

@@ -1,7 +1,9 @@
 package com.youzan.easyranking.action;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -23,20 +25,37 @@ public class MainAction extends ActionSupport {
 	
 	public String mainPage() {
 		String result = SUCCESS;
-		if(Constants.FUNCTION_MANAGE_CANDIDATE.equalsIgnoreCase(function)) {
-			if(Constants.ACTION_SPECIFIED_PAGE.equalsIgnoreCase(action)) {
+		if(Constants.ACTION_SPECIFIED_PAGE.equalsIgnoreCase(action)) {
 				result = gotoPage();
-			}
+		} else if (Constants.ACTION_SEARCH_CANDIDATE.equalsIgnoreCase(action)) {
+			result = searchCandidate(searchText);
 		} else {
 			result = initMainPage();
 		}
 		return result;
 	}
 	
+	private String searchCandidate(String searchText) {
+		candidateList = cacheManager.getAllCandiateList();
+		List<Candidate> result = new ArrayList<Candidate>();
+		if(StringUtils.isBlank(searchText)) {
+			result = candidateList;
+		} else {
+			for(Candidate candidate : candidateList) {
+				String idStr = candidate.getId() + "";
+				String name = candidate.getCandidateName();
+				if(idStr.contains(searchText) || name.contains(searchText)) {
+					result.add(candidate);
+				}
+			}
+		}
+		pagination.paging(result, action);
+		return SUCCESS;
+	}
+	
 	private String initMainPage() {
 		candidateList = cacheManager.getAllCandiateList();
 		pagination.paging(candidateList, action);
-		pagination.getPageList();
 		return SUCCESS;
 	}
 	

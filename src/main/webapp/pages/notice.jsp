@@ -21,8 +21,8 @@
 <span class="prize" style="width: 130px;">
 赞助商家：</span><p>
 </p>
-<div align="center"><img src="./images/sponsor_1.jpg" style="display: inline;width:44%;position:relative;left:-79px;"></div>
-<div align="center"><img src="./images/sponsor_2.jpg" style="display: inline;width:44%;position:relative;left:-79px;"></div>
+<div align="center"><img src="./images/sponsor_1.jpg" style="display: inline;width:44%;position:relative;">
+<img src="./images/sponsor_2.jpg" style="display: inline;width:44%;position:relative;"></div>
 <br>
 <p></p>  
 </div>

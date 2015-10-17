@@ -98,7 +98,7 @@
        <i class="number" style="background:rgb(226,131,151);"><s:property value='pagination.pageList[#stat.index].id'/>号</i>
 	   <a href="javascript:void(0)" onClick="voteCandidate('<s:property value='pagination.pageList[#stat.index].id'/>')" class="img"><img src="<s:property value='showImageFilePath'/><s:property value='pagination.pageList[#stat.index].imageFileName' />" style="border-color: red;"></a>
        <div class="clearfix" style="background: rgb(226,131,151);">
-       	<p style="background: rgb(226,131,151);"><s:property value='pagination.pageList[#stat.index].candidateName'/>')<br><s:property value='pagination.pageList[#stat.index].poll'/>票</p>
+       	<p style="background: rgb(226,131,151);"><s:property value='pagination.pageList[#stat.index].candidateName'/><br><s:property value='pagination.pageList[#stat.index].poll'/>票</p>
         <a href="javascript:void(0)" onClick="voteCandidate('<s:property value='pagination.pageList[#stat.index].id'/>')" class="vote" style="background:rgb(224,171,191);"><span style="position:relative;left:-13px;">简介</span><br><img style="width: 30px;position:relative;top:-33px;left:40px;" src="./images/z2.png"></a>
        </div>
      </div>
@@ -108,7 +108,7 @@
      <i class="number" style="background:rgb(226,131,151);"><s:property value='pagination.pageList[#stat.index+1].id'/>号</i>
 	   <a href="javascript:void(0)" onClick="voteCandidate('<s:property value='pagination.pageList[#stat.index+1].id'/>')" class="img"><img src="<s:property value='showImageFilePath'/><s:property value='pagination.pageList[#stat.index+1].imageFileName' />" style="border-color: red;"></a>
        <div class="clearfix" style="background: rgb(226,131,151);">
-       	<p style="background: rgb(226,131,151);"><s:property value='pagination.pageList[#stat.index+1].candidateName'/>')<br><s:property value='pagination.pageList[#stat.index+1].poll'/>票</p>
+       	<p style="background: rgb(226,131,151);"><s:property value='pagination.pageList[#stat.index+1].candidateName'/><br><s:property value='pagination.pageList[#stat.index+1].poll'/>票</p>
         <a href="javascript:void(0)" onClick="voteCandidate('<s:property value='pagination.pageList[#stat.index+1].id'/>')" class="vote" style="background:rgb(224,171,191);"><span style="position:relative;left:-13px;">简介</span><br><img style="width: 30px;position:relative;top:-33px;left:40px;" src="./images/z2.png"></a>
        </div>
 	</div>

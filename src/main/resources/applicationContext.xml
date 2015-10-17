@@ -101,4 +101,9 @@
             <ref bean="cacheManager"/>
         </property>
     </bean>
+    <bean id="couponAction" class="com.youzan.easyranking.action.CouponAction" scope="prototype">
+        <property name="cacheManager">
+            <ref bean="cacheManager"/>
+        </property>
+    </bean>
 </beans>

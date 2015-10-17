@@ -24,14 +24,17 @@ public class MainAction extends ActionSupport {
 	private CacheManager cacheManager;
 	
 	public String mainPage() {
+		logger.info("function=" + function + " action=" +action + " currentPage=" + pagination.getCurrentPageNum());
 		String result = SUCCESS;
 		if(Constants.ACTION_SPECIFIED_PAGE.equalsIgnoreCase(action)) {
+			
 				result = gotoPage();
 		} else if (Constants.ACTION_SEARCH_CANDIDATE.equalsIgnoreCase(action)) {
 			result = searchCandidate(searchText);
 		} else {
 			result = initMainPage();
 		}
+		logger.info("result=" + result);
 		return result;
 	}
 	
@@ -62,7 +65,6 @@ public class MainAction extends ActionSupport {
 	private String gotoPage() {
 		candidateList = cacheManager.getAllCandiateList();
 		pagination.paging(candidateList, action);
-		pagination.getPageList();
 		return SUCCESS;
 	}
 	

@@ -5,13 +5,16 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 <head>
+<link rel="shortcut icon" href="https://su.yzcdn.cn/v2/image/yz_fc.ico" />
+<link rel="stylesheet" href="https://su.yzcdn.cn/v2/build_css/stylesheets/wap/base_2dafc42a32.css" onerror="_cdnFallback(this)">        
+<link rel="stylesheet" href="https://su.yzcdn.cn/v2/build_css/stylesheets/wap/pages/ump/promocard_bf6250a7c0.css" onerror="_cdnFallback(this)">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
 <meta content="yes" name="apple-mobile-web-app-capable">
 <meta content="black" name="apple-mobile-web-app-status-bar-style">
 <meta content="telephone=no" name="format-detection">
 <title>Its me，正在奶茶妹妹评选</title>
-<link rel="stylesheet" href="./css/touchboss.css">
+<link rel="stylesheet" href="./css/touchboss.css"> 
 <script type="text/javascript" src="./jquery/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="./jquery/jquery.masonry.min.js"></script>
 <script src="./jweixin/jweixin-1.0.0.js"></script>
@@ -42,7 +45,8 @@
 <div class="blank10"></div><p>拉票宣言：<s:property value='candidate.selfRemark'/></p>
 <div class="blank10"></div><div style="position: relative;">
 <img src="<s:property value='showImageFilePath'/><s:property value='candidate.imageFileName'/>"></div>
-</div><div class="blank10"></div>
+</div>
+<div id="coupon" class="blank10"></div>
 <div class="abtn_box">
 <a href="javascript:void(0)" onclick="return vote(this);" id="voteLink" class="a_btn toupiao vote"  data-itid="10389" style="background:rgb(224,102,122);">我要投票</a>
 <a href="javascript:void(0)" onClick="goToRegister()" class="a_btn look">我也要参与</a>
@@ -53,6 +57,7 @@
 </div>
 </section>
 </div>
+
 <%@ include file="/pages/notice.jsp" %>
 <input type="hidden" id="function" name="function" value=""/>
 <input type="hidden" id="action" name="action" value=""/>
@@ -72,6 +77,8 @@ function vote(voteLink) {
 		$('#poll').html(data["poll"] + "票");
 		$("#voteLink").attr("onClick","");
 		$("#voteLink").attr("style","background: rgb(128,138,135);");
+		$("#coupon").attr("class","m_head clearfix");
+		$("#coupon").load("<%=Constants.WEB_CONTEXT_ROOT%>/coupon.action");
 		}  
 	});
 }

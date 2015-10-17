@@ -1,13 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <section class="rules">
 <div class="text">  
- <a><span class="prize">投票规则:</span></a><p>
+ <a name="rule"><span class="prize">投票规则:</span></a><p>
 1、每位奶茶妹妹都有一个编号，可搜索编号或名字投票；<br>
 2、关注奶茶妹妹公众号，每个微信号每天均可为奶茶妹妹投票一次；<br>
 3、禁止刷票，一经发现取消获奖资格；<br>
 4、活动组委会拥有本次活动的最终解释权。<br>
 </p>
-<a><span class="prize">参赛奖励：</span></a>
+<a name="awards"><span class="prize">参赛奖励：</span></a>
 <p>
 票数第1名： 价值10000元斯里兰卡深度自助游<br>
 票数前20名：价值2000元奶茶妹妹写真秀（化妆造型拍摄及每人获得潮牌服装一套）<br>

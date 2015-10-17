@@ -72,8 +72,8 @@
 <section class="content" id="get_info" data-rid="503" data-sort="" data-kw="" data-page="">
 <div class="text_a clearfix" id="sort">
 <a id="newestCandidate" onClick="switchTab(this)" href="#" onClick="activeTab()" class="active" style="background:rgb(226,131,151)">最新参赛</a>
-<a id="adards" onClick="switchTab(this)" href="#awards" style="background:rgb(224,171,191)">奖&nbsp;项</a>
-<a id="rule" onClick="switchTab(this)" href="#rule" style="background:rgb(224,171,191)">投票规则</a>
+<a id="awardsLink" onClick="switchTab(this)" href="#awards" style="background:rgb(224,171,191)">奖&nbsp;项</a>
+<a id="ruleLink" onClick="switchTab(this)" href="#rule" style="background:rgb(224,171,191)">投票规则</a>
 </div>
 <div class="blank20"></div>
 <div id="pageCon" class="match_page masonry" style="padding-bottom: 50px;">
@@ -124,7 +124,7 @@
 <s:param name="first" value="1" />
 <s:param name="last" value="pagination.totalPageCount" />
 <s:iterator status='stat'>
-<a href="javascript:void(0)" <s:if test="#stat.index == pagination.currentPageNum">class="curr"</s:if><s:else>onClick="goToPage('<s:property value='#stat.index'/>')"</s:else>>1</a>
+<a href="javascript:void(0)" <s:if test="#stat.index == pagination.currentPageNum">class="curr"</s:if><s:else>onClick="goToPage('<s:property value='#stat.index'/>')"</s:else>><s:property value='#stat.index+1'/></a>
 </s:iterator>
 </s:bean>
 </div>
@@ -165,10 +165,10 @@ function voteCandidate(candidateId) {
 function switchTab(link) {
 	$("#newestCandidate").attr("class","");
 	$("#newestCandidate").attr("style","background:rgb(224,171,191)");
-	$("#adards").attr("class","");
-	$("#adards").attr("style","background:rgb(224,171,191)");
-	$("#rule").attr("class","");
-	$("#rule").attr("style","background:rgb(224,171,191)");
+	$("#awardsLink").attr("class","");
+	$("#awardsLink").attr("style","background:rgb(224,171,191)");
+	$("#ruleLink").attr("class","");
+	$("#ruleLink").attr("style","background:rgb(224,171,191)");
 	$("#"+link.id).attr("style","");
 	$("#"+link.id).attr("class","active");
 }
@@ -177,8 +177,8 @@ function goToPage(pageNum) {
 	$("#mainForm").attr("action","<%=Constants.WEB_CONTEXT_ROOT%>/main.action");
 	$("#function").val("<%=Constants.FUNCTION_MANAGE_CANDIDATE%>");	
 	$("#action").val("<%=Constants.ACTION_SPECIFIED_PAGE%>");
-	$("#currentPageNum").val(currentPageNum);
-	$("#candidateId").val(candidateId);
+	$("#currentPageNum").val(pageNum);
+	$("#candidateId").remove();
 	$("#mainForm").submit();
 }
 

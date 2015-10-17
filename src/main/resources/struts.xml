@@ -22,5 +22,8 @@
             	<param name="root">candidate</param>
             </result>
         </action>
+        <action name="coupon" method="coupon" class="couponAction">
+            <result name="success">pages/coupon.jsp</result>
+        </action>
     </package>
 </struts>

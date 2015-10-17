@@ -66,13 +66,15 @@ public class CacheManager {
 	// all existing user ids
 	private Set<String> userOpenIdSet = Collections.synchronizedSet(new HashSet<String>());
 	
+	private List<Vote> allVoteList = Collections.synchronizedList(new ArrayList<Vote>());
+	
 	public synchronized void initCache() {
 		logger.info("CacheManager::initCache");
 		
 		logger.info("CacheManager::initCache::load candidates");
 		Set<Candidate> initCandiateSet = new HashSet<Candidate>(candidateDao.getAllCandidates());
 		logger.info("CacheManager::initCache::load votes");
-		Set<Vote> initVoteSet = new HashSet<Vote>(voteDao.getAllVotes());
+		allVoteList = voteDao.getAllVotes();
 		logger.info("CacheManager::initCache::load weixin user open Ids");
 		Set<String> initUserOpenIdSet = new HashSet<String>(weiXinUserDao.getAllUserOpenIds());
 		candiatePkMap.clear();
@@ -80,7 +82,7 @@ public class CacheManager {
 			candiatePkMap.put(candidate.getId(), candidate);
 		}
 		allVoteKeyMap.clear();
-		for(Vote vote : initVoteSet) {
+		for(Vote vote : allVoteList) {
 			allVoteKeyMap.put(new Pair<String,  Long>(vote.getUserOpenId(), vote.getCandidateId()), vote);
 		}
 		userOpenIdSet.clear();
@@ -101,6 +103,7 @@ public class CacheManager {
 	// after 
 	public synchronized void afterFlush(List<Vote> synchedVoteList) {
 		for(Vote vote : synchedVoteList) {
+			allVoteList.add(vote);
 			allVoteKeyMap.put(new Pair<String,  Long>(vote.getUserOpenId(), vote.getCandidateId()), vote);
 			userOpenIdSet.add(vote.getUserOpenId());
 		}
@@ -169,5 +172,14 @@ public class CacheManager {
 
 	public void setWeiXinService(WeiXinService weiXinService) {
 		this.weiXinService = weiXinService;
+	}
+
+	public List<Vote> getAllVoteList() {
+		return allVoteList;
+	}
+
+	public void setAllVoteList(List<Vote> allVoteList) {
+		this.allVoteList = allVoteList;
 	}	
+	
 }

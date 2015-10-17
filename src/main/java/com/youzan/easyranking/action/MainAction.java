@@ -10,6 +10,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.youzan.easyranking.cache.CacheManager;
 import com.youzan.easyranking.entity.Candidate;
 import com.youzan.easyranking.util.Constants;
+import com.youzan.easyranking.vo.PageView;
 import com.youzan.easyranking.vo.Pagination;
 
 public class MainAction extends ActionSupport {
@@ -22,10 +23,12 @@ public class MainAction extends ActionSupport {
 	private String searchText;
 	private Pagination<Candidate> pagination = new Pagination<Candidate>();
 	private CacheManager cacheManager;
+	private PageView pageView = new PageView();
 	
 	public String mainPage() {
 		logger.info("function=" + function + " action=" +action + " currentPage=" + pagination.getCurrentPageNum());
 		String result = SUCCESS;
+		initPageView();
 		if(Constants.ACTION_SPECIFIED_PAGE.equalsIgnoreCase(action)) {
 			
 				result = gotoPage();
@@ -115,5 +118,17 @@ public class MainAction extends ActionSupport {
 
 	public void setSearchText(String searchText) {
 		this.searchText = searchText;
+	}	
+	private void initPageView() {
+		pageView.setTotalCandidateCount(cacheManager.getAllCandiateList().size());
+		pageView.setTotalVoteCount(cacheManager.getAllVoteList().size());
+	}
+
+	public PageView getPageView() {
+		return pageView;
+	}
+
+	public void setPageView(PageView pageView) {
+		this.pageView = pageView;
 	}	
 }

@@ -18,6 +18,7 @@ import com.youzan.easyranking.cache.CacheManager;
 import com.youzan.easyranking.entity.Candidate;
 import com.youzan.easyranking.util.Constants;
 import com.youzan.easyranking.util.Helper;
+import com.youzan.easyranking.vo.PageView;
 
 public class CandidateAction extends ActionSupport {
 	/**
@@ -36,17 +37,16 @@ public class CandidateAction extends ActionSupport {
 	private long candidateId;
 	private boolean editable = true; 
 	private Candidate candidate = new Candidate();
+	private PageView pageView = new PageView();
 
 	// file name saved to images under war folder
 	private String showImageFileName;
-
-	private long totalCandidateCount;
-
 	private CacheManager cacheManager;
 
 	public String manageCandidate() {
 		logger.info("function=" + function + " action=" +action + " candidateId=" + candidateId);
 		String result = INPUT;
+		initPageView();
 		if(Constants.ACTION_ENTRY.equalsIgnoreCase(action)) {
 			result = INPUT;
 		} else if(Constants.ACTION_SAVE.equalsIgnoreCase(action)) {
@@ -138,9 +138,9 @@ public class CandidateAction extends ActionSupport {
 			if(candidate.getAge()== 0) {
 				addActionError("请填写年龄");
 			}
-			if(StringUtils.isBlank(candidate.getJob())) {
-				addActionError("请填写工作");
-			}
+//			if(StringUtils.isBlank(candidate.getJob())) {
+//				addActionError("请填写工作");
+//			}
 			if(candidate.getHeight() < 50 ) {
 				addActionError("请输入正确的身高");
 			}
@@ -217,6 +217,11 @@ public class CandidateAction extends ActionSupport {
 		this.cacheManager = cacheManager;
 	}
 
+	private void initPageView() {
+		pageView.setTotalCandidateCount(cacheManager.getAllCandiateList().size());
+		pageView.setTotalVoteCount(cacheManager.getAllVoteList().size());
+	}
+	
 	public String getGenderDesc() {
 		if(Constants.GENDER_FEMALE.equalsIgnoreCase(candidate.getGender())) {
 			genderDesc = Constants.GENDER_FEMALE_DESC;
@@ -261,15 +266,6 @@ public class CandidateAction extends ActionSupport {
 		return Constants.WEB_CONTEXT_ROOT + Constants.IMAGE_FILE_RELATIVE_PATH + showImageFileName;
 	}
 
-	public long getTotalCandidateCount() {
-		totalCandidateCount = cacheManager.getAllCandiateList().size();
-		return totalCandidateCount + 188;
-	}
-
-	public void setTotalCandidateCount(long totalCandidateCount) {
-		this.totalCandidateCount = totalCandidateCount;
-	}
-
 	public String getFormToken() {
 		return formToken;
 	}
@@ -301,5 +297,11 @@ public class CandidateAction extends ActionSupport {
 	public void setCandidate(Candidate candidate) {
 		this.candidate = candidate;
 	}
-		
+	public PageView getPageView() {
+		return pageView;
+	}
+	public void setPageView(PageView pageView) {
+		this.pageView = pageView;
+	}
+			
 }

@@ -28,52 +28,65 @@
 <div class="m_head clearfix"><img src="./images/title.jpg">
 <div class="num_box" style="color: rgb(226,131,151);background:rgb(254,245,246)">
 <ul class="num_box_ul">
-<li><span class="text" style="color: rgb(226,131,151);">已报名</span><span style="color: rgb(226,131,151);">564</span></li>
-<li><span class="text" style="color: rgb(226,131,151);">投票人次</span><span style="color: rgb(226,131,151);">144269</span></li>
-<li><span class="text" style="color: rgb(226,131,151);">访问量</span><span style="color: rgb(226,131,151);">401550</span></li>
+	<li><span class="text" style="color: rgb(226,131,151);">已报名</span><span style="color: rgb(226,131,151);"><s:property value='pageView.TotalCandidateCount' /></span></li>
+	<li><span class="text" style="color: rgb(226,131,151);">投票人次</span><span style="color: rgb(226,131,151);"><s:property value='pageView.TotalVoteCount' /></span></li>
+	<li><span class="text" style="color: rgb(226,131,151);">访问量</span> <span style="color: rgb(226,131,151);"><s:property value='pageView.TotalVisitorCount' /></span></li>
 </ul>
 </div>
 </div>
 </header>
 <div class="apply" style="background: rgb(254,245,246);">
+<s:actionerror/>
+<section class="rules">
+<s:actionmessage />
+</section>
 <p style="color: rgb(226,131,151);">报名处</p>
 <div class="blank10"></div>
-<form action="" method="post" id="su">
-<input type="hidden" name="pic" id="pic">
+<form action="<%=Constants.WEB_CONTEXT_ROOT%>/candidate.action" onsubmit="return validate();" method="post" enctype="multipart/form-data">
 <dl class="clearfix"><dt style="color: rgb(226,131,151);">姓名:</dt>
-<dd><input type="text" class="input_txt" id="name" value="" name="name" placeholder="请输入姓名"></dd>
+<dd><input type="text" class="input_txt" id="candidateName" value="<s:property value='candidate.candidateName'/>" name="candidate.candidateName" placeholder="请输入姓名"></dd>
 </dl>
 <dl class="clearfix"><dt style="color: rgb(226,131,151);">年龄:</dt><dd>
-<input type="number" class="input_txt" value="" name="age" id="age" placeholder="请输入您的年龄"></dd>
+<input type="number" class="input_txt" value="<s:if test='candidate.age > 0'><s:property value='candidate.age'/></s:if>" name="candidate.age" id="age" placeholder="请输入您的年龄"></dd>
 </dl>
 <dl class="clearfix"><dt style="color: rgb(226,131,151);">电话:</dt><dd>
-<input type="number" class="input_txt" value="" name="tel" id="tel" placeholder="请输入您的真实电话"></dd>
+<input type="number" class="input_txt" value="<s:property value='candidate.phoneNumber'/>" name="candidate.phoneNumber" id="phoneNumber" placeholder="请输入您的真实电话"></dd>
 </dl>
 <dl class="clearfix"><dt style="color: rgb(226,131,151);">身高:</dt>
-<dd><input type="text" class="input_txt" id="high" value="" name="high" placeholder="请输入身高"></dd>
+<dd><input type="text" class="input_txt" id="height" value="<s:if test='candidate.height > 0'><s:property value='candidate.height'/></s:if>" name="candidate.height" placeholder="请输入身高"></dd>
 </dl>
-<dl class="upload clearfix"><dt style="color: rgb(226,131,151);">上传照片<br>(最大2M):</dt>
-<dd class="upload_area clearfix" style="width: 50%;">
-<ul id="imglist" class="post_imglist">
-<li id="listimg"></li></ul>
-<div id="show" style="float: left;"></div>
-<div class="upload_btn" style="float: left;" id="chooseImage" onclick="ajaxFileUpload()">
-</div>
-</dd>
+<s:if test="candidate.id > 0">
+<dl class="clearfix">
+<img src="<s:property value='showImageFile'/>"/>
 </dl>
+</s:if>
+<dl class="clearfix">
+<dt style="color: rgb(226,131,151);">图片秀:</dt>
+<dd><input type="file" class="button" id="image" name="image"/></dd>
+</dl>
+
 <dl class="clearfix">
 <dt style="color: rgb(226,131,151);">拉票宣言 :</dt>
 <dd>
-<textarea class="textarea" placeholder="一句话简绍自己,限制140字以内" name="intro" id="intro"></textarea>
+<textarea class="textarea" placeholder="一句话简绍自己,限制140字以内" name="candidate.selfRemark" id="selfRemark"><s:property value='candidate.selfRemark'/></textarea>
 </dd>
 </dl>
 <div style="color: red;">凡是发布涉及政治军事题材、淫秽、色情、有违公德的不健康内容、赌博、暴力、凶杀、恐怖或教唆犯罪、宣扬邪教和封建迷信、诽谤他人等有害社会的内容，我们将直接删除内容、取消参赛资格并采用严厉手段追究法律责任。</div>
 <br>
-<input type="submit" id="sss" style="display: none;">
 <div class="btn_box">
-<input type="button" class="button" value="确认报名" id="submit" style="background: rgb(224,102,122);"></div>
-<div class="btn_box" style="margin-top:20px;">
-<input type="button" class="button" value="返回主页面，查看投票情况" style="background: rgb(226,131,151);border-bottom:0;" onclick="location.href=&#39;./mainRank.html&#39;"></div><div class="blank10"></div>
+<input type="submit" class="button" value="确认报名" id="submit" style="background: rgb(224,102,122);">
+<input type="button" onclick="goToMainPage()" class="button" value="返回主页面，查看投票情况" id="submit" style="background: rgb(224,102,122);">
+</div>
+<div class="blank10"></div>
+        <input type="hidden" id="candidateId" name="candidateId" value="<s:property value='candidate.id'/>" />
+        <input type="hidden" id="formToken" name="formToken" value="<s:property value='formToken'/>"/>
+        <input type="hidden" id="function" name="function" value="<%=Constants.FUNCTION_MANAGE_CANDIDATE%>"/>
+        <s:if test="candidate.id > 0">
+        	<input type="hidden" id="action" name="action" value="<%=Constants.ACTION_UPDATE%>"/>
+        </s:if>
+        <s:else>
+        	<input type="hidden" id="action" name="action" value="<%=Constants.ACTION_SAVE%>"/>
+        </s:else>
 </form>
 </div>
 <section class="rules">
@@ -93,160 +106,48 @@
 </section>
 <div class="popWindow"></div><div class="popMessage"></div>
 <div id="console"></div>
-<script src="./jweixin/jweixin-1.0.0.js"></script><script type="text/javascript">
-function ajaxFileUpload() {
-		showMessage(true, '上传中...');
-		$.ajaxFileUpload({
-				url:'http://www.afeel.net/image.html',
-				secureuri:false,
-				fileElementId:'fileToUpload',
-				dataType: 'json',
-				type:'post',
-				data:{encrypts:'MjQ5NWxZUmRqVE1MSUN4WGlTcWdON0VuVWZPM3FZbkNId0Ixckx0K1hXMUp5anJxNzAzMkVSOHdEbkxCTWlCdGFrZ1ZHOE1kaEJvd1VUMnFObm9GZkFaT0N6Mng5TXBsSFJmczVNN0hzNXZORWh2cQ@3D@3D', 'PHPSESSID':'kun757ba1itvj1lg9f4b224940'},
-				success: function (data) {
-					showMessage(false);
-					if(data.flg < 1) {
-						alert(data.msg);
-					} else {
-						$('#listimg').html('<img src="'+data.msg.imgsrc+data.msg.filepath+'" style="width:48px;height:48px;" />');
-						$('#att_id').attr('value', data.msg.att_id);
-						$('#filepath').attr('value', data.msg.filepath);
-					}
-				},
-				error: function (data, status, e) {
-					showMessage(false);
-					alert('error('+e+')');
-				}
-			});
+<script src="./jweixin/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+function validate() {
+	var errorMsg = "";
+	if($('#candidateName').val() == "" || $('#candidateName').val() == undefined) {
+		errorMsg ="请填写姓名\n";
+	}
+	if($('#phoneNumber').val() == "" || $('#phoneNumber').val() == undefined) {
+		errorMsg = errorMsg + "请填写电话号码\n";
+		return false;
+	} 
+	var phoneRegx = new RegExp("^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$");
+	if(!phoneRegx.test($('#phoneNumber').val())) {
+		errorMsg = errorMsg + "请输入正确的手机\n";
+	}
+	var ageRegx = new RegExp("^([1-4][0-9]*)$");
+	if($('#age').val() == "" || $('#age').val() == undefined || !ageRegx.test($('#age').val()) || $('#age').val() < 18 || $('#age').val()  > 49 ) {
+		errorMsg = errorMsg + "请输入正确的年龄\n";
+	}
+	var heightRegx = new RegExp("^(([1-9][0-9][0-9]|[1-9][0-9])(\.\d)?)$");
+	if($('#height').val() == "" || $('#height').val() == undefined || !heightRegx.test($('#height').val())) {
+		errorMsg = errorMsg + "请填写正确的身高,比如 160 或者 160.5\n";
+	}
+	if($('#selfRemark').val() == "" || $('#selfRemark').val() == undefined) {
+		errorMsg = errorMsg +"请填写拉票宣言\n";
+	}	
+	if($('#action').val()=="<%=Constants.ACTION_SAVE%>") { // image is not required when updating
+		if($('#image').val() == "" || $('#image').val() == undefined) {
+			errorMsg = errorMsg + "请选择照片\n";
+		}
+	}
+	if(errorMsg != "") {
+		alert(errorMsg);
+		errorMsg = "";
+		return false;
+	} else {
+		return true;
+	}
 }
-
-function subs() {
-  var name = $('#name').val();
-	var tel = $('#tel').val();
-	var intro = $('#intro').val();
-  var high = $('#high').val();
-  var age = $('#age').val();
-
-	if(name == '') {
-		alert('请输入称呼！');
-		return false;
-	}
-	if(tel == '') {
-		alert('请输入电话！');
-		return false;
-	}
- if(high == '') {
-		alert('请输入身高！');
-		return false;
-	}
-  if(age == '') {
-		alert('请输入年龄！');
-		return false;
-	}
-	if(intro == '') {
-		alert('请输入宣言！');
-		return false;
-	}
-    if(intro.length > 140) {
-		alert('我与小店字数不能超过140字');
-		return false;
-	}
-    return true;	
+function goToMainPage() {
+	window.location = "<%=Constants.WEB_CONTEXT_ROOT%>/main.action";
 }
-wx.config({
-    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-    appId: 'wxc98e2c600062a34b', // 必填，公众号的唯一标识
-    timestamp:1444658646 , // 必填，生成签名的时间戳
-    nonceStr: 'ajuh5mjerudcqrjy', // 必填，生成签名的随机串
-    signature: 'ef94446f554187de295a351e9de86af0b5b9413c',// 必填，签名，见附录1
-    jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage','chooseImage','uploadImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-});
-
-var wxInfo = {
-	titleToFriend:'谁能当选奶茶妹妹？投她一票！',
-	titleToArea:'评选开始了！奶茶妹妹都在这！',
-	descToFriend:'奶茶妹妹评选开始了！',
-	link: './mainRank.html',
-    imgUrl: './images/title1.jpg'
-}
-var setShareToFriend = function(){
-	//分享给朋友
-	wx.onMenuShareAppMessage({
-		title:wxInfo.titleToFriend,
-		desc: wxInfo.descToFriend,
-		link: wxInfo.link,
-		imgUrl: wxInfo.imgUrl,
-		success: function (res) {},
-		cancel: function (res) {},
-		fail: function (res) {}});	
-}
-
-var setShareToArea = function(){
-	//分享到朋友圈
-	wx.onMenuShareTimeline({
-		title: wxInfo.titleToArea,
-		link: wxInfo.link,
-		imgUrl: wxInfo.imgUrl,
-		success: function (res) {},
-		cancel: function (res) {},
-		fail: function (res) {}});	
-}
-wx.ready(function(){
-     var images = {
-    localId: [],
-    serverId: []
-  };
-document.querySelector('#chooseImage').onclick = function () {
-    wx.chooseImage({
-      success: function (res) {
-            if(res.localIds.length>1){
-                alert('只能上传一张图片');
-                return false;
-            }
-            $("#show").html('');
-            for(var i=0;i<res.localIds.length;i++){
-                $("#show").append('<img style="width:50px;height:50px;margin:10px;display:inline" src="'+res.localIds[i]+'" id="show" />');
-            }
-        images.localId = res.localIds;
-      }
-    });
-  };
-   // 5.3 上传图片
-  document.querySelector('#submit').onclick = function () {
-     var bj= subs();
-     if(!bj){
-        return false;
-     }
-    if (images.localId.length == 0) {
-      alert('请先上传图片');
-      return;
-    }
-    var i = 0, length = images.localId.length;str='';
-    images.serverId = [];
-    function upload() {
-      wx.uploadImage({
-        localId: images.localId[i],
-        success: function (res) {
-          i++;
-          images.serverId.push(res.serverId);
-          str= res.serverId;
-          if (i < length) {
-            upload();
-            return ;
-          }
-          $("#pic").val(str);
-          $('#sss').click();
-        },
-        fail: function (res) {
-          alert(JSON.stringify(res));
-        }
-      });
-    }
-    upload();
-  };
-setShareToFriend();
-setShareToArea();
-})
 </script>
 </body>
 </html>

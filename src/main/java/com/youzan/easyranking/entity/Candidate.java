@@ -37,7 +37,7 @@ public class Candidate extends AuditEntity{
     private float weight;
     
     @Column(name="HEIGHT")
-    private float height;
+    private int height;
     
     @Column(name="POLL")
     private int poll;
@@ -99,11 +99,12 @@ public class Candidate extends AuditEntity{
 		this.weight = weight;
 	}
 
-	public float getHeight() {
+
+	public int getHeight() {
 		return height;
 	}
 
-	public void setHeight(float height) {
+	public void setHeight(int height) {
 		this.height = height;
 	}
 

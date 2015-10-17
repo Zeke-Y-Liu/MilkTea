@@ -90,11 +90,7 @@ function goToRegister() {
 	$("#voteForm").submit();
 }
 function goToMainPage() {
-	$("#voteForm").attr("action","<%=Constants.WEB_CONTEXT_ROOT%>/main.action");
-	$("#function").val("<%=Constants.FUNCTION_MANAGE_CANDIDATE%>");	
-	$("#action").val("");
-	$("#candidateId").remove();
-	$("#voteForm").submit();
+	window.location = "<%=Constants.WEB_CONTEXT_ROOT%>/main.action";
 }
 </script>
 </body>

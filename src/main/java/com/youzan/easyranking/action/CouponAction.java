@@ -30,7 +30,7 @@ public class CouponAction extends ActionSupport {
 		CloseableHttpResponse externalResponse = null;
 		try {
 			httpclient = HttpClients.createDefault();
-			HttpGet httpGet = new HttpGet("http://wap.koudaitong.com/v2/ump/promocard/fetch?alias=l2r13mgn");
+			HttpGet httpGet = new HttpGet("http://wap.koudaitong.com/v2/ump/promocard/fetch?alias=1fkugbgn8");
 			externalResponse = httpclient.execute(httpGet);
 			HttpServletResponse response = ServletActionContext.getResponse();
 			String content = EntityUtils.toString(externalResponse.getEntity());

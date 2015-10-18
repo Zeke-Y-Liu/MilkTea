@@ -5,7 +5,7 @@ import java.util.List;
 import com.youzan.easyranking.util.Constants;
 
 public class Pagination<T> {
-	private int pageSize = 10;
+	private int pageSize = 6;
 
 	private int currentPageNum;
 	private boolean firstPage;
@@ -52,9 +52,9 @@ public class Pagination<T> {
 	public void paging(List<T> elementList, String action) {
 		// pagination, 10 candidates each page
 		if(elementList.size()%10==0) {
-			totalPageCount = elementList.size()/10;
+			totalPageCount = elementList.size()/pageSize;
 		} else {
-			totalPageCount = (elementList.size()/10) + 1;
+			totalPageCount = (elementList.size()/pageSize) + 1;
 		}
 		int fromIndex = 0;
 		int toIndex = pageSize;

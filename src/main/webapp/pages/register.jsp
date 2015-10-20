@@ -55,16 +55,15 @@
 <dl class="clearfix"><dt style="color: rgb(226,131,151);">身高:</dt>
 <dd><input type="text" class="input_txt" id="height" value="<s:if test='candidate.height > 0'><s:property value='candidate.height'/></s:if>" name="candidate.height" placeholder="请输入身高"></dd>
 </dl>
-<s:if test="candidate.id > 0">
-<dl class="clearfix">
-<img src="<s:property value='showImageFile'/>"/>
-</dl>
-</s:if>
-<dl class="clearfix">
-<dt style="color: rgb(226,131,151);">图片秀:</dt>
-<dd><input type="file" class="button" id="image" name="image"/></dd>
-</dl>
 
+<dl class="upload clearfix">
+<dt style="color: rgb(226,131,151);">上传照片<br>(最大2M):</dt>
+<dd class="upload_area clearfix" style="width: 70%;">
+<input type="file" onchange="showImg(this)" class="button" id="image" name="image" style="display:none"/>
+<div class="upload_btn" style="float: left;" id="chooseImage" onclick="fileUpload()"></div>
+<div id="show" style="float:right; display:none"><img id="imgshow" style="width:98px;height:198px;margin:0px;display:inline" src="" /></div>
+</dd>
+</dl>
 <dl class="clearfix">
 <dt style="color: rgb(226,131,151);">拉票宣言 :</dt>
 <dd>
@@ -108,6 +107,17 @@
 <div id="console"></div>
 <script src="./jweixin/jweixin-1.0.0.js"></script>
 <script type="text/javascript">
+function showImg(fileInput) {
+	var reader = new FileReader()
+    reader.onload = function(e) {
+        $('#imgshow').attr("src",e.target.result);
+    	$('#show').attr("style", "float:left; display:inline;");
+    }
+    reader.readAsDataURL(fileInput.files[0]);
+}
+function fileUpload() {
+	$('#image').click();
+}
 function validate() {
 	var errorMsg = "";
 	if($('#candidateName').val() == "" || $('#candidateName').val() == undefined) {

@@ -23,6 +23,8 @@ public class Constants {
 	public static String ACTION_VIEW= "view";
 	public static String ACTION_SEARCH_CANDIDATE = "searchCandidate";
 	
+	public static String ATTRIBUTE_OPEN_ID = "openId";
+	
 	public static String RESULT_VOTE_RESULT = "voteResult";
 	public static String RESULT_VOTE = "voteResult";
 		

@@ -26,7 +26,7 @@ public class MainAction extends ActionSupport {
 	private PageView pageView = new PageView();
 	
 	public String mainPage() {
-		logger.info("function=" + function + " action=" +action + " currentPage=" + pagination.getCurrentPageNum());
+		logger.info("function=" + function + " action=" +action + " currentPage=" + pagination.getCurrentPageNum() + " openId=" + openId);
 		String result = SUCCESS;
 		initPageView();
 		if(Constants.ACTION_SPECIFIED_PAGE.equalsIgnoreCase(action)) {

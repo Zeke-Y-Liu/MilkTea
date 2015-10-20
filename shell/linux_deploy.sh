@@ -26,7 +26,7 @@ echo "$TOMCAT_HOME/webapps"
 mv $CURRENT_PACKAGE $RELEASE_PACKAGE
 
 # start
-$TOMCAT_HOME/bin/startup.sh
+#$TOMCAT_HOME/bin/startup.sh
 
 
 echo "mm......"

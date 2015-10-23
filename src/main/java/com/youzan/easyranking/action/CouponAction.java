@@ -4,26 +4,20 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.CharSet;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 
-import com.opensymphony.xwork2.ActionSupport;
-import com.youzan.easyranking.cache.CacheManager;
-
-public class CouponAction extends ActionSupport {
+public class CouponAction extends AbstractBean {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private static Logger logger = Logger.getLogger(CouponAction.class);
-	private CacheManager cacheManager;
 
 	public String coupon() {
 		CloseableHttpClient httpclient = null;
@@ -50,13 +44,4 @@ public class CouponAction extends ActionSupport {
 
 		return SUCCESS;
 	}
-
-	public CacheManager getCacheManager() {
-		return cacheManager;
-	}
-
-	public void setCacheManager(CacheManager cacheManager) {
-		this.cacheManager = cacheManager;
-	}
-
 }

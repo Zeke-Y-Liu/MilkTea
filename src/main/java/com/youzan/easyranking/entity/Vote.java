@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -39,6 +40,9 @@ public class Vote {
 	
 	@Column(name="VOTE_TIME")
 	private Date voteTime;
+	
+	@Column(name="VOTE_IP_ADDR")
+	private String voteIpAddr;
 	
 	@Transient
 	private EntityStatus status;
@@ -78,15 +82,31 @@ public class Vote {
 	public void setStatus(EntityStatus status) {
 		this.status = status;
 	} 
-
 	
-    @Override
+	public String getVoteIpAddr() {
+		return voteIpAddr;
+	}
+
+	public void setVoteIpAddr(String voteIpAddr) {
+		this.voteIpAddr = voteIpAddr;
+	}
+
+	public String getVoteKey() {
+		if(!StringUtils.isBlank(userOpenId)) {
+			return userOpenId;
+		} else {
+			return voteIpAddr;
+		}
+	}
+	
+	@Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37).
           append(id).
           append(candidateId).
           append(userOpenId).
           append(voteTime).
+          append(voteIpAddr).
           toHashCode();
     }
     
@@ -102,7 +122,8 @@ public class Vote {
     		          append(id, that.id).
     		          append(candidateId, that.candidateId).
     		          append(userOpenId,that.userOpenId).
-    		          append(voteTime, that.voteTime)
+    		          append(voteTime, that.voteTime).
+    		          append(voteIpAddr, that.voteIpAddr)
     	              .isEquals();
     }	
 }

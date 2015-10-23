@@ -15,8 +15,8 @@ public class Helper {
 		toCandidate.setPoll(fromCandidate.getPoll());
 		toCandidate.setSelfRemark(fromCandidate.getSelfRemark());
 		toCandidate.setStatus(fromCandidate.getStatus());
-		toCandidate.setVoted(fromCandidate.isVoted());
+		toCandidate.setVoteAllowed(fromCandidate.isVoteAllowed());
 		toCandidate.setWeight(fromCandidate.getWeight());
-	}
-	
+	}	
+
 }

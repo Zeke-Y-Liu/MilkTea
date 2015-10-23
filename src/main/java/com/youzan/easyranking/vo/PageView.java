@@ -23,8 +23,4 @@ public int getTotalVisitorCount() {
 public void setTotalVisitorCount(int totalVisitorCount) {
 	this.totalVisitorCount = totalVisitorCount;
 }
-
-
-
-	
 }

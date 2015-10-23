@@ -13,6 +13,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 import org.apache.log4j.Logger;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.youzan.easyranking.action.UserInfoBean;
 import com.youzan.easyranking.dao.ICandidateDao;
 import com.youzan.easyranking.dao.IVoteDao;
 import com.youzan.easyranking.dao.IWeiXinUserDao;
@@ -20,7 +22,6 @@ import com.youzan.easyranking.entity.Candidate;
 import com.youzan.easyranking.entity.CandidatePollComparator;
 import com.youzan.easyranking.entity.Vote;
 import com.youzan.easyranking.service.WeiXinService;
-import com.youzan.easyranking.util.Pair;
 /**
  * 
  * @author Administrator
@@ -54,7 +55,7 @@ public class CacheManager {
 	//In this circumstance, clearly we differentiate a new user-candidate relationship and
 	// and voting up for multiple times. I think for different cases, we can either insert a new row into DB or
 	// update and existing vote relationship with DB PK.
-	private Map<Pair<String, Long>, Vote> allVoteKeyMap = Collections.synchronizedMap(new HashMap<Pair<String, Long>,Vote>());
+	private ArrayListMultimap<String, Vote> allVoteKeyMap = ArrayListMultimap.create();
 	
 	// for each user vote, we create a new vote object. The data synchronizer will merge the vote with all vote in data cache and then 
 	// synchronize the change into DB 
@@ -83,7 +84,7 @@ public class CacheManager {
 		}
 		allVoteKeyMap.clear();
 		for(Vote vote : allVoteList) {
-			allVoteKeyMap.put(new Pair<String,  Long>(vote.getUserOpenId(), vote.getCandidateId()), vote);
+			allVoteKeyMap.put(vote.getVoteKey(), vote);
 		}
 		userOpenIdSet.clear();
 		userOpenIdSet.addAll(initUserOpenIdSet);
@@ -104,7 +105,7 @@ public class CacheManager {
 	public synchronized void afterFlush(List<Vote> synchedVoteList) {
 		for(Vote vote : synchedVoteList) {
 			allVoteList.add(vote);
-			allVoteKeyMap.put(new Pair<String,  Long>(vote.getUserOpenId(), vote.getCandidateId()), vote);
+			allVoteKeyMap.put(vote.getVoteKey(), vote);
 			userOpenIdSet.add(vote.getUserOpenId());
 		}
 	}
@@ -134,8 +135,9 @@ public class CacheManager {
 		return new HashSet<String>(userOpenIdSet);
 	}
 	
-	public synchronized boolean isVoted(String openID, long candidateId) {
-		return allVoteKeyMap.get(new Pair<String, Long>(openID, candidateId))!= null;
+
+	public synchronized List<Vote> getVoteForUser(UserInfoBean userInfo) {
+		return allVoteKeyMap.get(userInfo.getVoteKey());
 	}
 	
 	public synchronized ICandidateDao getCandidateDao() {

@@ -14,5 +14,4 @@ public class WeiXinService {
 		user.setNickName("nickName");
 		return new ArrayList<WeiXinUser>();
 	}
-	
 }

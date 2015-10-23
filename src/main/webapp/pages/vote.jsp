@@ -48,7 +48,12 @@
 </div>
 <div id="coupon" class="blank10"></div>
 <div class="abtn_box">
+ <s:if test="candidate.voteAllowed">
 <a href="javascript:void(0)" onclick="return vote(this);" id="voteLink" class="a_btn toupiao vote"  data-itid="10389" style="background:rgb(224,102,122);">我要投票</a>
+</s:if>
+<s:else>
+<a href="javascript:void(0)" id="voteLink" class="a_btn toupiao vote"  data-itid="10389" style="background:rgb(128,138,135);">根据规则，您暂时不能投票</a>
+</s:else>
 <a href="javascript:void(0)" onClick="goToRegister()" class="a_btn look">我也要参与</a>
 <a href="javascript:void(0)" onClick="goToMainPage()" class="a_btn look">返回主页面，查看投票情况</a>
 <a href="javascript:void(0)" onClick="" class="a_btn look">为我拉票</a>

@@ -14,7 +14,10 @@ public class Candidate extends AuditEntity{
     @Column(name="ID")
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
-      
+    
+    @Column(name="CANDIDATE_OPEN_ID")
+    private String openId;
+    
     @Column(name="CANDIDATE_NAME")
     private String candidateName;
     
@@ -49,7 +52,7 @@ public class Candidate extends AuditEntity{
     private EntityStatus status;
     
     @Transient
-    private boolean voted;
+    private boolean voteAllowed;
     
 	public long getId() {
 		return id;
@@ -147,19 +150,28 @@ public class Candidate extends AuditEntity{
 	public void setStatus(EntityStatus status) {
 		this.status = status;
 	}	
-	
-	public boolean isVoted() {
-		return voted;
+		
+	public boolean isVoteAllowed() {
+		return voteAllowed;
 	}
 
-	public void setVoted(boolean voted) {
-		this.voted = voted;
+	public void setVoteAllowed(boolean voteAllowed) {
+		this.voteAllowed = voteAllowed;
+	}
+
+	public String getOpenId() {
+		return openId;
+	}
+
+	public void setOpenId(String openId) {
+		this.openId = openId;
 	}
 
 	@Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37).
           append(id).
+          append(openId).
           append(candidateName).
           append(phoneNumber).
           append(gender).
@@ -183,6 +195,7 @@ public class Candidate extends AuditEntity{
     	   Candidate that = (Candidate) obj;
     	   return new EqualsBuilder().
     		          append(id, that.id).
+    		          append(openId, that.openId).
     		          append(candidateName, that.candidateName).
     		          append(phoneNumber,that.phoneNumber).
     		          append(gender, that.gender).

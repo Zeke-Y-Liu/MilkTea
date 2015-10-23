@@ -49,7 +49,7 @@ public class Pagination<T> {
 		this.totalPageCount = totalPageCount;
 	}
 
-	public void paging(List<T> elementList, String action) {
+	public List<T> paging(List<T> elementList, String action) {
 		// pagination, 10 candidates each page
 		if(elementList.size()%10==0) {
 			totalPageCount = elementList.size()/pageSize;
@@ -81,5 +81,6 @@ public class Pagination<T> {
 			lastPage = true;
 		}
 		pageList = elementList.subList(fromIndex, toIndex);
+		return pageList;
 	}	
 }

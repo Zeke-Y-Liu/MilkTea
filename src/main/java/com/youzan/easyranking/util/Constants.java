@@ -7,6 +7,7 @@ public class Constants {
 	public static String FUNCTION_MANAGE_CANDIDATE = "manageCandidate";
 	public static String FUNCTION_VOTE = "vote";
 
+	public static String ACTION_LOGIN = "login";
 	public static String ACTION_ENTRY = "entry";
 	public static String ACTION_SAVE = "save";
 	public static String ACTION_VIEW_CANDIDATE_LIST= "viewCandidateList";
@@ -24,6 +25,7 @@ public class Constants {
 	public static String ACTION_SEARCH_CANDIDATE = "searchCandidate";
 	
 	public static String ATTRIBUTE_OPEN_ID = "openId";
+	public static String ATTRIBUTE_IP_ADDR = "ipAddr";
 	
 	public static String RESULT_VOTE_RESULT = "voteResult";
 	public static String RESULT_VOTE = "voteResult";

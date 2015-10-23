@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -13,22 +12,18 @@ import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
-import com.youzan.easyranking.cache.CacheManager;
 import com.youzan.easyranking.entity.Candidate;
 import com.youzan.easyranking.util.Constants;
 import com.youzan.easyranking.util.Helper;
 import com.youzan.easyranking.vo.PageView;
 
-public class CandidateAction extends ActionSupport {
+public class CandidateAction extends AbstractBean {
 	/**
 	 *
 	 */
 	private static Logger logger = Logger.getLogger(CandidateAction.class);
 	private static final long serialVersionUID = 1L;
-	private String function;
-	private String action;
-	private String genderDesc;
+
 	private File image;
 	private String imageContentType;
 	private String imageFileName;
@@ -38,10 +33,8 @@ public class CandidateAction extends ActionSupport {
 	private boolean editable = true; 
 	private Candidate candidate = new Candidate();
 	private PageView pageView = new PageView();
-
 	// file name saved to images under war folder
 	private String showImageFileName;
-	private CacheManager cacheManager;
 
 	public String manageCandidate() {
 		logger.info("function=" + function + " action=" +action + " candidateId=" + candidateId);
@@ -75,6 +68,7 @@ public class CandidateAction extends ActionSupport {
 		// save uploaded image file to war/images
 		this.showImageFileName = saveImageFile(imageFileName);
 		candidate.setImageFileName(showImageFileName);
+		candidate.setOpenId(getUserInfo().getOpenId());
 		cacheManager.register(candidate);
 		addActionMessage("恭喜你注册成功!");
 		// there is no any other authentication or authorization on current user 
@@ -124,7 +118,6 @@ public class CandidateAction extends ActionSupport {
 		if(Constants.ACTION_ENTRY.equalsIgnoreCase(action)) {
 			clearActionErrors();
 		} else if(Constants.ACTION_SAVE.equalsIgnoreCase(action) || Constants.ACTION_UPDATE.equalsIgnoreCase(action)) {
-
 			if(StringUtils.isBlank(candidate.getCandidateName())) {
 				addActionError("请填写姓名");
 			}
@@ -138,9 +131,6 @@ public class CandidateAction extends ActionSupport {
 			if(candidate.getAge()== 0) {
 				addActionError("请填写年龄");
 			}
-//			if(StringUtils.isBlank(candidate.getJob())) {
-//				addActionError("请填写工作");
-//			}
 			if(candidate.getHeight() < 50 ) {
 				addActionError("请输入正确的身高");
 			}
@@ -164,17 +154,22 @@ public class CandidateAction extends ActionSupport {
 	 */
 	private String generateFormToken() {
 		String token = System.currentTimeMillis() + "";
-		Map<String, Object> session = ActionContext.getContext().getSession();
-		session.put(Constants.FORM_TOKEN, token);
+		getUserInfo().setRequestToken(token);
 		return token;
 	}
 	
 	public boolean isTokenValid() {
 		logger.info("CandidateAction:isResubmitByF5:request formToken=" + formToken);
 		logger.info("CandidateAction:isResubmitByF5:session formToken=" + ActionContext.getContext().getSession().get(Constants.FORM_TOKEN));
-		return (formToken != null && formToken.equals(ActionContext.getContext().getSession().get(Constants.FORM_TOKEN)));
+		return (formToken != null && formToken.equals(getUserInfo().getRequestToken()));
 	}
 	
+	public String getFormToken() {
+		return formToken;
+	}
+	public void setFormToken(String formToken) {
+		this.formToken = formToken;
+	}
 	private String saveImageFile(String uploadedImageFileName) {
 		String savedIageFileName = "";
 		try {
@@ -192,54 +187,18 @@ public class CandidateAction extends ActionSupport {
 		}
 		return savedIageFileName;
 	}
-	
-	public String getFunction() {
-		return function;
-	}
-
-	public void setFunction(String function) {
-		this.function = function;
-	}
-
-	public String getAction() {
-		return action;
-	}
-
-	public void setAction(String action) {
-		this.action = action;
-	}
-
-	public CacheManager getCacheManager() {
-		return cacheManager;
-	}
-
-	public void setCacheManager(CacheManager cacheManager) {
-		this.cacheManager = cacheManager;
-	}
 
 	private void initPageView() {
 		pageView.setTotalCandidateCount(cacheManager.getAllCandiateList().size());
 		pageView.setTotalVoteCount(cacheManager.getAllVoteList().size());
 	}
-	
-	public String getGenderDesc() {
-		if(Constants.GENDER_FEMALE.equalsIgnoreCase(candidate.getGender())) {
-			genderDesc = Constants.GENDER_FEMALE_DESC;
-		} else {
-			genderDesc = Constants.GENDER_MALE_DESC;
-		}
-		return genderDesc;
-	}
 
 	public File getImage() {
 		return image;
 	}
-
 	public void setImage(File image) {
 		this.image = image;
 	}
-
-
 	public String getImageContentType() {
 		return imageContentType;
 	}
@@ -255,23 +214,13 @@ public class CandidateAction extends ActionSupport {
 	public void setImageFileName(String imageFileName) {
 		this.imageFileName = imageFileName;
 	}
-
 	private String getSavePath() {
 		System.err.println("servletpath=" + ServletActionContext.getServletContext().getRealPath(Constants.IMAGE_FILE_RELATIVE_PATH));
         return ServletActionContext.getServletContext().getRealPath(Constants.IMAGE_FILE_RELATIVE_PATH);
     }
-
 	// relative path and name of the show image file, for e.g /images/PIC123456.jpg
 	public String getShowImageFile() {
 		return Constants.WEB_CONTEXT_ROOT + Constants.IMAGE_FILE_RELATIVE_PATH + showImageFileName;
-	}
-
-	public String getFormToken() {
-		return formToken;
-	}
-
-	public void setFormToken(String formToken) {
-		this.formToken = formToken;
 	}
 
 	public boolean isEditable() {
@@ -303,5 +252,4 @@ public class CandidateAction extends ActionSupport {
 	public void setPageView(PageView pageView) {
 		this.pageView = pageView;
 	}
-			
 }

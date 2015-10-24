@@ -14,7 +14,7 @@
 	<context:property-placeholder  location="/WEB-INF/app.properties" />
     <!-- <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" p:location="/WEB-INF/jdbc.properties" /> -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
-		p:driverClassName="${com.mysql.jdbc.Driver}"
+		p:driverClassName="${jdbc.driverClassName}"
 		p:url="${jdbc.url}"
 		p:username="${jdbc.username}"
 		p:password="${jdbc.password}"/>
@@ -97,9 +97,10 @@
             <ref bean="appInfo"/>
         </property>
 	</bean>
-    <bean id="candidateAction" parent="abstractBean" class="com.youzan.easyranking.action.CandidateAction" scope="prototype"/>
-    <bean id="rankAction" parent="abstractBean" class="com.youzan.easyranking.action.RankAction" scope="prototype"/>
-    <bean id="voteAction" class="com.youzan.easyranking.action.VoteAction" scope="prototype"/>
-    <bean id="mainAction" class="com.youzan.easyranking.action.MainAction" scope="prototype"/>
-    <bean id="couponAction" class="com.youzan.easyranking.action.CouponAction" scope="prototype"/>
+    <bean id="candidateAction"  parent="abstractBean" class="com.youzan.easyranking.action.CandidateAction" scope="prototype"/>
+    <bean id="rankAction" 		parent="abstractBean" class="com.youzan.easyranking.action.RankAction" 		scope="prototype"/>
+    <bean id="voteAction" 		parent="abstractBean" class="com.youzan.easyranking.action.VoteAction" 		scope="prototype"/>
+    <bean id="mainAction" 		parent="abstractBean" class="com.youzan.easyranking.action.MainAction" 		scope="prototype"/>
+    <bean id="couponAction" 	parent="abstractBean" class="com.youzan.easyranking.action.CouponAction" 	scope="prototype"/>
+    <bean id="loginAction"  	parent="abstractBean" class="com.youzan.easyranking.action.LoginAction" 	scope="prototype"/>
 </beans>

@@ -28,7 +28,10 @@ public class CouponAction extends AbstractBean {
 			externalResponse = httpclient.execute(httpGet);
 			HttpServletResponse response = ServletActionContext.getResponse();
 			String content = EntityUtils.toString(externalResponse.getEntity());
-			String partContent = content.substring(content.indexOf("<body class=\" promocard\">"), content.indexOf("<div class=\"text-center\">"));
+			String partContent = "";
+			if(content.contains("<body class=\" promocard\">") && content.contains("<div class=\"text-center\">")) {
+				partContent = content.substring(content.indexOf("<body class=\" promocard\">"), content.indexOf("<div class=\"text-center\">"));
+			}
 			response.getWriter().append(partContent);
 			response.getWriter().flush();
 		} catch (Exception e) {

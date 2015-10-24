@@ -215,7 +215,6 @@ public class CandidateAction extends AbstractBean {
 		this.imageFileName = imageFileName;
 	}
 	private String getSavePath() {
-		System.err.println("servletpath=" + ServletActionContext.getServletContext().getRealPath(Constants.IMAGE_FILE_RELATIVE_PATH));
         return ServletActionContext.getServletContext().getRealPath(Constants.IMAGE_FILE_RELATIVE_PATH);
     }
 	// relative path and name of the show image file, for e.g /images/PIC123456.jpg

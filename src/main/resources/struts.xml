@@ -25,5 +25,8 @@
         <action name="coupon" method="coupon" class="couponAction">
             <result name="success">pages/coupon.jsp</result>
         </action>
+        <action name="login" method="login" class="loginAction">
+            <result name="success">pages/mainPage.jsp</result>
+        </action>
     </package>
 </struts>

@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -13,8 +14,11 @@ import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.youzan.easyranking.entity.Candidate;
+import com.youzan.easyranking.entity.Vote;
 import com.youzan.easyranking.util.Constants;
 import com.youzan.easyranking.util.Helper;
+import com.youzan.easyranking.util.MmUtil;
+import com.youzan.easyranking.vo.CandidateVo;
 import com.youzan.easyranking.vo.PageView;
 
 public class CandidateAction extends AbstractBean {
@@ -31,31 +35,31 @@ public class CandidateAction extends AbstractBean {
 	// for edit from other page
 	private long candidateId;
 	private boolean editable = true; 
-	private Candidate candidate = new Candidate();
 	private PageView pageView = new PageView();
 	// file name saved to images under war folder
-	private String showImageFileName;
+	// private String showImageFileName;
 
 	public String manageCandidate() {
 		logger.info("function=" + function + " action=" +action + " candidateId=" + candidateId);
 		String result = INPUT;
-		initPageView();
+		
 		if(Constants.ACTION_ENTRY.equalsIgnoreCase(action)) {
 			result = INPUT;
 		} else if(Constants.ACTION_SAVE.equalsIgnoreCase(action)) {
-			result = saveCandidate(candidate);
+			result = saveCandidate(pageView.getCandidateVo());
 		} else if(Constants.ACTION_EDIT.equalsIgnoreCase(action)) {
 			result = editCandidate(candidateId);
 		} else if(Constants.ACTION_UPDATE.equalsIgnoreCase(action)) {
-			result = updateCandidate(candidate, candidateId);
+			result = updateCandidate(pageView.getCandidateVo(), candidateId);
 		} else if(Constants.ACTION_VIEW.equalsIgnoreCase(action)) {
 			result = viewCandidate(candidateId);
 		}
+		initPageView();
 		formToken = generateFormToken();
 		logger.info("CandidateAction:register:end:formToken=" + formToken);
 		return result;
 	}
-	private String saveCandidate(Candidate candidate) {
+	private String saveCandidate(CandidateVo candidateVo) {
 		// prevent user from resubmitting by F5
 		if(!isTokenValid()) { // if F5, stay in the same page, do nothing
 			logger.info("invalid token, goto input page");
@@ -66,10 +70,12 @@ public class CandidateAction extends AbstractBean {
 			return INPUT;
 		}
 		// save uploaded image file to war/images
-		this.showImageFileName = saveImageFile(imageFileName);
-		candidate.setImageFileName(showImageFileName);
-		candidate.setOpenId(getUserInfo().getOpenId());
+		String savedImageFileName = saveImageFile(imageFileName);
+		candidateVo.setImageFileName(savedImageFileName);
+		candidateVo.setOpenId(getUserInfo().getOpenId());
+		Candidate candidate = Helper.toCandidate(candidateVo);
 		cacheManager.register(candidate);
+		candidateVo.setId(candidate.getId());
 		addActionMessage("恭喜你注册成功!");
 		// there is no any other authentication or authorization on current user 
 		// editable only if register successfully
@@ -78,12 +84,12 @@ public class CandidateAction extends AbstractBean {
 	}
 	
 	private String editCandidate(long candidateId) {
-		candidate = cacheManager.getCandidateById(candidateId);
-		this.showImageFileName = candidate.getImageFileName();
+		Candidate candidate = cacheManager.getCandidateById(candidateId);
+		pageView.setCandidateVo(Helper.toCandidateVo(candidate));
 		return INPUT;
 	}
 	
-	private String updateCandidate(Candidate candidateChanged, long originalCandidateId) {
+	private String updateCandidate(CandidateVo candidateVo, long originalCandidateId) {
 		if(!isTokenValid()) { // if F5, stay in the same page, do nothing
 			logger.info("invalid token, goto input page");
 			return INPUT;
@@ -95,46 +101,50 @@ public class CandidateAction extends AbstractBean {
 		Candidate candidateMerged = cacheManager.getCandidateById(candidateId);
 		// when updating, image file is optional
 		if(StringUtils.isBlank(imageFileName)) {
-			candidate.setImageFileName(candidateMerged.getImageFileName());
+			candidateVo.setImageFileName(candidateMerged.getImageFileName());
 		} else {
 			// save uploaded image file to war/images
-			candidate.setImageFileName(showImageFileName);
+			String savedImageFilename = saveImageFile(imageFileName);
+			candidateVo.setImageFileName(savedImageFilename);
 		}
-		this.showImageFileName = candidate.getImageFileName();
-		Helper.copyCandidate(candidateMerged, candidate);
+		candidateMerged = Helper.toCandidate(candidateVo);
 		cacheManager.updateCandidate(candidateMerged);
-		candidate = candidateMerged;
+		candidateVo = Helper.toCandidateVo(candidateMerged);
 		addActionMessage("恭喜你更新信息成功!");
 		return SUCCESS;
 	}
 	
+	// view and vote
 	public String viewCandidate(long candidateId) {
-		candidate = cacheManager.getCandidateById(candidateId);
+		pageView.setCandidateVo(Helper.toCandidateVo(cacheManager.getCandidateById(candidateId)));
+		List<Vote> voteList = cacheManager.getVoteForUser(userInfo);
+		pageView.getCandidateVo().setVoteAllowed(MmUtil.isVoteAllowed(voteList, userInfo, appInfo));
 		return SUCCESS;
 	}
 	
 	@Override
 	public void validate() {
+		CandidateVo candidateVo = pageView.getCandidateVo();
 		if(Constants.ACTION_ENTRY.equalsIgnoreCase(action)) {
 			clearActionErrors();
 		} else if(Constants.ACTION_SAVE.equalsIgnoreCase(action) || Constants.ACTION_UPDATE.equalsIgnoreCase(action)) {
-			if(StringUtils.isBlank(candidate.getCandidateName())) {
+			if(StringUtils.isBlank(candidateVo.getCandidateName())) {
 				addActionError("请填写姓名");
 			}
-			if(StringUtils.isBlank(candidate.getPhoneNumber())) {
+			if(StringUtils.isBlank(candidateVo.getPhoneNumber())) {
 				addActionError("请填写电话号码");
 			} 
 			String phoneRegx = "^1[358]\\d{9}$|^(\\d{4}-?)?\\d{7,8}$";
-			if(!candidate.getPhoneNumber().matches(phoneRegx)) {
+			if(!candidateVo.getPhoneNumber().matches(phoneRegx)) {
 				addActionError("请输入正确的手机或固话");
 			}
-			if(candidate.getAge()== 0) {
+			if(candidateVo.getAge()== 0) {
 				addActionError("请填写年龄");
 			}
-			if(candidate.getHeight() < 50 ) {
+			if(candidateVo.getHeight() < 50 ) {
 				addActionError("请输入正确的身高");
 			}
-			if(StringUtils.isBlank(candidate.getSelfRemark())) {
+			if(StringUtils.isBlank(candidateVo.getSelfRemark())) {
 				addActionError("请填写参赛宣言");
 			}	
 			// if update, image is NOT required, user already has image file
@@ -217,10 +227,6 @@ public class CandidateAction extends AbstractBean {
 	private String getSavePath() {
         return ServletActionContext.getServletContext().getRealPath(Constants.IMAGE_FILE_RELATIVE_PATH);
     }
-	// relative path and name of the show image file, for e.g /images/PIC123456.jpg
-	public String getShowImageFile() {
-		return Constants.WEB_CONTEXT_ROOT + Constants.IMAGE_FILE_RELATIVE_PATH + showImageFileName;
-	}
 
 	public boolean isEditable() {
 		return editable;
@@ -236,14 +242,6 @@ public class CandidateAction extends AbstractBean {
 
 	public void setCandidateId(long candidateId) {
 		this.candidateId = candidateId;
-	}
-
-	public Candidate getCandidate() {
-		return candidate;
-	}
-
-	public void setCandidate(Candidate candidate) {
-		this.candidate = candidate;
 	}
 	public PageView getPageView() {
 		return pageView;

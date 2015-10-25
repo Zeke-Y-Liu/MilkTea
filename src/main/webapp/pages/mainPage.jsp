@@ -84,7 +84,7 @@
 	<li class="picCon masonry-brick" style="position: absolute; top: <s:property value='#stat.index*388'/>px; left: 0px;">
     <div>
        <i class="number" style="background:rgb(226,131,151);"><s:property value='pageView.pageList[#stat.index].id'/>号</i>
-	   <a href="javascript:void(0)" onClick="voteCandidate('<s:property value='pageView.pageList[#stat.index].id'/>')" class="img"><s:property value='pageView.pageList[#stat.index].showImageFile' />" style="border-color: red;"></a>
+	   <a href="javascript:void(0)" onClick="voteCandidate('<s:property value='pageView.pageList[#stat.index].id'/>')" class="img"><img src="<s:property value='pageView.pageList[#stat.index].showImageFile' />" style="border-color: red;"></a>
        <div class="clearfix" style="background: rgb(226,131,151);">
        	<p style="background: rgb(226,131,151);"><s:property value='pageView.pageList[#stat.index].candidateName'/><br><s:property value='pageView.pageList[#stat.index].poll'/>票</p>
         <a href="javascript:void(0)" onClick="voteCandidate('<s:property value='pageView.pageList[#stat.index].id'/>')" class="vote" style="background:rgb(224,171,191);"><span style="position:relative;left:-13px;">简介</span><br><img style="width: 30px;position:relative;top:-33px;left:40px;" src="./images/z2.png"></a>

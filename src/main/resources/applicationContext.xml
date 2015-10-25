@@ -11,7 +11,7 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
 	http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
-	<context:property-placeholder  location="/WEB-INF/app.properties" />
+	<context:property-placeholder  location="/WEB-INF/app.properties"/>
     <!-- <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" p:location="/WEB-INF/jdbc.properties" /> -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
 		p:driverClassName="${jdbc.driverClassName}"
@@ -84,6 +84,7 @@
       	<property name="voteInterval" value="${voteInterval}"/>
  		<property name="anonymousAllowed" value="${anonymousAllowed}"/>
  		<property name="anonymousVoteInternal" value="${anonymousVoteInternal}"/>
+ 		<property name="couponUrls" value="#{'${couponUrls}'.split(',')}"/>
     </bean>
     <bean id="userInfo" class="com.youzan.easyranking.action.UserInfoBean" scope="session"/>
 	<bean id="abstractBean" abstract="true" class="com.youzan.easyranking.action.AbstractBean">

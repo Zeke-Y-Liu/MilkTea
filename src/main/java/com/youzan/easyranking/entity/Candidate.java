@@ -3,6 +3,8 @@ import javax.persistence.*;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.youzan.easyranking.util.EntityStatus;
  
@@ -207,5 +209,24 @@ public class Candidate extends AuditEntity{
     		          append(poll, that.poll).
     		          append(imageFileName, that.imageFileName)
     	              .isEquals();
-    }	
+    }
+    
+    @Override 
+    public String toString() { 
+            return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).
+            	  append("id", id).
+  		          append("openId", openId).
+  		          append("candidateName", candidateName).
+  		          append("phoneNumber",phoneNumber).
+  		          append("gender", gender).
+  		          append("age", age).
+  		          append("job", job).
+  		          append("selfRemark",selfRemark).
+  		          append("weight", weight).
+  		          append("height", height).
+  		          append("poll", poll).
+  		          append("imageFileName", imageFileName).
+                  toString(); 
+    }
+    
 }

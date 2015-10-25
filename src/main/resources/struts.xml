@@ -19,7 +19,7 @@
         </action>
         <action name="vote" method="vote" class="voteAction">
             <result name="success" type="json">
-            	<param name="root">candidate</param>
+            	<param name="root">pageView.candidateVo</param>
             </result>
         </action>
         <action name="coupon" method="coupon" class="couponAction">

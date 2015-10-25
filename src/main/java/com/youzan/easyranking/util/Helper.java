@@ -23,8 +23,9 @@ public class Helper {
 		toCandidate.setWeight(fromCandidate.getWeight());
 	}	
 	
-	public static CandidateVo copyCandidateToVo(Candidate candidate) {
+	public static CandidateVo toCandidateVo(Candidate candidate) {
 		CandidateVo candidateVo = new CandidateVo();
+		candidateVo.setId(candidate.getId());
 		candidateVo.setAge(candidate.getAge());
 		candidateVo.setCandidateName(candidate.getCandidateName());
 		candidateVo.setHeight(candidate.getHeight());
@@ -36,10 +37,23 @@ public class Helper {
 		return candidateVo;
 	}
 	
+	public static Candidate toCandidate(CandidateVo candidateVo) {
+		Candidate candidate = new Candidate();
+		candidate.setAge(candidateVo.getAge());
+		candidate.setCandidateName(candidateVo.getCandidateName());
+		candidate.setHeight(candidateVo.getHeight());
+		candidate.setImageFileName(candidateVo.getImageFileName());
+		candidate.setPhoneNumber(candidateVo.getPhoneNumber());
+		candidate.setPoll(candidateVo.getPoll());
+		candidate.setSelfRemark(candidateVo.getSelfRemark());
+		candidate.setVoteAllowed(candidateVo.isVoteAllowed());
+		return candidate;
+	}
+	
 	public static List<CandidateVo> fromCandidateList(List<Candidate> candidateList) {
 		List<CandidateVo> candidateVoList = new ArrayList<CandidateVo>();
 		for(Candidate candiate : candidateList) {
-			candidateVoList.add(copyCandidateToVo(candiate));
+			candidateVoList.add(toCandidateVo(candiate));
 		}
 		return candidateVoList;
 	}

@@ -19,6 +19,7 @@ public class PageView {
 	private boolean lastPage;
 	private int totalPageCount;
 	private List<CandidateVo> pageList;
+	private CandidateVo candidateVo;
 
 	public List<CandidateVo> paging(List<Candidate> elementList, String action) {
 		// pagination, 10 candidates each page
@@ -125,5 +126,13 @@ public class PageView {
 
 	public void setPageList(List<CandidateVo> pageList) {
 		this.pageList = pageList;
-	}	
+	}
+
+	public CandidateVo getCandidateVo() {
+		return candidateVo;
+	}
+
+	public void setCandidateVo(CandidateVo candidateVo) {
+		this.candidateVo = candidateVo;
+	}
 }

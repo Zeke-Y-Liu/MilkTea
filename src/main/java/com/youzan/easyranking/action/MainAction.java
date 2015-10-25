@@ -7,12 +7,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.youzan.easyranking.entity.Candidate;
-import com.youzan.easyranking.entity.Vote;
 import com.youzan.easyranking.util.Constants;
-import com.youzan.easyranking.util.MmUtil;
-import com.youzan.easyranking.vo.CandidateVo;
 import com.youzan.easyranking.vo.PageView;
-import com.youzan.easyranking.vo.Pagination;
 
 public class MainAction extends AbstractBean {
 	private static Logger logger = Logger.getLogger(MainAction.class);
@@ -67,10 +63,6 @@ public class MainAction extends AbstractBean {
 	
 	private void initPageView() {
 		pageView.paging(candidateList, action);
-		List<Vote> voteList = cacheManager.getVoteForUser(userInfo);
-		for(CandidateVo candidateVo : pageView.getPageList()) {
-			candidateVo.setVoteAllowed(MmUtil.isVoteAllowed(voteList, userInfo, appInfo));
-		}
 		pageView.setTotalCandidateCount(cacheManager.getAllCandiateList().size());
 		pageView.setTotalVoteCount(cacheManager.getAllVoteList().size());
 	}

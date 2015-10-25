@@ -1,24 +1,24 @@
 package com.youzan.easyranking.action;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.youzan.easyranking.entity.Candidate;
 import com.youzan.easyranking.entity.Vote;
-import com.youzan.easyranking.util.Constants;
+import com.youzan.easyranking.util.Helper;
+import com.youzan.easyranking.util.MmUtil;
 import com.youzan.easyranking.vo.PageView;
 
 public class VoteAction extends AbstractBean {
 	private static final long serialVersionUID = 1L;
 	private static Logger logger = Logger.getLogger(VoteAction.class);
 	private long candidateId;
-	private Candidate candidate;
 	
 	private PageView pageView = new PageView();
 
 	public String voteCandidate() {
-		candidate = cacheManager.getCandidateById(candidateId);
+		logger.info("VoteAction:voteCandidate:candidateId=" + candidateId);
 		initPageView();
 		return SUCCESS;
 	}
@@ -30,7 +30,7 @@ public class VoteAction extends AbstractBean {
 		vote.setUserOpenId(getUserInfo().getOpenId());
 		vote.setVoteIpAddr(getUserInfo().getIpAddr());
 		vote.setVoteTime(new Date());
-		candidate = cacheManager.addNewVote(vote);
+		pageView.setCandidateVo(Helper.toCandidateVo(cacheManager.addNewVote(vote)));
 		return SUCCESS;
 	}
 
@@ -42,19 +42,10 @@ public class VoteAction extends AbstractBean {
 		this.candidateId = candidateId;
 	}
 
-	public Candidate getCandidate() {
-		return candidate;
-	}
-
-	public void setCandidate(Candidate candidate) {
-		this.candidate = candidate;
-	}
-
-	public String getShowImageFilePath() {
-		return Constants.WEB_CONTEXT_ROOT + Constants.IMAGE_FILE_RELATIVE_PATH;
-	}
-	
 	private void initPageView() {
+		pageView.setCandidateVo(Helper.toCandidateVo(cacheManager.getCandidateById(candidateId)));
+		List<Vote> voteList = cacheManager.getVoteForUser(userInfo);
+		pageView.getCandidateVo().setVoteAllowed(MmUtil.isVoteAllowed(voteList, userInfo, appInfo));
 		pageView.setTotalCandidateCount(cacheManager.getAllCandiateList().size());
 		pageView.setTotalVoteCount(cacheManager.getAllVoteList().size());
 	}

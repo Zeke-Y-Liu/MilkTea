@@ -10,6 +10,7 @@
 <body>
 <%
 String openId = request.getParameter("openid")== null? "" : (String)request.getParameter("openid").trim();
+System.out.println("openid=" + request.getParameter("openid"));
 String ipAddr = request.getRemoteAddr();
 session.setAttribute(Constants.ATTRIBUTE_OPEN_ID, openId);
 session.setAttribute(Constants.ATTRIBUTE_IP_ADDR, ipAddr);

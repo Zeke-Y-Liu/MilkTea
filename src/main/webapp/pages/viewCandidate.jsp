@@ -33,32 +33,32 @@
 </div>
 </header>
 <div class="apply" style="background: rgb(254,245,246);">
-<p style="color: rgb(226,131,151);">恭喜你报名成功,您是 <s:property value='candidate.id'/>号mm</p>
+<p style="color: rgb(226,131,151);">恭喜你报名成功,您是 <s:property value='pageView.candidateVo.id'/>号mm</p>
 <div class="blank10"></div>
 <form action="<%=Constants.WEB_CONTEXT_ROOT%>/candidate.action" onsubmit="return validate();" method="post" enctype="multipart/form-data">
 <dl class="clearfix"><dt style="color: rgb(226,131,151);">姓名:</dt>
-<dd><s:property value='candidate.candidateName'/></dd>
+<dd><s:property value='pageView.candidateVo.candidateName'/></dd>
 </dl>
 <dl class="clearfix"><dt style="color: rgb(226,131,151);">年龄:</dt>
-<dd><s:property value='candidate.age'/></dd>
+<dd><s:property value='pageView.candidateVo.age'/></dd>
 </dl>
 <dl class="clearfix"><dt style="color: rgb(226,131,151);">电话:</dt>
-<dd><s:property value='candidate.phoneNumber'/></dd>
+<dd><s:property value='pageView.candidateVo.phoneNumber'/></dd>
 </dl>
 <dl class="clearfix"><dt style="color: rgb(226,131,151);">身高:</dt>
-<dd><s:property value='candidate.height'/></dd>
+<dd><s:property value='pageView.candidateVo.height'/></dd>
 </dl>
 <dl class="clearfix">
 <dt style="color: rgb(226,131,151);">图片秀:</dt>
-<dd><img src="<s:property value='showImageFile'/>"/></dd>
+<dd><img src="<s:property value='pageView.candidateVo.getShowImageFile()'/>"/></dd>
 </dl>
 <dl class="clearfix">
 <dt style="color: rgb(226,131,151);">拉票宣言 :</dt>
-<dd><s:property value='candidate.selfRemark'/></dd>
+<dd><s:property value='pageView.candidateVo.selfRemark'/></dd>
 </dl>
 <div style="color: red;"> &nbsp &nbsp &nbsp &nbsp 凡是发布涉及政治军事题材、淫秽、色情、有违公德的不健康内容、赌博、暴力、凶杀、恐怖或教唆犯罪、宣扬邪教和封建迷信、诽谤他人等有害社会的内容，我们将直接删除内容、取消参赛资格并采用严厉手段追究法律责任。</div>
 <br>
-<input type="hidden" id="candidateId" name="candidateId" value="<s:property value='candidate.id'/>" />
+<input type="hidden" id="candidateId" name="candidateId" value="<s:property value='pageView.candidateVo.id'/>" />
 <input type="hidden" id="formToken" name="formToken" value="<s:property value='formToken'/>"/>
 <input type="hidden" id="function" name="function" value="<%=Constants.FUNCTION_MANAGE_CANDIDATE%>"/>
 <input type="hidden" id="action" name="action" value="<%=Constants.ACTION_EDIT%>"/>

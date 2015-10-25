@@ -1,11 +1,19 @@
 package com.youzan.easyranking.action;
 
+import java.io.Serializable;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class UserInfoBean {
+public class UserInfoBean implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String openId;
 	private String ipAddr;
 	private String requestToken;
@@ -73,4 +81,14 @@ public class UserInfoBean {
 		UserInfoBean that = (UserInfoBean) obj;
 		return new EqualsBuilder().append(openId, that.openId).append(ipAddr, that.ipAddr).isEquals();
 	}
+	
+	 @Override 
+	 public String toString() { 
+	            return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).
+	            	  append("openId", openId).
+	  		          append("ipAddr", ipAddr).
+	  		          append("requestToken", requestToken). 
+	                  toString(); 
+	    }
+	
 }

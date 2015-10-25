@@ -38,17 +38,17 @@
 <div class="detial_box">
 <span class="closed close_detial_box" data-refer="">&nbsp;</span>
 <p class="num clearfix">
-<span class="fl" id="baby_info">252号&nbsp;<s:property value='candidate.candidateName'/></span>
-<span id="poll" class="fr"><s:property value='candidate.poll'/>票</span></p>
-<div class="blank10"></div><p>年龄: <s:property value='candidate.age'/></p>
-<div class="blank10"></div><p>身高：<s:property value='candidate.height'/></p>
-<div class="blank10"></div><p>拉票宣言：<s:property value='candidate.selfRemark'/></p>
+<span class="fl" id="baby_info">252号&nbsp;<s:property value='pageView.candidateVo.candidateName'/></span>
+<span id="poll" class="fr"><s:property value='pageView.candidateVo.poll'/>票</span></p>
+<div class="blank10"></div><p>年龄: <s:property value='pageView.candidateVo.age'/></p>
+<div class="blank10"></div><p>身高：<s:property value='pageView.candidateVo.height'/></p>
+<div class="blank10"></div><p>拉票宣言：<s:property value='pageView.candidateVo.selfRemark'/></p>
 <div class="blank10"></div><div style="position: relative;">
-<img src="<s:property value='showImageFilePath'/><s:property value='candidate.imageFileName'/>"></div>
+<img src="<s:property value='pageView.candidateVo.getShowImageFile()'/>"></div>
 </div>
 <div id="coupon" class="blank10"></div>
 <div class="abtn_box">
- <s:if test="candidate.voteAllowed">
+ <s:if test="pageView.candidateVo.voteAllowed">
 <a href="javascript:void(0)" onclick="return vote(this);" id="voteLink" class="a_btn toupiao vote"  data-itid="10389" style="background:rgb(224,102,122);">我要投票</a>
 </s:if>
 <s:else>
@@ -66,7 +66,7 @@
 <%@ include file="/pages/notice.jsp" %>
 <input type="hidden" id="function" name="function" value=""/>
 <input type="hidden" id="action" name="action" value=""/>
-<input type="hidden" id="candidateId" name="candidateId" value="<s:property value='candidate.id'/>" />
+<input type="hidden" id="candidateId" name="candidateId" value="<s:property value='pageView.candidateVo.id'/>" />
 </form>
 <script type="text/javascript">
 function vote(voteLink) {

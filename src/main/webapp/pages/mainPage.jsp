@@ -78,16 +78,16 @@
 <div class="blank20"></div>
 <div id="pageCon" class="match_page masonry" style="padding-bottom: 50px;">
 <ul class="list_box masonry clearfix" style="position: relative; height: 2365px;">
-<s:iterator value='pagination.pageList' status='stat'>
+<s:iterator value='pageView.pageList' status='stat'>
   <s:if test="#stat.odd ==true"> 
 	<s:if test="#stat.last ==true">
 	<li class="picCon masonry-brick" style="position: absolute; top: <s:property value='#stat.index*388'/>px; left: 0px;">
     <div>
-       <i class="number" style="background:rgb(226,131,151);"><s:property value='pagination.pageList[#stat.index].id'/>号</i>
-	   <a href="javascript:void(0)" onClick="voteCandidate('<s:property value='pagination.pageList[#stat.index].id'/>')" class="img"><img src="<s:property value='showImageFilePath'/><s:property value='pagination.pageList[#stat.index].imageFileName' />" style="border-color: red;"></a>
+       <i class="number" style="background:rgb(226,131,151);"><s:property value='pageView.pageList[#stat.index].id'/>号</i>
+	   <a href="javascript:void(0)" onClick="voteCandidate('<s:property value='pageView.pageList[#stat.index].id'/>')" class="img"><img src="<s:property value='pageView.pageList[#stat.index].showImageFile' />" style="border-color: red;"></a>
        <div class="clearfix" style="background: rgb(226,131,151);">
-       	<p style="background: rgb(226,131,151);"><s:property value='pagination.pageList[#stat.index].candidateName'/><br><s:property value='pagination.pageList[#stat.index].poll'/>票</p>
-        <a href="javascript:void(0)" onClick="voteCandidate('<s:property value='pagination.pageList[#stat.index].id'/>')" class="vote" style="background:rgb(224,171,191);"><span style="position:relative;left:-13px;">简介</span><br><img style="width: 30px;position:relative;top:-33px;left:40px;" src="./images/z2.png"></a>
+       	<p style="background: rgb(226,131,151);"><s:property value='pageView.pageList[#stat.index].candidateName'/><br><s:property value='pageView.pageList[#stat.index].poll'/>票</p>
+        <a href="javascript:void(0)" onClick="voteCandidate('<s:property value='pageView.pageList[#stat.index].id'/>')" class="vote" style="background:rgb(224,171,191);"><span style="position:relative;left:-13px;">简介</span><br><img style="width: 30px;position:relative;top:-33px;left:40px;" src="./images/z2.png"></a>
        </div>
       </div>
      </li>
@@ -95,21 +95,21 @@
 	<s:else>
 	<li class="picCon masonry-brick" style="position: absolute; top: <s:property value='#stat.index*388'/>px; left: 0px;">
       <div>
-       <i class="number" style="background:rgb(226,131,151);"><s:property value='pagination.pageList[#stat.index].id'/>号</i>
-	   <a href="javascript:void(0)" onClick="voteCandidate('<s:property value='pagination.pageList[#stat.index].id'/>')" class="img"><img src="<s:property value='showImageFilePath'/><s:property value='pagination.pageList[#stat.index].imageFileName' />" style="border-color: red;"></a>
+       <i class="number" style="background:rgb(226,131,151);"><s:property value='pageView.pageList[#stat.index].id'/>号</i>
+	   <a href="javascript:void(0)" onClick="voteCandidate('<s:property value='pageView.pageList[#stat.index].id'/>')" class="img"><img src="<s:property value='pageView.pageList[#stat.index].showImageFile' />" style="border-color: red;"></a>
        <div class="clearfix" style="background: rgb(226,131,151);">
-       	<p style="background: rgb(226,131,151);"><s:property value='pagination.pageList[#stat.index].candidateName'/><br><s:property value='pagination.pageList[#stat.index].poll'/>票</p>
-        <a href="javascript:void(0)" onClick="voteCandidate('<s:property value='pagination.pageList[#stat.index].id'/>')" class="vote" style="background:rgb(224,171,191);"><span style="position:relative;left:-13px;">简介</span><br><img style="width: 30px;position:relative;top:-33px;left:40px;" src="./images/z2.png"></a>
+       	<p style="background: rgb(226,131,151);"><s:property value='pageView.pageList[#stat.index].candidateName'/><br><s:property value='pageView.pageList[#stat.index].poll'/>票</p>
+        <a href="javascript:void(0)" onClick="voteCandidate('<s:property value='pageView.pageList[#stat.index].id'/>')" class="vote" style="background:rgb(224,171,191);"><span style="position:relative;left:-13px;">简介</span><br><img style="width: 30px;position:relative;top:-33px;left:40px;" src="./images/z2.png"></a>
        </div>
      </div>
     </li>
     <li class="picCon masonry-brick" style="position: absolute; top: <s:property value='#stat.index*388'/>px; left: 304px;">
     <div>
-     <i class="number" style="background:rgb(226,131,151);"><s:property value='pagination.pageList[#stat.index+1].id'/>号</i>
-	   <a href="javascript:void(0)" onClick="voteCandidate('<s:property value='pagination.pageList[#stat.index+1].id'/>')" class="img"><img src="<s:property value='showImageFilePath'/><s:property value='pagination.pageList[#stat.index+1].imageFileName' />" style="border-color: red;"></a>
+     <i class="number" style="background:rgb(226,131,151);"><s:property value='pageView.pageList[#stat.index+1].id'/>号</i>
+	   <a href="javascript:void(0)" onClick="voteCandidate('<s:property value='pageView.pageList[#stat.index+1].id'/>')" class="img"><img src="<s:property value='pageView.pageList[#stat.index+1].showImageFile' />" style="border-color: red;"></a>
        <div class="clearfix" style="background: rgb(226,131,151);">
-       	<p style="background: rgb(226,131,151);"><s:property value='pagination.pageList[#stat.index+1].candidateName'/><br><s:property value='pagination.pageList[#stat.index+1].poll'/>票</p>
-        <a href="javascript:void(0)" onClick="voteCandidate('<s:property value='pagination.pageList[#stat.index+1].id'/>')" class="vote" style="background:rgb(224,171,191);"><span style="position:relative;left:-13px;">简介</span><br><img style="width: 30px;position:relative;top:-33px;left:40px;" src="./images/z2.png"></a>
+       	<p style="background: rgb(226,131,151);"><s:property value='pageView.pageList[#stat.index+1].candidateName'/><br><s:property value='pageView.pageList[#stat.index+1].poll'/>票</p>
+        <a href="javascript:void(0)" onClick="voteCandidate('<s:property value='pageView.pageList[#stat.index+1].id'/>')" class="vote" style="background:rgb(224,171,191);"><span style="position:relative;left:-13px;">简介</span><br><img style="width: 30px;position:relative;top:-33px;left:40px;" src="./images/z2.png"></a>
        </div>
 	</div>
     </li>
@@ -122,9 +122,9 @@
 
 <s:bean name="org.apache.struts2.util.Counter" id="counter">
 <s:param name="first" value="1" />
-<s:param name="last" value="pagination.totalPageCount" />
+<s:param name="last" value="pageView.totalPageCount" />
 <s:iterator status='stat'>
-<a href="javascript:void(0)" <s:if test="#stat.index == pagination.currentPageNum">class="curr"</s:if><s:else>onClick="goToPage('<s:property value='#stat.index'/>')"</s:else>><s:property value='#stat.index+1'/></a>
+<a href="javascript:void(0)" <s:if test="#stat.index == pageView.currentPageNum">class="curr"</s:if><s:else>onClick="goToPage('<s:property value='#stat.index'/>')"</s:else>><s:property value='#stat.index+1'/></a>
 </s:iterator>
 </s:bean>
 </div>
@@ -132,7 +132,7 @@
 <%@ include file="/pages/notice.jsp" %>
 <input type="hidden" id="function" name="function" value=""/>
 <input type="hidden" id="action" name="action" value=""/>
-<input type="hidden" id="currentPageNum" name="pagination.currentPageNum" value="<s:property value='pagination.currentPageNum'/>"/>
+<input type="hidden" id="currentPageNum" name="pageView.currentPageNum" value="<s:property value='pageView.currentPageNum'/>"/>
 <input type="hidden" id="candidateId" name="candidateId" value="" />
 </form>
 <script type="text/javascript">

@@ -13,6 +13,8 @@ import javax.persistence.Transient;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.youzan.easyranking.util.EntityStatus;
 
@@ -125,5 +127,17 @@ public class Vote {
     		          append(voteTime, that.voteTime).
     		          append(voteIpAddr, that.voteIpAddr)
     	              .isEquals();
-    }	
+    }
+    
+    @Override 
+    public String toString() { 
+            return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).
+            	  append("id", id).
+  		          append("candidateId", candidateId).
+  		          append("userOpenId", userOpenId).
+  		          append("voteTime",voteTime).
+  		          append("voteIpAddr", voteIpAddr).
+                  toString(); 
+    }
+    
 }

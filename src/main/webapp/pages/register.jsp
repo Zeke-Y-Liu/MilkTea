@@ -44,16 +44,16 @@
 <div class="blank10"></div>
 <form action="<%=Constants.WEB_CONTEXT_ROOT%>/candidate.action" onsubmit="return validate();" method="post" enctype="multipart/form-data">
 <dl class="clearfix"><dt style="color: rgb(226,131,151);">姓名:</dt>
-<dd><input type="text" class="input_txt" id="candidateName" value="<s:property value='candidate.candidateName'/>" name="candidate.candidateName" placeholder="请输入姓名"></dd>
+<dd><input type="text" class="input_txt" id="candidateName" value="<s:property value='pageView.candidateVo.candidateName'/>" name="pageView.candidateVo.candidateName" placeholder="请输入姓名"></dd>
 </dl>
 <dl class="clearfix"><dt style="color: rgb(226,131,151);">年龄:</dt><dd>
-<input type="number" class="input_txt" value="<s:if test='candidate.age > 0'><s:property value='candidate.age'/></s:if>" name="candidate.age" id="age" placeholder="请输入您的年龄"></dd>
+<input type="number" class="input_txt" value="<s:if test='pageView.candidateVo.age > 0'><s:property value='pageView.candidateVo.age'/></s:if>" name="pageView.candidateVo.age" id="age" placeholder="请输入您的年龄"></dd>
 </dl>
 <dl class="clearfix"><dt style="color: rgb(226,131,151);">电话:</dt><dd>
-<input type="number" class="input_txt" value="<s:property value='candidate.phoneNumber'/>" name="candidate.phoneNumber" id="phoneNumber" placeholder="请输入您的真实电话"></dd>
+<input type="number" class="input_txt" value="<s:property value='pageView.candidateVo.phoneNumber'/>" name="pageView.candidateVo.phoneNumber" id="phoneNumber" placeholder="请输入您的真实电话"></dd>
 </dl>
 <dl class="clearfix"><dt style="color: rgb(226,131,151);">身高:</dt>
-<dd><input type="text" class="input_txt" id="height" value="<s:if test='candidate.height > 0'><s:property value='candidate.height'/></s:if>" name="candidate.height" placeholder="请输入身高"></dd>
+<dd><input type="text" class="input_txt" id="height" value="<s:if test='pageView.candidateVo.height > 0'><s:property value='pageView.candidateVo.height'/></s:if>" name="pageView.candidateVo.height" placeholder="请输入身高"></dd>
 </dl>
 
 <dl class="upload clearfix">
@@ -67,7 +67,7 @@
 <dl class="clearfix">
 <dt style="color: rgb(226,131,151);">拉票宣言 :</dt>
 <dd>
-<textarea class="textarea" placeholder="一句话简绍自己,限制140字以内" name="candidate.selfRemark" id="selfRemark"><s:property value='candidate.selfRemark'/></textarea>
+<textarea class="textarea" placeholder="一句话简绍自己,限制140字以内" name="pageView.candidateVo.selfRemark" id="selfRemark"><s:property value='pageView.candidateVo.selfRemark'/></textarea>
 </dd>
 </dl>
 <div style="color: red;">凡是发布涉及政治军事题材、淫秽、色情、有违公德的不健康内容、赌博、暴力、凶杀、恐怖或教唆犯罪、宣扬邪教和封建迷信、诽谤他人等有害社会的内容，我们将直接删除内容、取消参赛资格并采用严厉手段追究法律责任。</div>
@@ -77,10 +77,10 @@
 <input type="button" onclick="goToMainPage()" class="button" value="返回主页面，查看投票情况" id="submit" style="background: rgb(224,102,122);">
 </div>
 <div class="blank10"></div>
-        <input type="hidden" id="candidateId" name="candidateId" value="<s:property value='candidate.id'/>" />
+        <input type="hidden" id="candidateId" name="candidateId" value="<s:property value='pageView.candidateVo.id'/>" />
         <input type="hidden" id="formToken" name="formToken" value="<s:property value='formToken'/>"/>
         <input type="hidden" id="function" name="function" value="<%=Constants.FUNCTION_MANAGE_CANDIDATE%>"/>
-        <s:if test="candidate.id > 0">
+        <s:if test="pageView.candidateVo.id > 0">
         	<input type="hidden" id="action" name="action" value="<%=Constants.ACTION_UPDATE%>"/>
         </s:if>
         <s:else>

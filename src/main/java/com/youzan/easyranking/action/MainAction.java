@@ -7,22 +7,19 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.youzan.easyranking.entity.Candidate;
-import com.youzan.easyranking.entity.Vote;
 import com.youzan.easyranking.util.Constants;
-import com.youzan.easyranking.util.MmUtil;
 import com.youzan.easyranking.vo.PageView;
-import com.youzan.easyranking.vo.Pagination;
 
 public class MainAction extends AbstractBean {
 	private static Logger logger = Logger.getLogger(MainAction.class);
 	private static final long serialVersionUID = 1L;
 	private List<Candidate> candidateList;
 	private String searchText;
-	private Pagination<Candidate> pagination = new Pagination<Candidate>();
+	// private Pagination<Candidate> pagination = new Pagination<Candidate>();
 	private PageView pageView = new PageView();
 		
 	public String mainPage() {
-		logger.info("function=" + function + " action=" +action + " currentPage=" + pagination.getCurrentPageNum());
+		logger.info("function=" + function + " action=" +action + " currentPage=" + pageView.getCurrentPageNum());
 		
 		if(Constants.ACTION_SPECIFIED_PAGE.equalsIgnoreCase(action)) {
 			// paging the list
@@ -32,7 +29,6 @@ public class MainAction extends AbstractBean {
 		} else {
 			candidateList = cacheManager.getAllCandiateList();
 		}
-		pagination.paging(candidateList, action);
 		initPageView();
 		return SUCCESS;
 	}
@@ -53,18 +49,6 @@ public class MainAction extends AbstractBean {
 		return result;
 	}
 
-
-	public List<Candidate> getCandidateList() {
-		return candidateList;
-	}
-
-	public Pagination<Candidate> getPagination() {
-		return pagination;
-	}
-	public void setPagination(Pagination<Candidate> pagination) {
-		this.pagination = pagination;
-	}
-
 	public String getShowImageFilePath() {
 		return Constants.WEB_CONTEXT_ROOT + Constants.IMAGE_FILE_RELATIVE_PATH;
 	}
@@ -78,10 +62,7 @@ public class MainAction extends AbstractBean {
 	}	
 	
 	private void initPageView() {
-		List<Vote> voteList = cacheManager.getVoteForUser(userInfo);
-		for(Candidate candidate : pagination.getPageList()) {
-			candidate.setVoteAllowed(MmUtil.isVoteAllowed(voteList, userInfo, appInfo));
-		}
+		pageView.paging(candidateList, action);
 		pageView.setTotalCandidateCount(cacheManager.getAllCandiateList().size());
 		pageView.setTotalVoteCount(cacheManager.getAllVoteList().size());
 	}

@@ -46,9 +46,6 @@ public class MmUtil {
 		String result = "";
 		String couponResopnse = "";
 		String couponUrl = "";
-//		for(String url : appInfo.getCouponUrls()) {
-//			System.out.println("url=" + url);
-//		}
 		try {
 			if(StringUtils.isBlank(userInfo.getOpenId())) {
 				result = "<div class=\"apply\" style=\"background: rgb(255,193,37);\"><p style=\"color: rgb(226,131,151);\">您未关注微信公众号,无法获得优惠券</p><div class=\"blank10\"></div>";
@@ -61,7 +58,7 @@ public class MmUtil {
 				CloseableHttpClient httpclient = HttpClients.createDefault();
 				HttpGet httpGet = new HttpGet(couponUrl);
 				CloseableHttpResponse response = httpclient.execute(httpGet);
-				couponResopnse = EntityUtils.toString(response.getEntity());
+				couponResopnse = EntityUtils.toString(response.getEntity(), "UTF-8");
 				if (couponResopnse.contains("<body class=\" promocard\">")
 						&& couponResopnse.contains("<div class=\"text-center\">")) {
 					result = couponResopnse.substring(couponResopnse.indexOf("<body class=\" promocard\">"),

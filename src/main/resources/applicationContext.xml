@@ -103,7 +103,6 @@
         </property>
 	</bean>
     <bean id="candidateAction"  parent="abstractBean" class="com.youzan.easyranking.action.CandidateAction" scope="prototype"/>
-    <bean id="rankAction" 		parent="abstractBean" class="com.youzan.easyranking.action.RankAction" 		scope="prototype"/>
     <bean id="voteAction" 		parent="abstractBean" class="com.youzan.easyranking.action.VoteAction" 		scope="prototype"/>
     <bean id="mainAction" 		parent="abstractBean" class="com.youzan.easyranking.action.MainAction" 		scope="prototype"/>
     <bean id="couponAction" 	parent="abstractBean" class="com.youzan.easyranking.action.CouponAction" 	scope="prototype"/>

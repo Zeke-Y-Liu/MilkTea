@@ -66,6 +66,7 @@ public class MmUtil {
 				}
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.warn(e);
 		}
 		return result;

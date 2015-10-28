@@ -16,5 +16,6 @@
 		<mapping class="com.youzan.easyranking.entity.Candidate" />
 		<mapping class="com.youzan.easyranking.entity.Vote" />
 		<mapping class="com.youzan.easyranking.entity.WeiXinUser" />
+		<mapping class="com.youzan.easyranking.entity.WeiXinTag" />
     </session-factory>
 </hibernate-configuration>

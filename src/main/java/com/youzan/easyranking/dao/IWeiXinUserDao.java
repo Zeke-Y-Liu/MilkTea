@@ -7,5 +7,6 @@ import com.youzan.easyranking.entity.WeiXinUser;
 public interface IWeiXinUserDao {
 
 	public void saveUsers(List<WeiXinUser> userList);
+	public List<WeiXinUser> getAllWeiXinUsers();
 	public List<String> getAllUserOpenIds();
 }

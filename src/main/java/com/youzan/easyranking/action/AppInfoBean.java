@@ -9,13 +9,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class AppInfoBean implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-		
-	private String weixinKey="";
-	private String weiXinSecret="";
 	
 	// default 1 hours
 	private long voteInterval = 1000*60*60; 
@@ -50,24 +44,11 @@ public class AppInfoBean implements Serializable {
 	public void setCouponUrls(List<String> couponUrls) {
 		this.couponUrls = couponUrls;
 	}	
-	public String getWeixinKey() {
-		return weixinKey;
-	}
-	public void setWeixinKey(String weixinKey) {
-		this.weixinKey = weixinKey;
-	}
-	public String getWeiXinSecret() {
-		return weiXinSecret;
-	}
-	public void setWeiXinSecret(String weiXinSecret) {
-		this.weiXinSecret = weiXinSecret;
-	}
+
 		
 	@Override 
 	 public String toString() { 
 	            return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).
-	            	  append("weixinKey", voteInterval).
-	            	  append("weiXinSecret", voteInterval).
 	            	  append("voteInterval", voteInterval).
 	  		          append("isAnonymousAllowed", isAnonymousAllowed).
 	  		          append("anonymousVoteInternal", anonymousVoteInternal). 

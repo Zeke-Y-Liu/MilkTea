@@ -18,7 +18,7 @@ public class WeiXinUserDao implements  IWeiXinUserDao {
         this.sessionFactory = sessionFactory;  
     } 
 	public void saveUsers(List<WeiXinUser> userList) {
-		logger.info("VoteDao:saveVotes:size=" + userList.size());
+		logger.info("WeiXinUserDao:saveUsers:size=" + userList.size());
 		for(WeiXinUser user : userList) {
 			sessionFactory.getCurrentSession().save(user);
 		}
@@ -29,5 +29,13 @@ public class WeiXinUserDao implements  IWeiXinUserDao {
 		List<String> allUserOpenIds = sessionFactory.getCurrentSession().createQuery("SELECT openId FROM WeiXinUser").list();
 		logger.info("Total open id count: " + allUserOpenIds.size());
 		return allUserOpenIds;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<WeiXinUser> getAllWeiXinUsers() {
+		List<WeiXinUser> result =  (sessionFactory.getCurrentSession().createQuery("FROM WeiXinUser").list());
+		logger.info("Total " + result.size() + " WeiXinUser loaded");
+		return result;
 	}
 }

@@ -4,8 +4,10 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +17,8 @@ import javax.persistence.Transient;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.youzan.easyranking.util.EntityStatus;
 
@@ -48,7 +52,7 @@ public class WeiXinUser {
 	@Column(name="UNION_ID")
 	String unionId;
 	
-    @OneToMany(mappedBy = "weiXinUser")
+    @OneToMany(mappedBy = "weiXinUser", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
 	private Set<WeiXinTag> tags = new HashSet<WeiXinTag>();
 	
 	@Transient
@@ -182,5 +186,19 @@ public class WeiXinUser {
     		          .append(unionId,that.unionId)
     	              .isEquals();
     }	
+
+    @Override 
+    public String toString() { 
+            return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE).
+            	  append("id", id).
+  		          append("openId", openId).
+  		          append("avatar",avatar).
+  		          append("gender", gender).
+  		          append("pronvice", pronvice).
+  		          append("city", city).
+  		          append("unionId", unionId).
+  		          append("tags", tags).
+                  toString(); 
+    }
 	
 }

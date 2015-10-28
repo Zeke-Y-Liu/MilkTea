@@ -64,7 +64,10 @@
             <ref bean="sessionFactory"/>
         </property>
     </bean>
-    <bean id="weiXinService" class="com.youzan.easyranking.service.WeiXinService"/>
+    <bean id="weiXinService" class="com.youzan.easyranking.service.WeiXinService">
+    	<property name="weixinKey" value="${weixinKey}"/>
+    	<property name="weiXinSecret" value="${weiXinSecret}"/>
+    </bean>
     <bean id="cacheManager" class="com.youzan.easyranking.cache.CacheManager" factory-method="getInstance"
           init-method="initCache">
         <property name="candidateDao">
@@ -83,8 +86,6 @@
     	<property name="cacheSynchThreshold" value="${cacheSynchThreshold}"/> 
     </bean>
     <bean id="appInfo" class="com.youzan.easyranking.action.AppInfoBean" scope="globalSession">   
-    	<property name="weixinKey" value="${weixinKey}"/>
-    	<property name="weiXinSecret" value="${weiXinSecret}"/>
       	<property name="voteInterval" value="${voteInterval}"/>
  		<property name="anonymousAllowed" value="${anonymousAllowed}"/>
  		<property name="anonymousVoteInternal" value="${anonymousVoteInternal}"/>

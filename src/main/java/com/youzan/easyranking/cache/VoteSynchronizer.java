@@ -71,6 +71,7 @@ public class VoteSynchronizer implements Runnable {
 		// save new users
 		List<WeiXinUser> userList = cache.getWeiXinService().getUsersInfo(newUserIdSet);
 		cache.getWeiXinUserDao().saveUsers(userList);
+		cache.getUserOpenIdSet().addAll(newUserIdSet);
 		// update cache with synched data, DB generated PKs
 	}
 }

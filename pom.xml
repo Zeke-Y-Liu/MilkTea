@@ -148,9 +148,19 @@
 			<version>4.5.1</version>
 			</dependency>
 			<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			<version>4.5.1</version>
+			</dependency>
+			<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>19.0-rc2</version>
+			</dependency>
+			<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20150729</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -283,9 +293,17 @@
 	<groupId>org.apache.httpcomponents</groupId>
 	<artifactId>httpclient</artifactId>
 </dependency>	
-	<dependency>
+			<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			</dependency>
+		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
+			</dependency>
+			<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
 			</dependency>
 	</dependencies>
 	<build>

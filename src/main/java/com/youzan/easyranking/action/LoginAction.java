@@ -10,7 +10,7 @@ import com.youzan.easyranking.util.Constants;
 import com.youzan.easyranking.vo.PageView;
 
 public class LoginAction extends AbstractBean {
-	private static Logger logger = Logger.getLogger(CouponAction.class);
+	private static Logger logger = Logger.getLogger(LoginAction.class);
 	private List<Candidate> candidateList;
 	// private Pagination<Candidate> pagination = new Pagination<Candidate>();
 	private PageView pageView = new PageView();

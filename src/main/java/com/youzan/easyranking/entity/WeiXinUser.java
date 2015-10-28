@@ -1,10 +1,15 @@
 package com.youzan.easyranking.entity;
 
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -26,6 +31,25 @@ public class WeiXinUser {
 	
 	@Column(name="NICK_NAME")
     private String nickName;
+	
+	@Column(name="USER_ID")
+	long userId;
+	
+	@Column(name="AVATAR")
+	String avatar;
+	@Column(name="FOLLOW_TIME")
+	Date followTime;
+	@Column(name="GENDER")
+	String gender;
+	@Column(name="PRONVICE")
+	String pronvice;
+	@Column(name="CITY")
+	String city;
+	@Column(name="UNION_ID")
+	String unionId;
+	
+    @OneToMany(mappedBy = "weiXinUser")
+	private Set<WeiXinTag> tags = new HashSet<WeiXinTag>();
 	
 	@Transient
 	private EntityStatus status;
@@ -56,15 +80,85 @@ public class WeiXinUser {
 
 	public void setStatus(EntityStatus status) {
 		this.status = status;
+	}	
+
+    public long getUserId() {
+		return userId;
 	}
 
-    @Override
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public Date getFollowTime() {
+		return followTime;
+	}
+
+	public void setFollowTime(Date followTime) {
+		this.followTime = followTime;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getPronvice() {
+		return pronvice;
+	}
+
+	public void setPronvice(String pronvice) {
+		this.pronvice = pronvice;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getUnionId() {
+		return unionId;
+	}
+
+	public void setUnionId(String unionId) {
+		this.unionId = unionId;
+	}
+
+	public Set<WeiXinTag> getTags() {
+		return tags;
+	}
+
+	public void setTags(Set<WeiXinTag> tags) {
+		this.tags = tags;
+	}
+	
+	@Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37).
-          append(id).
-          append(openId).
-          append(nickName).
-          toHashCode();
+        return new HashCodeBuilder(17, 37)
+          .append(id)
+          .append(openId)
+          .append(nickName)
+          .append(avatar)
+          .append(followTime)
+          .append(gender)
+          .append(pronvice)
+          .append(city)
+          .append(unionId)
+          .toHashCode();
     }
     
     @Override
@@ -74,11 +168,18 @@ public class WeiXinUser {
     	   if (obj.getClass() != getClass()) {
     	     return false;
     	   }
+
     	   WeiXinUser that = (WeiXinUser) obj;
-    	   return new EqualsBuilder().
-    		          append(id, that.id).
-    		          append(openId, that.openId).
-    		          append(nickName,that.nickName)
+    	   return new EqualsBuilder()
+    		          .append(id, that.id)
+    		          .append(openId, that.openId)
+    		          .append(nickName,that.nickName)
+    		          .append(avatar,that.avatar)
+    		          .append(followTime,that.followTime)
+    		          .append(gender,that.gender)
+    		          .append(pronvice,that.pronvice)
+    		          .append(city,that.city)
+    		          .append(unionId,that.unionId)
     	              .isEquals();
     }	
 	

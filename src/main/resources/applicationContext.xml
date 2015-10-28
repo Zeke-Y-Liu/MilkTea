@@ -79,8 +79,12 @@
         <property name="weiXinService">
             <ref bean="weiXinService"/>
         </property>
+        <property name="cacheSynchInterval" value="${cacheSynchInterval}"/>
+    	<property name="cacheSynchThreshold" value="${cacheSynchThreshold}"/> 
     </bean>
-    <bean id="appInfo" class="com.youzan.easyranking.action.AppInfoBean" scope="globalSession">
+    <bean id="appInfo" class="com.youzan.easyranking.action.AppInfoBean" scope="globalSession">   
+    	<property name="weixinKey" value="${weixinKey}"/>
+    	<property name="weiXinSecret" value="${weiXinSecret}"/>
       	<property name="voteInterval" value="${voteInterval}"/>
  		<property name="anonymousAllowed" value="${anonymousAllowed}"/>
  		<property name="anonymousVoteInternal" value="${anonymousVoteInternal}"/>

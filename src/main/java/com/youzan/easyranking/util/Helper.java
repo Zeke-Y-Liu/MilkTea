@@ -1,13 +1,18 @@
 package com.youzan.easyranking.util;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.youzan.easyranking.entity.Candidate;
 import com.youzan.easyranking.vo.CandidateVo;
 
 public class Helper {
-
+	private static DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS");
+	
 	public static void copyCandidate(Candidate toCandidate, Candidate fromCandidate) {
 		toCandidate.setAge(fromCandidate.getAge());
 		toCandidate.setCandidateName(fromCandidate.getCandidateName());
@@ -58,4 +63,8 @@ public class Helper {
 		return candidateVoList;
 	}
 
+  public static Date fromDateString(String dateString) throws ParseException {
+	return df.parse(dateString);
+  }
+	
 }

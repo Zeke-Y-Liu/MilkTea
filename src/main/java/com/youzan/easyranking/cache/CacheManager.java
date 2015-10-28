@@ -36,6 +36,9 @@ import com.youzan.easyranking.service.WeiXinService;
  */
 public class CacheManager {
 	private static Logger logger = Logger.getLogger(CacheManager.class);
+	private long cacheSynchInterval=30000;
+	private int cacheSynchThreshold=10;
+	
 	private ICandidateDao candidateDao;
 	private IVoteDao voteDao;
 	private IWeiXinUserDao weiXinUserDao;
@@ -182,6 +185,21 @@ public class CacheManager {
 
 	public void setAllVoteList(List<Vote> allVoteList) {
 		this.allVoteList = allVoteList;
+	}
+
+	public long getCacheSynchInterval() {
+		return cacheSynchInterval;
+	}
+
+	public void setCacheSynchInterval(long cacheSynchInterval) {
+		this.cacheSynchInterval = cacheSynchInterval;
+	}
+
+	public int getCacheSynchThreshold() {
+		return cacheSynchThreshold;
+	}
+
+	public void setCacheSynchThreshold(int cacheSynchThreshold) {
+		this.cacheSynchThreshold = cacheSynchThreshold;
 	}	
-	
 }

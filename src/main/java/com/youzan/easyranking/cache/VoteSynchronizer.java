@@ -27,7 +27,7 @@ public class VoteSynchronizer implements Runnable {
 				Vote vote = null;
 				try {
 					logger.info("VoteSynchronizer:run:poll vote from cache queue");
-					vote = cache.getNewVotes().poll(10*60*1000, TimeUnit.MILLISECONDS);
+					vote = cache.getNewVotes().poll(cache.getCacheSynchInterval(), TimeUnit.MILLISECONDS);
 				} catch (InterruptedException e) {
 					logger.error(e);
 				}
@@ -35,7 +35,7 @@ public class VoteSynchronizer implements Runnable {
 				if(vote != null ) {
 					voteList.add(vote);
 				}
-				if(voteList.size() > 10 || (voteList.size() > 0 && System.currentTimeMillis() - lastsynchTime >= 30*1000)) {
+				if(voteList.size() > cache.getCacheSynchThreshold() || (voteList.size() > 0 && System.currentTimeMillis() - lastsynchTime >= cache.getCacheSynchInterval())) {
 					logger.info("VoteSynchronizer:run:flushing votes");
 					flushVotes();
 					lastsynchTime = System.currentTimeMillis();

@@ -35,10 +35,11 @@ public class MainAction extends AbstractBean {
 	
 	private List<Candidate> searchCandidate(String searchText) {
 		List<Candidate> result = new ArrayList<Candidate>();
+		List<Candidate> allCandidateList = cacheManager.getAllCandiateList();
 		if(StringUtils.isBlank(searchText)) {
-			result = candidateList;
+			result = allCandidateList;
 		} else {
-			for(Candidate candidate : candidateList) {
+			for(Candidate candidate : allCandidateList) {
 				String idStr = candidate.getId() + "";
 				String name = candidate.getCandidateName();
 				if(idStr.contains(searchText) || name.contains(searchText)) {

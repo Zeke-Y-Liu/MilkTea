@@ -4,13 +4,14 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.youzan.easyranking.entity.Candidate;
-import com.youzan.easyranking.util.Constants;
 import com.youzan.easyranking.vo.PageView;
 
 public class LoginAction extends AbstractBean {
 	private static Logger logger = Logger.getLogger(LoginAction.class);
+	String openId = "";
+	String ipAddr = "";
+	
 	private List<Candidate> candidateList;
 	// private Pagination<Candidate> pagination = new Pagination<Candidate>();
 	private PageView pageView = new PageView();
@@ -22,10 +23,9 @@ public class LoginAction extends AbstractBean {
 
 	public String login() {
 		// from welcome page
-		logger.info("openId=" + ActionContext.getContext().getSession().get(Constants.ATTRIBUTE_OPEN_ID));
-		logger.info("ipAddr=" + ActionContext.getContext().getSession().get(Constants.ATTRIBUTE_IP_ADDR));
-		getUserInfo().setOpenId((String)ActionContext.getContext().getSession().get(Constants.ATTRIBUTE_OPEN_ID));
-		getUserInfo().setIpAddr((String)ActionContext.getContext().getSession().get(Constants.ATTRIBUTE_IP_ADDR));
+		logger.info("login:" + "openId=" + openId + "| ipAddr=" + ipAddr);
+		getUserInfo().setOpenId(openId);
+		getUserInfo().setIpAddr(ipAddr);
 		candidateList = cacheManager.getAllCandiateList();
 		initPageView();
 		return SUCCESS;
@@ -43,5 +43,21 @@ public class LoginAction extends AbstractBean {
 
 	public void setPageView(PageView pageView) {
 		this.pageView = pageView;
+	}
+
+	public String getOpenId() {
+		return openId;
+	}
+
+	public void setOpenId(String openId) {
+		this.openId = openId;
+	}
+
+	public String getIpAddr() {
+		return ipAddr;
+	}
+
+	public void setIpAddr(String ipAddr) {
+		this.ipAddr = ipAddr;
 	}
 }

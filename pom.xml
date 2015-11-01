@@ -24,7 +24,9 @@
       	<groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
       <version>4.2.1.RELEASE</version>
+      <!-- 
       <scope>runtime</scope>
+       -->
     </dependency>
         <dependency>
       <groupId>org.springframework</groupId>
@@ -207,7 +209,9 @@
 	    <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
+      <!-- 
       <scope>runtime</scope>
+       -->
     </dependency>	
 	
     <dependency>

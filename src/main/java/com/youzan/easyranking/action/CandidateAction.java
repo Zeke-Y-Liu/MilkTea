@@ -201,6 +201,7 @@ public class CandidateAction extends AbstractBean {
 	private void initPageView() {
 		pageView.setTotalCandidateCount(cacheManager.getAllCandiateList().size());
 		pageView.setTotalVoteCount(cacheManager.getAllVoteList().size());
+		pageView.setTotalVisitorCount(cacheManager.getTotalVistorCount(false));
 	}
 
 	public File getImage() {

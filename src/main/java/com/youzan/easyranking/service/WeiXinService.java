@@ -37,8 +37,9 @@ public class WeiXinService {
 	}
 	
 	public List<WeiXinUser> getUsersInfo(Set<String> userOpenIdSet) {
+		
 		List<WeiXinUser> result = new ArrayList<WeiXinUser>();
-		if(userOpenIdSet == null || userOpenIdSet.size() == 0) {
+		if(userOpenIdSet == null || ( (userOpenIdSet.remove("") || userOpenIdSet.remove(null) || true) && userOpenIdSet.size() == 0 )) {
 			return result;
 		}
 		try {

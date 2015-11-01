@@ -12,6 +12,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import org.apache.log4j.Logger;
+import org.springframework.jdbc.support.incrementer.DataFieldMaxValueIncrementer;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.youzan.easyranking.action.UserInfoBean;
@@ -43,6 +44,11 @@ public class CacheManager {
 	private IVoteDao voteDao;
 	private IWeiXinUserDao weiXinUserDao;
 	private WeiXinService weiXinService;
+	
+	private DataFieldMaxValueIncrementer  sequence;
+	
+	private long totalVistorNumbers;
+	
 	private static CacheManager instance = new CacheManager();
 	private CacheManager() {
 	}
@@ -93,6 +99,13 @@ public class CacheManager {
 		userOpenIdSet.addAll(initUserOpenIdSet);
 		//kick off synchronizing thread here
 		Executors.newSingleThreadExecutor().submit(new VoteSynchronizer(this));		
+	}
+	
+	public long getTotalVistorCount(boolean isIncrement) {
+		if(isIncrement) {
+			totalVistorNumbers = sequence.nextLongValue();;
+		}
+		return totalVistorNumbers;
 	}
 	
 	// add to blocking queue, no need to be synchronized
@@ -201,5 +214,9 @@ public class CacheManager {
 
 	public void setCacheSynchThreshold(int cacheSynchThreshold) {
 		this.cacheSynchThreshold = cacheSynchThreshold;
+	}
+
+	public void setSequence(DataFieldMaxValueIncrementer sequence) {
+		this.sequence = sequence;
 	}	
 }

@@ -66,6 +66,7 @@ public class MainAction extends AbstractBean {
 		pageView.paging(candidateList, action);
 		pageView.setTotalCandidateCount(cacheManager.getAllCandiateList().size());
 		pageView.setTotalVoteCount(cacheManager.getAllVoteList().size());
+		pageView.setTotalVisitorCount(cacheManager.getTotalVistorCount(false));
 	}
 
 	public PageView getPageView() {

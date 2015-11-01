@@ -8,9 +8,9 @@ import com.youzan.easyranking.util.Helper;
 
 public class PageView {
 
-	public int totalCandidateCount;
-	public int totalVoteCount;
-	public int totalVisitorCount;
+	public long totalCandidateCount;
+	public long totalVoteCount;
+	public long totalVisitorCount;
 
 	private int pageSize = 6;
 
@@ -56,7 +56,7 @@ public class PageView {
 		return pageList;
 	}	
 	
-	public int getTotalCandidateCount() {
+	public long getTotalCandidateCount() {
 		return totalCandidateCount;
 	}
 
@@ -64,7 +64,7 @@ public class PageView {
 		this.totalCandidateCount = totalCandidateCount;
 	}
 
-	public int getTotalVoteCount() {
+	public long getTotalVoteCount() {
 		return totalVoteCount;
 	}
 
@@ -72,11 +72,11 @@ public class PageView {
 		this.totalVoteCount = totalVoteCount;
 	}
 
-	public int getTotalVisitorCount() {
+	public long getTotalVisitorCount() {
 		return totalVisitorCount;
 	}
 
-	public void setTotalVisitorCount(int totalVisitorCount) {
+	public void setTotalVisitorCount(long totalVisitorCount) {
 		this.totalVisitorCount = totalVisitorCount;
 	}
 

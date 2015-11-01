@@ -68,6 +68,13 @@
     	<property name="weixinKey" value="${weixinKey}"/>
     	<property name="weiXinSecret" value="${weiXinSecret}"/>
     </bean>
+    <bean id="sequence"
+		class="org.springframework.jdbc.support.incrementer.MySQLMaxValueIncrementer">
+		<property name="incrementerName" value="SEQENCE" />
+		<property name="columnName" value="VALUE" />
+		<property name="cacheSize" value="10" />
+		<property name="dataSource" ref="dataSource" />
+	</bean> 
     <bean id="cacheManager" class="com.youzan.easyranking.cache.CacheManager" factory-method="getInstance"
           init-method="initCache">
         <property name="candidateDao">
@@ -81,6 +88,9 @@
         </property>
         <property name="weiXinService">
             <ref bean="weiXinService"/>
+        </property>
+        <property name="sequence">
+            <ref bean="sequence"/>
         </property>
         <property name="cacheSynchInterval" value="${cacheSynchInterval}"/>
     	<property name="cacheSynchThreshold" value="${cacheSynchThreshold}"/> 

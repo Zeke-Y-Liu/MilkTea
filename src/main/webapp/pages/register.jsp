@@ -67,7 +67,7 @@
 <dl class="clearfix">
 <dt style="color: rgb(226,131,151);">拉票宣言 :</dt>
 <dd>
-<textarea class="textarea" placeholder="一句话简绍自己,限制140字以内" name="pageView.candidateVo.selfRemark" id="selfRemark"><s:property value='pageView.candidateVo.selfRemark'/></textarea>
+<textarea class="textarea" placeholder="一句话介绍自己,限制140字以内" name="pageView.candidateVo.selfRemark" id="selfRemark"><s:property value='pageView.candidateVo.selfRemark'/></textarea>
 </dd>
 </dl>
 <div style="color: red;">凡是发布涉及政治军事题材、淫秽、色情、有违公德的不健康内容、赌博、暴力、凶杀、恐怖或教唆犯罪、宣扬邪教和封建迷信、诽谤他人等有害社会的内容，我们将直接删除内容、取消参赛资格并采用严厉手段追究法律责任。</div>

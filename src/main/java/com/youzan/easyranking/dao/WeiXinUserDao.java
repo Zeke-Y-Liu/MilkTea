@@ -24,7 +24,6 @@ public class WeiXinUserDao implements  IWeiXinUserDao {
 		}
 	}
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<String> getAllUserOpenIds() {
 		List<String> allUserOpenIds = sessionFactory.getCurrentSession().createQuery("SELECT openId FROM WeiXinUser").list();
 		logger.info("Total open id count: " + allUserOpenIds.size());
@@ -32,7 +31,6 @@ public class WeiXinUserDao implements  IWeiXinUserDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<WeiXinUser> getAllWeiXinUsers() {
 		List<WeiXinUser> result =  (sessionFactory.getCurrentSession().createQuery("FROM WeiXinUser").list());
 		logger.info("Total " + result.size() + " WeiXinUser loaded");
